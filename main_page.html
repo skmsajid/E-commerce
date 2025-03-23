@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project FrndsCart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .left-profile {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-btn img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background-color: #34495e;
+            min-width: 200px;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .dropdown.active {
+            display: block;
+            animation: slideDown 0.3s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .right-nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #3498db;
+            border-radius: 5px;
+        }
+
+        .cart img {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart img:hover {
+            transform: scale(1.1);
+        }
+
+        .slider-container {
+            width: 100%;
+            height: 10%; 
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            flex: 0 0 100%; 
+            height: 85vh; 
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            
+        }
+
+       
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+
+        body {
+            background: #f0f2f5;
+        }
+
+        .fashion-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto;
+            text-align: center;
+            background: linear-gradient(135deg, #fceae0 0%, #f3d9cf 100%); /* Warm gradient for fashion */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .fashion-headline {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a2a44;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .fashion-headline::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #e67e22; /* Warm orange underline */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .fashion-item {
+            width: 180px; /* Smaller width like electronics */
+            text-align: center;
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .fashion-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .fashion-image {
+            width: 100%;
+            height: 200px; /* Smaller height like electronics */
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .fashion-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .fashion-item:hover .fashion-image img {
+            transform: scale(1.1);
+        }
+
+        .image-name {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .image-price {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart, .buy {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart {
+            background: #3498db;
+            color: white;
+        }
+
+        .buy {
+            background: #27ae60;
+            color: white;
+        }
+
+        .add-to-cart:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .buy:hover {
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        body {
+            background: #f0f2f5; 
+        }
+
+        .electronics-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto;
+            text-align: center;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .electronics-headline {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a2a44;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .electronics-headline::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #2980b9; 
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .electronics-item {
+            width: 180px; 
+            text-align: center;
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .electronics-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .electronics-image {
+            width: 100%;
+            height: 200px; 
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .electronics-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .electronics-item:hover .electronics-image img {
+            transform: scale(1.1);
+        }
+
+        .image-name {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .image-price {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart, .buy {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart {
+            background: #3498db;
+            color: white;
+        }
+
+        .buy {
+            background: #27ae60;
+            color: white;
+        }
+
+        .add-to-cart:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .buy:hover {
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background: #f0f2f5;
+        }
+
+        .groceries-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto;
+            text-align: center;
+            background: linear-gradient(135deg, #e9f7e2 0%, #d4e8c8 100%); /* Fresh green gradient for groceries */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .groceries-headline {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a2a44;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .groceries-headline::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #27ae60; /* Green underline for groceries */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .groceries-item {
+            width: 180px;
+            text-align: center;
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .groceries-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .groceries-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .groceries-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .groceries-item:hover .groceries-image img {
+            transform: scale(1.1);
+        }
+
+        .image-name {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .image-price {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart, .buy {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart {
+            background: #3498db;
+            color: white;
+        }
+
+        .buy {
+            background: #27ae60;
+            color: white;
+        }
+
+        .add-to-cart:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .buy:hover {
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background: #f0f2f5;
+        }
+
+        .health-beauty-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto;
+            text-align: center;
+            background: linear-gradient(135deg, #fcebf5 0%, #f3d1e6 100%); /* Soft pink gradient for beauty */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .health-beauty-headline {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a2a44;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .health-beauty-headline::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #e91e63; /* Vibrant pink underline for beauty */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .health-beauty-item {
+            width: 180px;
+            text-align: center;
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .health-beauty-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .health-beauty-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .health-beauty-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .health-beauty-item:hover .health-beauty-image img {
+            transform: scale(1.1);
+        }
+
+        .image-name {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .image-price {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart, .buy {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart {
+            background: #3498db;
+            color: white;
+        }
+
+        .buy {
+            background: #27ae60;
+            color: white;
+        }
+
+        .add-to-cart:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .buy:hover {
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background: #f0f2f5;
+        }
+
+        .kids-zone-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto;
+            text-align: center;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe8ba 100%); /* Bright, playful yellow-orange gradient */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .kids-zone-headline {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a2a44;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .kids-zone-headline::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: #f1c40f; /* Vibrant yellow underline for kids */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .kids-zone-item {
+            width: 180px;
+            text-align: center;
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .kids-zone-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .kids-zone-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .kids-zone-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .kids-zone-item:hover .kids-zone-image img {
+            transform: scale(1.1);
+        }
+
+        .image-name {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .image-price {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart, .buy {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart {
+            background: #3498db;
+            color: white;
+        }
+
+        .buy {
+            background: #27ae60;
+            color: white;
+        }
+
+        .add-to-cart:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .buy:hover {
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        .footer {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            color: #ecf0f1;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .footer-about {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .footer-about h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #3498db;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-about h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: #3498db;
+            bottom: -8px;
+            left: 25%;
+        }
+
+        .footer-about p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+
+        .footer-columns {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            min-width: 200px;
+        }
+
+        .footer-column h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #3498db;
+            padding-left: 5px;
+        }
+
+        .credit{
+            text-align: center;
+            background: #10221b;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+
+        .contact .row{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .contact .row .image{
+            flex: 1 1 30rem;
+        }
+        .contact .row .image img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .contact .row form{
+            flex: 1 1 42rem;
+            padding: 2rem;
+            border: .1rem solid rgba(0,0,0,0.3);
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+            border-radius: .5rem;
+        }
+        .contact .row form h3{
+            font-size: 3rem;
+            padding-bottom: 1rem;
+            color: #10221b;
+        }
+        .contact .row form .inputBox{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; 
+        }
+        .contact .row form .inputBox input{
+            width: 49%;
+        }
+        .contact .row form .inputBox input,
+        .contact .row form textarea{
+            border: .1rem solid rgba(0,0,0,0.3);
+            padding: 1rem 0.5rem;
+            border-radius: .2rem;
+            font-size: 0.5rem;
+            color: #10221b;
+            text-transform: none;
+            margin: .2rem 0;
+        }
+        .contact .row form textarea{
+            height: 15rem;
+            resize: none;
+            width: 100%;
+        }
+        .btn{
+            height: 50px;
+            width: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-profile">
+            <div class="profile-btn">
+                <img src="images/logo/logo.png" alt="Profile">
+                <span>FrndsCart</span>
+            </div>
+            <div class="dropdown">
+                <p>Name: Surendra Naik</p>
+                <p>Email: nsurendra423@gmail.com</p>
+                <p>Phone: 7671853956</p>
+                <p>Birth: 7th apr 2005</p>
+            </div>
+        </div>
+        <div class="right-nav">
+            <div class="nav-links">
+                <a href="#home">HOME</a>
+                <a href="#about">ABOUT</a>
+                <a href="#contact">CONTACT</a>
+                <a href="#offers">OFFERS</a>
+                <a href="#feedback">FEEDBACK</a>
+            </div>
+            <div class="cart">
+                <img src="images/cart img/cart.png" alt="Cart">
+            </div>
+        </div>
+    </nav>
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide">
+                <img src="images/slider/img1.png" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="images/slider/img2.png" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="images/slider/img3.png" alt="Image 3">
+            </div>
+            <div class="slide">
+                <img src="images/slider/img4.png" alt="Image 4">
+            </div>
+    </div>
+        <button class="prev">❮</button>
+        <button class="next">❯</button>
+    </div>
+
+    <div class="fashion-section">
+        <h1 class="fashion-headline">Fashion</h1>
+        <div class="image-container">
+            <div class="fashion-item">
+                <div class="fashion-image">
+                    <img src="images/Fashion/img1.png" alt="Shirt">
+                </div>
+                <p class="image-name">Shirt</p>
+                <p class="image-price">700Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="fashion-item">
+                <div class="fashion-image">
+                    <img src="images/Fashion/img2.png" alt="Jeans">
+                </div>
+                <p class="image-name">Jeans</p>
+                <p class="image-price">1200Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="fashion-item">
+                <div class="fashion-image">
+                    <img src="images/Fashion/img3.png" alt="Sarees">
+                </div>
+                <p class="image-name">Sarees</p>
+                <p class="image-price">1500Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="fashion-item">
+                <div class="fashion-image">
+                    <img src="images/Fashion/img4.png" alt="kurtas & kurtis">
+                </div>
+                <p class="image-name">kurtas & kurtis</p>
+                <p class="image-price">2300Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="fashion-item">
+                <div class="fashion-image">
+                    <img src="images/Fashion/img5.png" alt="Shoes">
+                </div>
+                <p class="image-name">shoes</p>
+                <p class="image-price">500Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="electronics-section">
+        <h1 class="electronics-headline">Electronics</h1>
+        <div class="image-container">
+            <div class="electronics-item">
+                <div class="electronics-image">
+                    <img src="images/electronics/img1.png" alt="Mobiles">
+                </div>
+                <p class="image-name">Mobiles</p>
+                <p class="image-price">75000Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="electronics-item">
+                <div class="electronics-image">
+                    <img src="images/electronics/img2.png" alt="Laptops">
+                </div>
+                <p class="image-name">Laptops</p>
+                <p class="image-price">120000Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="electronics-item">
+                <div class="electronics-image">
+                    <img src="images/electronics/img3.png" alt="Keyboards">
+                </div>
+                <p class="image-name">Keyboards</p>
+                <p class="image-price">2500Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="electronics-item">
+                <div class="electronics-image">
+                    <img src="images/electronics/img4.png" alt="Speakers">
+                </div>
+                <p class="image-name">Speakers</p>
+                <p class="image-price">30000Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="electronics-item">
+                <div class="electronics-image">
+                    <img src="images/electronics/img5.png" alt="Mouses">
+                </div>
+                <p class="image-name">Mouses</p>
+                <p class="image-price">1500Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="groceries-section">
+        <h1 class="groceries-headline">Groceries</h1>
+        <div class="image-container">
+            <div class="groceries-item">
+                <div class="groceries-image">
+                    <img src="images/grocery/img1.png" alt="Rice">
+                </div>
+                <p class="image-name">Rice</p>
+                <p class="image-price">500Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="groceries-item">
+                <div class="groceries-image">
+                    <img src="images/grocery/img2.png" alt="Oil">
+                </div>
+                <p class="image-name">Oil</p>
+                <p class="image-price">800Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="groceries-item">
+                <div class="groceries-image">
+                    <img src="images/grocery/img3.png" alt="Sugar">
+                </div>
+                <p class="image-name">Sugar</p>
+                <p class="image-price">300Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="groceries-item">
+                <div class="groceries-image">
+                    <img src="images/grocery/img4.png" alt="Flour">
+                </div>
+                <p class="image-name">Flour</p>
+                <p class="image-price">400Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="groceries-item">
+                <div class="groceries-image">
+                    <img src="images/grocery/img5.png" alt="Spices">
+                </div>
+                <p class="image-name">Spices</p>
+                <p class="image-price">250Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="health-beauty-section">
+        <h1 class="health-beauty-headline">Health and Beauty</h1>
+        <div class="image-container">
+            <div class="health-beauty-item">
+                <div class="health-beauty-image">
+                    <img src="images/Health &beauty/img1.png" alt="Face Cream">
+                </div>
+                <p class="image-name">Face Cream</p>
+                <p class="image-price">600Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="health-beauty-item">
+                <div class="health-beauty-image">
+                    <img src="images/Health &beauty/img2.png" alt="Shampoo">
+                </div>
+                <p class="image-name">Shampoo</p>
+                <p class="image-price">450Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="health-beauty-item">
+                <div class="health-beauty-image">
+                    <img src="images/Health &beauty/img3.png" alt="Lipstick">
+                </div>
+                <p class="image-name">Lipstick</p>
+                <p class="image-price">300Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="health-beauty-item">
+                <div class="health-beauty-image">
+                    <img src="images/Health &beauty/img4.png" alt="Perfume">
+                </div>
+                <p class="image-name">Perfume</p>
+                <p class="image-price">1200Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="health-beauty-item">
+                <div class="health-beauty-image">
+                    <img src="images/Health &beauty/img5.png" alt="Soap">
+                </div>
+                <p class="image-name">Soap</p>
+                <p class="image-price">150Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="kids-zone-section">
+        <h1 class="kids-zone-headline">Kids Zone</h1>
+        <div class="image-container">
+            <div class="kids-zone-item">
+                <div class="kids-zone-image">
+                    <img src="images/kids zone/img1.png" alt="Toys">
+                </div>
+                <p class="image-name">Toys</p>
+                <p class="image-price">400Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="kids-zone-item">
+                <div class="kids-zone-image">
+                    <img src="images/kids zone/img2.png" alt="Kids Dress">
+                </div>
+                <p class="image-name">Kids Dress</p>
+                <p class="image-price">800Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="kids-zone-item">
+                <div class="kids-zone-image">
+                    <img src="images/kids zone/img3.png" alt="Books">
+                </div>
+                <p class="image-name">Books</p>
+                <p class="image-price">250Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="kids-zone-item">
+                <div class="kids-zone-image">
+                    <img src="images/kids zone/img4.png" alt="Shoes">
+                </div>
+                <p class="image-name">Shoes</p>
+                <p class="image-price">600Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+            <div class="kids-zone-item">
+                <div class="kids-zone-image">
+                    <img src="images/kids zone/img5.png" alt="Games">
+                </div>
+                <p class="image-name">Games</p>
+                <p class="image-price">500Rs</p>
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="contact" id="contact">
+
+        <h1 class="heading"><span>CONTACT US</span> us</h1>
+
+        <div class="row">
+
+            <div class="image">
+                <img src="images/contact/img1.png" alt="contact">
+            </div>
+
+            <form action="">
+                <h3>get in touch</h3>
+                <div class="inputBox">
+                    <input type="text" placeholder="Your Name">
+                    <input type="email" placeholder="Your Email">
+                </div>
+                <div class="inputBox">
+                    <input type="number" placeholder="Your Number">
+                    <input type="text" placeholder="Your Subject">
+                </div>
+                <textarea placeholder="Your Message" cols="30" rows="10"></textarea>
+                <input type="submit" value="send message" class="btn">
+            </form>
+
+        </div>
+
+    </section>
+
+    
+
+    
+
+    <footer class="footer">
+        <div class="footer-about">
+            <h3>About Us</h3>
+            <p>
+                FrndsCart is your one-stop online shopping destination, offering a wide range of products from fashion to electronics, groceries, health & beauty, and kids' items. We are committed to providing quality products at affordable prices with a seamless shopping experience. Our mission is to bring convenience and joy to your doorstep!
+            </p>
+        </div>
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="#">Fast Delivery</a></li>
+                    <li><a href="#">Easy Returns</a></li>
+                    <li><a href="#">24/7 Support</a></li>
+                    <li><a href="#">Secure Payments</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                    <li><a href="#feedback">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Social Media Links</h4>
+                <ul>
+                    <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                    <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    </section>
+
+    <section class="credit">
+        &copy; copyright @ 2025 by FriendsCart
+    </section>
+
+
+
+    <script>
+        const profileBtn = document.querySelector('.profile-btn');
+        const dropdown = document.querySelector('.dropdown');
+
+        profileBtn.addEventListener('click', () => {
+            dropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!profileBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        const slider = document.querySelector('.slider');
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentIndex = 0;
+
+        function updateSlider() {
+            const offset = -currentIndex * 100; /* Move by 100% of container width */
+            slider.style.transform = `translateX(${offset}%)`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length; /* Loop back to start */
+            updateSlider();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length; /* Loop to end */
+            updateSlider();
+        });
+
+        /* Auto-slide every 5 seconds */
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlider();
+        }, 5000);
+    </script>
+</body>
+</html>
