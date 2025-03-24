@@ -5,7 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Arial', sans-serif; /* Changed to match your font */
 }
 
 body {
@@ -13,8 +13,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, #4CAF50, #2196F3); /* Gradient for body */
+  background-color: #f8f9fa; /* Changed to match your background */
   padding: 30px;
+  overflow-x: hidden; /* Added to match your style */
 }
 
 .container {
@@ -23,8 +24,10 @@ body {
   width: 100%;
   background: #fff;
   padding: 40px 30px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Changed to match your shadow */
   perspective: 2700px;
+  border-radius: 20px; /* Added to match your rounded corners */
+  margin-top: 80px; /* Added to account for fixed navbar */
 }
 
 .container .cover {
@@ -38,6 +41,7 @@ body {
   transform-origin: left;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  border-radius: 20px 0 0 20px; /* Added rounded corners */
 }
 
 .container #flip:checked ~ .cover {
@@ -67,6 +71,7 @@ body {
   width: 100%;
   object-fit: cover;
   z-index: 10;
+  border-radius: 20px 0 0 20px; /* Added rounded corners */
 }
 
 .container .cover .text {
@@ -86,7 +91,7 @@ body {
   height: 100%;
   width: 100%;
   opacity: 0.5;
-  background: linear-gradient(45deg, #4CAF50, #2196F3); /* Gradient for text overlay */
+  background: linear-gradient(45deg, #4CAF50, #2196F3); /* Kept your gradient */
 }
 
 .cover .text .text-1,
@@ -107,6 +112,7 @@ body {
   height: 100%;
   width: 100%;
   background: #fff;
+  border-radius: 0 20px 20px 0; /* Added rounded corners */
 }
 
 .container .form-content {
@@ -124,7 +130,7 @@ body {
   position: relative;
   font-size: 24px;
   font-weight: 500;
-  color: #333;
+  color: #2c3e50; /* Changed to match your text color */
 }
 
 .forms .form-content .title:before {
@@ -134,7 +140,7 @@ body {
   bottom: 0;
   height: 3px;
   width: 25px;
-  background: linear-gradient(45deg, #4CAF50, #2196F3); /* Gradient for title underline */
+  background: linear-gradient(45deg, #4CAF50, #2196F3); /* Kept your gradient */
 }
 
 .forms .signup-form .title:before {
@@ -168,12 +174,12 @@ body {
 
 .form-content .input-box input:focus,
 .form-content .input-box input:valid {
-  border-color: linear-gradient(45deg, #4CAF50, #2196F3); /* Gradient border on focus */
+  border-color: #2196F3; /* Changed to solid color */
 }
 
 .form-content .input-box i {
   position: absolute;
-  color: linear-gradient(45deg, #4CAF50, #2196F3); /* Gradient icon color */
+  color: #2196F3; /* Changed to solid color */
   font-size: 17px;
 }
 
@@ -185,6 +191,7 @@ body {
 
 .forms .form-content .text a {
   text-decoration: none;
+  color: #004aad; /* Changed to match your link color */
 }
 
 .forms .form-content .text a:hover {
@@ -198,19 +205,25 @@ body {
 
 .forms .form-content .button input {
   color: #fff;
-  background: linear-gradient(45deg, #4CAF50, #2196F3); /* Gradient background for button */
-  border-radius: 6px;
-  padding: 0;
+  background: linear-gradient(45deg, #4CAF50, #2196F3);
+  border-radius: 30px; /* Changed to match your button */
+  padding: 12px 0;
   cursor: pointer;
   transition: all 0.4s ease;
+  width: 100%;
+  font-weight: bold;
+  border: none;
+  font-size: 1.2rem;
 }
 
 .forms .form-content .button input:hover {
-  background: linear-gradient(45deg, #2196F3, #4CAF50); /* Reverse gradient on hover */
+  background: linear-gradient(45deg, #2196F3, #4CAF50);
+  transform: translateY(-5px) scale(1.02); /* Added your hover effect */
+  box-shadow: 0 15px 40px rgba(33, 150, 243, 0.6); /* Added your shadow */
 }
 
 .forms .form-content label {
-  color: #5b13b9;
+  color: #004aad; /* Changed to match your link color */
   cursor: pointer;
 }
 
@@ -249,7 +262,9 @@ body {
   .container #flip:checked ~ .forms .login-form {
     display: none;
   }
+  
+  .container {
+    margin-top: 100px; /* Adjusted for mobile */
+    padding: 20px 15px;
+  }
 }
-
-
-
