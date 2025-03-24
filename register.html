@@ -10,6 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
 <body>
+  <script>
+    // Auto-switch between login and register based on URL
+    window.onload = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const mode = urlParams.get('mode');
+      if (mode === 'register') {
+        document.getElementById('flip').checked = true; // Open Register Form
+      } else {
+        document.getElementById('flip').checked = false; // Default to Login Form
+      }
+    };
+  </script>
+  
   <div class="container">
     <input type="checkbox" id="flip">
     <div class="cover">
