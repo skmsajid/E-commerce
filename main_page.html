@@ -122,7 +122,7 @@
 
         .slide {
             flex: 0 0 100%; 
-            height: 85vh; 
+            height: 70vh; 
         }
 
         .slide img {
@@ -160,7 +160,7 @@
 
 
         body {
-            background: #f0f2f5;
+            background: #46566d;
         }
 
         .fashion-section {
@@ -168,7 +168,7 @@
             max-width: 1200px;
             margin: 60px auto;
             text-align: center;
-            background: linear-gradient(135deg, #fceae0 0%, #f3d9cf 100%); /* Warm gradient for fashion */
+            background: linear-gradient(135deg, #d87c4b 0%, #2e1a12 100%); /* Warm gradient for fashion */
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -307,7 +307,7 @@
             max-width: 1200px;
             margin: 60px auto;
             text-align: center;
-            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background: linear-gradient(135deg, #b42e93 0%, #0a1c35 100%);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -445,7 +445,7 @@
             max-width: 1200px;
             margin: 60px auto;
             text-align: center;
-            background: linear-gradient(135deg, #e9f7e2 0%, #d4e8c8 100%); /* Fresh green gradient for groceries */
+            background: linear-gradient(135deg, #445c37 0%, #d4e8c8 100%); /* Fresh green gradient for groceries */
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -454,7 +454,7 @@
         .groceries-headline {
             font-size: 42px;
             font-weight: 700;
-            color: #1a2a44;
+            color: #385a91;
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -583,7 +583,7 @@
             max-width: 1200px;
             margin: 60px auto;
             text-align: center;
-            background: linear-gradient(135deg, #fcebf5 0%, #f3d1e6 100%); /* Soft pink gradient for beauty */
+            background: linear-gradient(135deg, #2b0f1f 0%, #f3d1e6 100%); /* Soft pink gradient for beauty */
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -605,7 +605,7 @@
             position: absolute;
             width: 80px;
             height: 4px;
-            background: #e91e63; /* Vibrant pink underline for beauty */
+            background: #687714; /* Vibrant pink underline for beauty */
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
@@ -622,7 +622,7 @@
         .health-beauty-item {
             width: 180px;
             text-align: center;
-            background: #fff;
+            background: #a3e79d;
             padding: 15px;
             border-radius: 15px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
@@ -713,7 +713,7 @@
         }
 
         body {
-            background: #f0f2f5;
+            background: #696f79;
         }
 
         .kids-zone-section {
@@ -721,7 +721,7 @@
             max-width: 1200px;
             margin: 60px auto;
             text-align: center;
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe8ba 100%); /* Bright, playful yellow-orange gradient */
+            background: linear-gradient(135deg, #72624a 0%, #7c6434 100%); /* Bright, playful yellow-orange gradient */
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -1019,6 +1019,102 @@
             position: relative;
             z-index: 1;
         }
+
+
+        .feedback-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-content {
+            flex: 1;
+            padding-right: 30px;
+        }
+
+        .feedback-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .feedback-content p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .feedback-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .feedback-form button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .feedback-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .feedback-image {
+            flex: 1;
+            text-align: right;
+        }
+
+        .feedback-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .feedback-section {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .feedback-content {
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .feedback-image {
+                text-align: center;
+            }
+        }
     </style>
 
 </head>
@@ -1050,7 +1146,7 @@
         </div>
     </nav>
     <div class="slider-container">
-        <div class="slider">
+        <div class="slider" id="home">
             <div class="slide">
                 <img src="images/slider/img1.png" alt="Image 1">
             </div>
@@ -1377,7 +1473,7 @@
 
     <section class="contact" id="contact">
 
-        <h1 class="heading"><span>CONTACT US</span> us</h1>
+        <h1 class="heading"><span>CONTACT US</span></h1>
 
         <div class="row">
 
@@ -1403,12 +1499,29 @@
 
     </section>
 
+
+    <section class="feedback-section">
+        <div class="feedback-content" id="feedback">
+            <h2>We’d Love Your Feedback!</h2>
+            <p>Tell us what you think. Your input helps us improve and serve you better.</p>
+            <form class="feedback-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Feedback" required></textarea>
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </div>
+        <div class="feedback-image">
+            <img src="images/feedback/img1.jpg" alt="Feedback Image">
+        </div>
+    </section>
+
     
 
     
 
     <footer class="footer">
-        <div class="footer-about">
+        <div class="footer-about" id="about">
             <h3>About Us</h3>
             <p>
                 FrndsCart is your one-stop online shopping destination, offering a wide range of products from fashion to electronics, groceries, health & beauty, and kids' items. We are committed to providing quality products at affordable prices with a seamless shopping experience. Our mission is to bring convenience and joy to your doorstep!
