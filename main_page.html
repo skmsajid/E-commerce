@@ -106,58 +106,83 @@
             transform: scale(1.1);
         }
 
+
         .slider-container {
-            width: 100%;
-            height: 10%; 
-            overflow: hidden;
+            width: 900px;
+            height: 450px;
+            margin: 50px auto;
             position: relative;
+            perspective: 1200px;
         }
 
         .slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
             width: 100%;
             height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
         }
 
         .slide {
-            flex: 0 0 100%; 
-            height: 70vh; 
+            position: absolute;
+            width: 350px; /* Adjusted for better visibility of 4K widescreen */
+            height: 197px; /* 16:9 ratio based on 350px width */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.3),
+                0 0 0 3px rgba(255, 255, 255, 0.2),
+                inset 0 0 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(0,0,0,0.1));
         }
 
         .slide img {
             width: 100%;
             height: 100%;
-            
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border-radius: 15px;
         }
 
-       
-        .prev, .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
+        .slide:hover {
+            z-index: 10;
+            transform: translate(-50%, -50%) scale(1.1) translateZ(100px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 0 4px rgba(255, 255, 255, 0.4),
+                inset 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide:hover img {
+            transform: scale(1.2);
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            background: #333;
             color: white;
             border: none;
-            padding: 15px;
-            cursor: pointer;
-            font-size: 24px;
-            z-index: 10;
-            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            transition: background 0.3s;
         }
 
-        .prev {
-            left: 20px;
+        button:hover {
+            background: #555;
         }
 
-        .next {
-            right: 20px;
-        }
-
-        .prev:hover, .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
+        
 
         body {
             background: #46566d;
@@ -1146,22 +1171,27 @@
         </div>
     </nav>
     <div class="slider-container">
-        <div class="slider" id="home">
-            <div class="slide">
-                <img src="images/slider/img1.png" alt="Image 1">
+        <div class="slider">
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(0deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/view-3d-car_23-2150998542.jpg?t=st=1742910232~exp=1742913832~hmac=afbb461e8a093e2dc07c2aa9267d7afdb2047dd0e35fe749fe620f4cb53a02c2&w=996" alt="Slide 1">
             </div>
-            <div class="slide">
-                <img src="images/slider/img2.png" alt="Image 2">
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(72deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/overhead-view-camera-accessories_23-2147836735.jpg?t=st=1742909361~exp=1742912961~hmac=93a72926b2177bc297f454881742056ec8e0390b0901422d5a3a39b6dab9bf15&w=996" alt="Slide 2">
             </div>
-            <div class="slide">
-                <img src="images/slider/img3.png" alt="Image 3">
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(144deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/computer-chip-connects-electrical-components-powering-global-communications-industry-generated-by-artificial-intelligence_24877-80915.jpg?t=st=1742911063~exp=1742914663~hmac=80776a29318f00551b940a1df9d2b90895db9d82450ab54f4fbe814ae707c73d&w=1060" alt="Slide 3">
             </div>
-            <div class="slide">
-                <img src="images/slider/img4.png" alt="Image 4">
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(216deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/luxury-shine-diamonds-digital-art_23-2151694992.jpg?t=st=1742909502~exp=1742913102~hmac=d1cc7e4bb4f150788facf45461a26198f02063fccf8c835a9dc5c5ff4a304cc2&w=1380" alt="Slide 4">
             </div>
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(288deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/luxury-shine-diamonds-digital-art_23-2151695002.jpg?t=st=1742909638~exp=1742913238~hmac=1996c5237c89316adf71ee783ee958994a473fd763f7aad3d6e4ee7ca4d3e352&w=1380" alt="Slide 5">
+            </div>
+        </div>
     </div>
-        <button class="prev">❮</button>
-        <button class="next">❯</button>
+    <div class="controls">
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
     </div>
 
     <div class="fashion-section">
@@ -1583,31 +1613,41 @@
         });
 
         const slider = document.querySelector('.slider');
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.querySelector('.prev');
-        const nextBtn = document.querySelector('.next');
-        let currentIndex = 0;
+        const sliderContainer = document.querySelector('.slider-container');
+        let angle = 0;
+        let autoScrollInterval = null;
+        const autoScrollSpeed = 3000;
 
-        function updateSlider() {
-            const offset = -currentIndex * 100; /* Move by 100% of container width */
-            slider.style.transform = `translateX(${offset}%)`;
+        function rotateSlider() {
+            slider.style.transform = `rotateY(${angle}deg)`;
         }
 
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % slides.length; /* Loop back to start */
-            updateSlider();
-        });
+        function nextSlide() {
+            angle -= 72;
+            rotateSlider();
+        }
 
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length; /* Loop to end */
-            updateSlider();
-        });
+        function prevSlide() {
+            angle += 72;
+            rotateSlider();
+        }
 
-        /* Auto-slide every 5 seconds */
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateSlider();
-        }, 5000);
+        function startAutoScroll() {
+            if (!autoScrollInterval) {
+                autoScrollInterval = setInterval(nextSlide, autoScrollSpeed);
+            }
+        }
+
+        function stopAutoScroll() {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+        }
+
+        startAutoScroll();
+        sliderContainer.addEventListener('mouseenter', stopAutoScroll);
+        sliderContainer.addEventListener('mouseleave', startAutoScroll);
     </script>
 </body>
 </html>
