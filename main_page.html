@@ -5,60 +5,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project FrndsCart</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        .navbar {
-            background-color: #2c3e50;
-            padding: 15px 30px;
+     /* Your Navbar Styles */
+     .navbar-custom {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
+            padding: 0.6rem 3rem;
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1000;
-        }
-
-        .left-profile {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .profile-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .profile-btn img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-        }
-
-        .dropdown {
-            display: none;
-            position: absolute;
-            top: 60px;
             left: 0;
-            background-color: #34495e;
-            min-width: 200px;
-            border-radius: 5px;
-            padding: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: background 0.5s ease, box-shadow 0.5s ease;
         }
 
-        .dropdown.active {
-            display: block;
-            animation: slideDown 0.3s ease-in-out;
+        /* Add this to your navbar styles */
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+}
+
+/* Adjust the navbar-brand positioning */
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to right, #0061ff, #60efff, #0061ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: professionalShine 5s linear infinite;
+    transition: all 0.5s ease;
+    text-decoration: none;
+    margin: 0; /* Remove any default margins */
+}
+
+        @keyframes professionalShine {
+            0% { background-position: -100% center; }
+            100% { background-position: 100% center; }
         }
+
+        .navbar-brand::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-25deg);
+            animation: professionalShineOverlay 5s infinite;
+        }
+
+        @keyframes professionalShineOverlay {
+            0% { left: -100%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px rgba(0, 97, 255, 0.3);
+            animation-duration: 4s;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            color: #004aad;
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ff4500;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff4500, #32cd32);
+            transition: width 0.4s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Scroll Effect */
+        .scrolled {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+      /* User Icon Styles (No Dropdown) */
+        .user-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(0, 97, 255, 0.1) 0%, rgba(96, 239, 255, 0.1) 100%);
+        border-radius: 50%;
+        border: 2px solid rgba(0, 97, 255, 0.3);
+        transition: all 0.3s ease;
+        }
+
+        .user-svg {
+        width: 24px;
+        height: 24px;
+        fill: #0061ff;
+        transition: all 0.3s ease;
+        }
+
+        /* Hover Effects Only (No Dropdown) */
+        .profile-btn:hover .user-icon {
+        transform: scale(1.05);
+        border-color: #0061ff;
+        background: linear-gradient(135deg, rgba(0, 97, 255, 0.2) 0%, rgba(96, 239, 255, 0.2) 100%);
+        }
+
+        .profile-btn:hover .user-svg {
+        fill: #ff4500;
+        transform: scale(1.1);
+        }
+
+        /* Click Effect */
+        .profile-btn:active .user-icon {
+        transform: scale(0.95);
+        }
+
+    
+
+     
 
         @keyframes slideDown {
             from {
@@ -74,37 +176,103 @@
         .dropdown p {
             margin: 8px 0;
             font-size: 14px;
+            color: #2c3e50;
         }
 
-        .right-nav {
-            display: flex;
-            align-items: center;
-            gap: 25px;
+        /* Cart Icon Alignment and Sizing Fix */
+.cart-icon-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 5px;
+}
+
+.cart-icon {
+  position: relative;
+  width: 30px; /* Slightly larger size */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-left: 10px; /* Space from last nav link */
+}
+
+.cart-svg {
+  width: 30px; /* Matches nav link text size */
+  height: 30px;
+  fill: #004aad; /* Matching your nav-link color */
+  transition: all 0.3s ease;
+  transform-origin: center 80%;
+}
+
+.cart-pulse {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 97, 255, 0.2);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+  top: -4px;
+  left: -4px;
+}
+
+/* Hover Effects - Matches nav-link hover */
+.cart-icon:hover .cart-svg {
+  animation: cartBounce 0.6s ease;
+  fill: #ff4500; /* Matching your nav-link hover color */
+  transform: scale(1.1);
+}
+
+/* Click Effect */
+.cart-icon:active .cart-svg {
+  transform: scale(0.9);
+}
+
+/* Pulse Animation */
+@keyframes cartBounce {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(0.9) rotate(-5deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  75% { transform: scale(1.05) rotate(-2deg); }
+}
+
+/* Ensure alignment with nav-links */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center; /* This ensures vertical alignment */
+}
+
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar-custom {
+                padding: 0.6rem 1.5rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .navbar-brand {
+                font-size: 1.8rem;
+            }
         }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 8px 15px;
-            transition: all 0.3s ease;
+        /* Rest of your friend's styles remain unchanged */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        .nav-links a:hover {
-            background-color: #3498db;
-            border-radius: 5px;
+        body {
+            padding-top: 80px; /* Added to account for fixed navbar */
+            scroll-behavior: smooth;
         }
 
-        .cart img {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .cart img:hover {
-            transform: scale(1.1);
-        }
 
 
         .slider-container {
@@ -183,10 +351,6 @@
         }
 
         
-
-        body {
-            background: #46566d;
-        }
 
         .fashion-section {
             width: 90%;
@@ -1144,29 +1308,32 @@
 
 </head>
 <body>
-    <nav class="navbar">
-        <div class="left-profile">
+    <nav class="navbar-custom">
+        <div class="left-section">
             <div class="profile-btn">
-                <img src="images/logo/logo.png" alt="Profile">
-                <span>FrndsCart</span>
+                <!-- User icon without dropdown functionality -->
+                <div class="user-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="user-svg">
+                        <path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z"/>
+                    </svg>
+                </div>
             </div>
-            <div class="dropdown">
-                <p>Name: Surendra Naik</p>
-                <p>Email: nsurendra423@gmail.com</p>
-                <p>Phone: 7671853956</p>
-                <p>Birth: 7th apr 2005</p>
-            </div>
+            <a href="#" class="navbar-brand">FrndsCart</a>
         </div>
-        <div class="right-nav">
-            <div class="nav-links">
-                <a href="#home">HOME</a>
-                <a href="#about">ABOUT</a>
-                <a href="#contact">CONTACT</a>
-                <a href="#offers">OFFERS</a>
-                <a href="#feedback">FEEDBACK</a>
-            </div>
-            <div class="cart">
-                <img src="images/cart img/cart.png" alt="Cart">
+        <div class="nav-links">
+            <a href="#home" class="nav-link">HOME</a>
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
+            <a href="#offers" class="nav-link">OFFERS</a>
+            <a href="#feedback" class="nav-link">FEEDBACK</a>
+            <!-- Replace the cart icon in your navbar with this -->
+            <div class="cart-icon-wrapper">
+                <div class="cart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cart-svg">
+                        <path d="M17 18a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2M1 2h3.27l.94 2H20a1 1 0 0 1 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.79 1.03H8.1l-.9 1.63-.03.12a.25.25 0 0 0 .25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2m6 16a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2m9-7l2.78-5H6.14l2.36 5H16z"/>
+                    </svg>
+                    <div class="cart-pulse"></div>
+                </div>
             </div>
         </div>
     </nav>
@@ -1597,21 +1764,10 @@
 
 
 
-    <script>
-        const profileBtn = document.querySelector('.profile-btn');
-        const dropdown = document.querySelector('.dropdown');
+    <script>// Updated JavaScript with your scroll effect
+    
 
-        profileBtn.addEventListener('click', () => {
-            dropdown.classList.toggle('active');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!profileBtn.contains(e.target) && !dropdown.contains(e.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-
+        // Existing slider functionality
         const slider = document.querySelector('.slider');
         const sliderContainer = document.querySelector('.slider-container');
         let angle = 0;
@@ -1648,6 +1804,21 @@
         startAutoScroll();
         sliderContainer.addEventListener('mouseenter', stopAutoScroll);
         sliderContainer.addEventListener('mouseleave', startAutoScroll);
+
+
+
+        document.querySelector('.cart-icon').addEventListener('click', function() {
+  // Add pulse effect
+  const pulse = this.querySelector('.cart-pulse');
+  pulse.style.opacity = 1;
+  pulse.style.transform = 'scale(1)';
+  pulse.style.transition = 'all 0.5s ease-out';
+  
+  setTimeout(() => {
+    pulse.style.opacity = 0;
+    pulse.style.transform = 'scale(1.5)';
+  }, 50);
+});
     </script>
 </body>
 </html>
