@@ -246,6 +246,8 @@
   align-items: center; /* This ensures vertical alignment */
 }
 
+        
+
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
@@ -350,690 +352,332 @@
             background: #555;
         }
 
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Raleway:wght@400;600&display=swap');
         
-
-        .fashion-section {
-            width: 90%;
-            max-width: 1200px;
-            margin: 60px auto;
-            text-align: center;
-            background: linear-gradient(135deg, #d87c4b 0%, #2e1a12 100%); /* Warm gradient for fashion */
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        :root {
+            --primary: #ff2e63;
+            --secondary: #252a34;
+            --light: #eaeaea;
         }
-
-        .fashion-headline {
-            font-size: 42px;
-            font-weight: 700;
-            color: #1a2a44;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-            animation: fadeInDown 1s ease-in-out;
-        }
-
-        .fashion-headline::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: #e67e22; /* Warm orange underline */
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .fashion-item {
-            width: 180px; /* Smaller width like electronics */
-            text-align: center;
-            background: #fff;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-        }
-
-        .fashion-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .fashion-image {
-            width: 100%;
-            height: 200px; /* Smaller height like electronics */
-            overflow: hidden;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .fashion-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .fashion-item:hover .fashion-image img {
-            transform: scale(1.1);
-        }
-
-        .image-name {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #2c3e50;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
-
-        .image-price {
-            margin-top: 6px;
-            font-size: 14px;
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        .action-buttons {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .add-to-cart, .buy {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .add-to-cart {
-            background: #3498db;
-            color: white;
-        }
-
-        .buy {
-            background: #27ae60;
-            color: white;
-        }
-
-        .add-to-cart:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .buy:hover {
-            background: #219653;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-
+        
         body {
-            background: #f0f2f5; 
-        }
-
-        .electronics-section {
-            width: 90%;
-            max-width: 1200px;
-            margin: 60px auto;
-            text-align: center;
-            background: linear-gradient(135deg, #b42e93 0%, #0a1c35 100%);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .electronics-headline {
-            font-size: 42px;
-            font-weight: 700;
-            color: #1a2a44;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: var(--secondary);
             position: relative;
-            animation: fadeInDown 1s ease-in-out;
+            overflow-x: hidden;
         }
 
-        .electronics-headline::after {
-            content: '';
+        /* Bubble Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            z-index: -2;
+        }
+
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .bubble {
             position: absolute;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 15s infinite ease-in;
+        }
+
+        .bubble:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            animation-duration: 8s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: 35%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(4) {
             width: 80px;
-            height: 4px;
-            background: #2980b9; 
-            bottom: -10px;
+            height: 80px;
             left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
+            animation-duration: 11s;
+            animation-delay: 0s;
         }
 
-        .image-container {
+        .bubble:nth-child(5) {
+            width: 35px;
+            height: 35px;
+            left: 55%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 65%;
+            animation-duration: 8s;
+            animation-delay: 3s;
+        }
+
+        .bubble:nth-child(7) {
+            width: 25px;
+            height: 25px;
+            left: 75%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(8) {
+            width: 80px;
+            height: 80px;
+            left: 80%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(-200px);
+            }
+        }
+        
+        .section {
+            position: relative;
+            padding: 60px 5%;
+            background: rgba(255, 255, 255, 0.85);
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .section-header {
+            position: relative;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 40px;
         }
-
-        .electronics-item {
-            width: 180px; 
-            text-align: center;
+        
+        .headline-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            position: relative;
+        }
+        
+        .headline::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .arrow-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 10px;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .arrow-btn:hover {
+            transform: translateX(10px) scale(1.1);
+        }
+        
+        .arrow-btn svg {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .arrow-path {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .product-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-item {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .product-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .item-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
             background: #fff;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        .electronics-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .electronics-image {
-            width: 100%;
-            height: 200px; 
-            overflow: hidden;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .electronics-image img {
+        
+        .item-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
-
-        .electronics-item:hover .electronics-image img {
-            transform: scale(1.1);
+        
+        .product-item:hover .item-image {
+            transform: scale(1.08);
         }
-
-        .image-name {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #2c3e50;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
-
-        .image-price {
-            margin-top: 6px;
-            font-size: 14px;
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        .action-buttons {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .add-to-cart, .buy {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .add-to-cart {
-            background: #3498db;
-            color: white;
-        }
-
-        .buy {
-            background: #27ae60;
-            color: white;
-        }
-
-        .add-to-cart:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .buy:hover {
-            background: #219653;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        body {
-            background: #f0f2f5;
-        }
-
-        .groceries-section {
-            width: 90%;
-            max-width: 1200px;
-            margin: 60px auto;
-            text-align: center;
-            background: linear-gradient(135deg, #445c37 0%, #d4e8c8 100%); /* Fresh green gradient for groceries */
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .groceries-headline {
-            font-size: 42px;
-            font-weight: 700;
-            color: #385a91;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-            animation: fadeInDown 1s ease-in-out;
-        }
-
-        .groceries-headline::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: #27ae60; /* Green underline for groceries */
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .groceries-item {
-            width: 180px;
-            text-align: center;
+        
+        .item-info {
+            padding: 15px;
             background: #fff;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
         }
-
-        .groceries-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .groceries-image {
-            width: 100%;
-            height: 200px;
+        
+        .item-name {
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: #333;
+            font-size: 1rem;
+            white-space: nowrap;
             overflow: hidden;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
+            text-overflow: ellipsis;
         }
-
-        .groceries-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .groceries-item:hover .groceries-image img {
-            transform: scale(1.1);
-        }
-
-        .image-name {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #2c3e50;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
-
-        .image-price {
-            margin-top: 6px;
-            font-size: 14px;
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        .action-buttons {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .add-to-cart, .buy {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .add-to-cart {
-            background: #3498db;
-            color: white;
-        }
-
-        .buy {
-            background: #27ae60;
-            color: white;
-        }
-
-        .add-to-cart:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .buy:hover {
-            background: #219653;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        body {
-            background: #f0f2f5;
-        }
-
-        .health-beauty-section {
-            width: 90%;
-            max-width: 1200px;
-            margin: 60px auto;
-            text-align: center;
-            background: linear-gradient(135deg, #2b0f1f 0%, #f3d1e6 100%); /* Soft pink gradient for beauty */
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .health-beauty-headline {
-            font-size: 42px;
+        
+        .item-price {
             font-weight: 700;
-            color: #1a2a44;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-            animation: fadeInDown 1s ease-in-out;
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
         }
-
-        .health-beauty-headline::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: #687714; /* Vibrant pink underline for beauty */
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .health-beauty-item {
-            width: 180px;
-            text-align: center;
-            background: #a3e79d;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-        }
-
-        .health-beauty-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .health-beauty-image {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .health-beauty-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .health-beauty-item:hover .health-beauty-image img {
-            transform: scale(1.1);
-        }
-
-        .image-name {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #2c3e50;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
-
-        .image-price {
+        
+        .item-detail {
+            display: inline-block;
             margin-top: 6px;
-            font-size: 14px;
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        .action-buttons {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .add-to-cart, .buy {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .add-to-cart {
-            background: #3498db;
+            padding: 3px 10px;
+            background: var(--primary);
             color: white;
-        }
-
-        .buy {
-            background: #27ae60;
-            color: white;
-        }
-
-        .add-to-cart:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .buy:hover {
-            background: #219653;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        body {
-            background: #696f79;
-        }
-
-        .kids-zone-section {
-            width: 90%;
-            max-width: 1200px;
-            margin: 60px auto;
-            text-align: center;
-            background: linear-gradient(135deg, #72624a 0%, #7c6434 100%); /* Bright, playful yellow-orange gradient */
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .kids-zone-headline {
-            font-size: 42px;
-            font-weight: 700;
-            color: #1a2a44;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-            animation: fadeInDown 1s ease-in-out;
-        }
-
-        .kids-zone-headline::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: #f1c40f; /* Vibrant yellow underline for kids */
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .kids-zone-item {
-            width: 180px;
-            text-align: center;
-            background: #fff;
-            padding: 15px;
+            font-size: 0.7rem;
             border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-        }
-
-        .kids-zone-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .kids-zone-image {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .kids-zone-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .kids-zone-item:hover .kids-zone-image img {
-            transform: scale(1.1);
-        }
-
-        .image-name {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #2c3e50;
             font-weight: 600;
-            text-transform: capitalize;
+        }
+        
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, minmax(180px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 2.2rem;
+            }
+            
+            .arrow-btn svg {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(180px, 1fr));
+            }
+            
+            .item-image-container {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section {
+                margin: 10px;
+                padding: 30px 5%;
+            }
+            
+            .headline {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+            
+            .headline::after {
+                width: 50px;
+                bottom: -6px;
+            }
+            
+            .arrow-btn svg {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .image-price {
-            margin-top: 6px;
-            font-size: 14px;
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        .action-buttons {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .add-to-cart, .buy {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .add-to-cart {
-            background: #3498db;
-            color: white;
-        }
-
-        .buy {
-            background: #27ae60;
-            color: white;
-        }
-
-        .add-to-cart:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .buy:hover {
-            background: #219653;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
+       
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -1304,6 +948,26 @@
                 text-align: center;
             }
         }
+
+
+        /* Add this to your existing navbar styles */
+.navbar-custom {
+    padding: 0.6rem 0; /* Remove horizontal padding from navbar */
+}
+
+.left-section {
+    margin-left: 0;
+    padding-left: 1rem; /* Add just 1rem padding from left edge */
+}
+
+
+.nav-link.active {
+    color: #ff4500;
+    font-weight: bold;
+}
+.nav-link.active::after {
+    width: 100%;
+}
     </style>
 
 </head>
@@ -1338,7 +1002,7 @@
         </div>
     </nav>
     <div class="slider-container">
-        <div class="slider">
+        <div class="slider" id="home">
             <div class="slide" style="transform: translate(-50%, -50%) rotateY(0deg) translateZ(400px);">
                 <img src="https://img.freepik.com/free-photo/view-3d-car_23-2150998542.jpg?t=st=1742910232~exp=1742913832~hmac=afbb461e8a093e2dc07c2aa9267d7afdb2047dd0e35fe749fe620f4cb53a02c2&w=996" alt="Slide 1">
             </div>
@@ -1361,311 +1025,359 @@
         <button onclick="nextSlide()">Next</button>
     </div>
 
-    <div class="fashion-section">
-        <h1 class="fashion-headline">Fashion</h1>
-        <div class="image-container">
-            <div class="fashion-item">
-                <div class="fashion-image">
-                    <img src="images/Fashion/img1.png" alt="Shirt">
-                </div>
-                <p class="image-name">Shirt</p>
-                <p class="image-price">700Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="fashion-item">
-                <div class="fashion-image">
-                    <img src="images/Fashion/img2.png" alt="Jeans">
-                </div>
-                <p class="image-name">Jeans</p>
-                <p class="image-price">1200Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="fashion-item">
-                <div class="fashion-image">
-                    <img src="images/Fashion/img3.png" alt="Sarees">
-                </div>
-                <p class="image-name">Sarees</p>
-                <p class="image-price">1500Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="fashion-item">
-                <div class="fashion-image">
-                    <img src="images/Fashion/img4.png" alt="kurtas & kurtis">
-                </div>
-                <p class="image-name">kurtas & kurtis</p>
-                <p class="image-price">2300Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="fashion-item">
-                <div class="fashion-image">
-                    <img src="images/Fashion/img5.png" alt="Shoes">
-                </div>
-                <p class="image-name">shoes</p>
-                <p class="image-price">500Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+   
 
-    <div class="electronics-section">
-        <h1 class="electronics-headline">Electronics</h1>
-        <div class="image-container">
-            <div class="electronics-item">
-                <div class="electronics-image">
-                    <img src="images/electronics/img1.png" alt="Mobiles">
-                </div>
-                <p class="image-name">Mobiles</p>
-                <p class="image-price">75000Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="electronics-item">
-                <div class="electronics-image">
-                    <img src="images/electronics/img2.png" alt="Laptops">
-                </div>
-                <p class="image-name">Laptops</p>
-                <p class="image-price">120000Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="electronics-item">
-                <div class="electronics-image">
-                    <img src="images/electronics/img3.png" alt="Keyboards">
-                </div>
-                <p class="image-name">Keyboards</p>
-                <p class="image-price">2500Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="electronics-item">
-                <div class="electronics-image">
-                    <img src="images/electronics/img4.png" alt="Speakers">
-                </div>
-                <p class="image-name">Speakers</p>
-                <p class="image-price">30000Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="electronics-item">
-                <div class="electronics-image">
-                    <img src="images/electronics/img5.png" alt="Mouses">
-                </div>
-                <p class="image-name">Mouses</p>
-                <p class="image-price">1500Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="groceries-section">
-        <h1 class="groceries-headline">Groceries</h1>
-        <div class="image-container">
-            <div class="groceries-item">
-                <div class="groceries-image">
-                    <img src="images/grocery/img1.png" alt="Rice">
-                </div>
-                <p class="image-name">Rice</p>
-                <p class="image-price">500Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="groceries-item">
-                <div class="groceries-image">
-                    <img src="images/grocery/img2.png" alt="Oil">
-                </div>
-                <p class="image-name">Oil</p>
-                <p class="image-price">800Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="groceries-item">
-                <div class="groceries-image">
-                    <img src="images/grocery/img3.png" alt="Sugar">
-                </div>
-                <p class="image-name">Sugar</p>
-                <p class="image-price">300Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="groceries-item">
-                <div class="groceries-image">
-                    <img src="images/grocery/img4.png" alt="Flour">
-                </div>
-                <p class="image-name">Flour</p>
-                <p class="image-price">400Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="groceries-item">
-                <div class="groceries-image">
-                    <img src="images/grocery/img5.png" alt="Spices">
-                </div>
-                <p class="image-name">Spices</p>
-                <p class="image-price">250Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="health-beauty-section">
-        <h1 class="health-beauty-headline">Health and Beauty</h1>
-        <div class="image-container">
-            <div class="health-beauty-item">
-                <div class="health-beauty-image">
-                    <img src="images/Health &beauty/img1.png" alt="Face Cream">
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Fashion</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Luxury Dress" class="item-image">
                 </div>
-                <p class="image-name">Face Cream</p>
-                <p class="image-price">600Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
+                <div class="item-info">
+                    <h3 class="item-name">Silk Evening Gown</h3>
+                    <p class="item-price">₹24,999</p>
+                    <span class="item-detail">Dresses</span>
                 </div>
             </div>
-            <div class="health-beauty-item">
-                <div class="health-beauty-image">
-                    <img src="images/Health &beauty/img2.png" alt="Shampoo">
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Designer Jacket" class="item-image">
                 </div>
-                <p class="image-name">Shampoo</p>
-                <p class="image-price">450Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="health-beauty-item">
-                <div class="health-beauty-image">
-                    <img src="images/Health &beauty/img3.png" alt="Lipstick">
-                </div>
-                <p class="image-name">Lipstick</p>
-                <p class="image-price">300Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
+                <div class="item-info">
+                    <h3 class="item-name">Leather Biker Jacket</h3>
+                    <p class="item-price">₹37,999</p>
+                    <span class="item-detail">Outerwear</span>
                 </div>
             </div>
-            <div class="health-beauty-item">
-                <div class="health-beauty-image">
-                    <img src="images/Health &beauty/img4.png" alt="Perfume">
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Designer Watch" class="item-image">
                 </div>
-                <p class="image-name">Perfume</p>
-                <p class="image-price">1200Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
+                <div class="item-info">
+                    <h3 class="item-name">Chronograph Watch</h3>
+                    <p class="item-price">₹74,999</p>
+                    <span class="item-detail">Accessories</span>
                 </div>
             </div>
-            <div class="health-beauty-item">
-                <div class="health-beauty-image">
-                    <img src="images/Health &beauty/img5.png" alt="Soap">
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="Designer Shoes" class="item-image">
                 </div>
-                <p class="image-name">Soap</p>
-                <p class="image-price">150Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
+                <div class="item-info">
+                    <h3 class="item-name">Leather Oxford Shoes</h3>
+                    <p class="item-price">₹28,999</p>
+                    <span class="item-detail">Footwear</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Designer Handbag" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Designer Handbag</h3>
+                    <p class="item-price">₹49,999</p>
+                    <span class="item-detail">Accessories</span>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="kids-zone-section">
-        <h1 class="kids-zone-headline">Kids Zone</h1>
-        <div class="image-container">
-            <div class="kids-zone-item">
-                <div class="kids-zone-image">
-                    <img src="images/kids zone/img1.png" alt="Toys">
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Electronics</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="MacBook Pro" class="item-image">
                 </div>
-                <p class="image-name">Toys</p>
-                <p class="image-price">400Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
+                <div class="item-info">
+                    <h3 class="item-name">MacBook Pro 14"</h3>
+                    <p class="item-price">₹1,64,999</p>
+                    <span class="item-detail">Laptops</span>
                 </div>
             </div>
-            <div class="kids-zone-item">
-                <div class="kids-zone-image">
-                    <img src="images/kids zone/img2.png" alt="Kids Dress">
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=967&q=80" alt="iPhone" class="item-image">
                 </div>
-                <p class="image-name">Kids Dress</p>
-                <p class="image-price">800Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
-                </div>
-            </div>
-            <div class="kids-zone-item">
-                <div class="kids-zone-image">
-                    <img src="images/kids zone/img3.png" alt="Books">
-                </div>
-                <p class="image-name">Books</p>
-                <p class="image-price">250Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
+                <div class="item-info">
+                    <h3 class="item-name">iPhone 15 Pro</h3>
+                    <p class="item-price">₹1,29,999</p>
+                    <span class="item-detail">Smartphones</span>
                 </div>
             </div>
-            <div class="kids-zone-item">
-                <div class="kids-zone-image">
-                    <img src="images/kids zone/img4.png" alt="Shoes">
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1558517255-0b7f9360e2dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Smart Watch" class="item-image">
                 </div>
-                <p class="image-name">Shoes</p>
-                <p class="image-price">600Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
+                <div class="item-info">
+                    <h3 class="item-name">Smart Watch Pro</h3>
+                    <p class="item-price">₹28,999</p>
+                    <span class="item-detail">Wearables</span>
                 </div>
             </div>
-            <div class="kids-zone-item">
-                <div class="kids-zone-image">
-                    <img src="images/kids zone/img5.png" alt="Games">
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Wireless Earbuds" class="item-image">
                 </div>
-                <p class="image-name">Games</p>
-                <p class="image-price">500Rs</p>
-                <div class="action-buttons">
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="buy">Buy</button>
+                <div class="item-info">
+                    <h3 class="item-name">Wireless Earbuds</h3>
+                    <p class="item-price">₹16,499</p>
+                    <span class="item-detail">Audio</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Gaming Console" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Gaming Console</h3>
+                    <p class="item-price">₹41,499</p>
+                    <span class="item-detail">Gaming</span>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Groceries</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e1ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Organic Fruits" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Organic Apples</h3>
+                    <p class="item-price">₹299</p>
+                    <span class="item-detail">per kg</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Fresh Vegetables" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Fresh Carrots</h3>
+                    <p class="item-price">₹49</p>
+                    <span class="item-detail">per bunch</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Dairy Products" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Organic Milk</h3>
+                    <p class="item-price">₹90</p>
+                    <span class="item-detail">1 liter</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1615486364181-5688adf8e1b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Bakery Items" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Artisan Bread</h3>
+                    <p class="item-price">₹120</p>
+                    <span class="item-detail">1 loaf</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1615485737444-bd09a4694ea8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Meat Products" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Grass-Fed Beef</h3>
+                    <p class="item-price">₹799</p>
+                    <span class="item-detail">per kg</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Health & Beauty</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Perfume" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Luxury Eau de Parfum</h3>
+                    <p class="item-price">₹7,299</p>
+                    <span class="item-detail">100ml</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Skincare" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Anti-Aging Serum</h3>
+                    <p class="item-price">₹5,399</p>
+                    <span class="item-detail">30ml</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Makeup" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Luxury Lipstick Set</h3>
+                    <p class="item-price">₹3,699</p>
+                    <span class="item-detail">3.5g x 6</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1607602132700-0682589627a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Haircare" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Keratin Hair Mask</h3>
+                    <p class="item-price">₹2,649</p>
+                    <span class="item-detail">200ml</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Vitamins" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Multivitamin Complex</h3>
+                    <p class="item-price">₹2,299</p>
+                    <span class="item-detail">60 capsules</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Kids Zone</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1594782915050-3a8d5695e8ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Teddy Bear" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Cuddly Teddy Bear</h3>
+                    <p class="item-price">₹1,999</p>
+                    <span class="item-detail">0-3 years</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a9e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Building Blocks" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Educational Blocks</h3>
+                    <p class="item-price">₹2,699</p>
+                    <span class="item-detail">3-6 years</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Bicycle" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Kids Bicycle</h3>
+                    <p class="item-price">₹7,499</p>
+                    <span class="item-detail">5-8 years</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1572635196184-84e35138cf62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Art Set" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Creative Art Set</h3>
+                    <p class="item-price">₹1,649</p>
+                    <span class="item-detail">4+ years</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Story Books" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Storybook Collection</h3>
+                    <p class="item-price">₹2,499</p>
+                    <span class="item-detail">2-5 years</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <section class="contact" id="contact">
@@ -1818,6 +1530,15 @@
     pulse.style.opacity = 0;
     pulse.style.transform = 'scale(1.5)';
   }, 50);
+});
+
+
+    // Only for active link highlighting
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
 });
     </script>
 </body>
