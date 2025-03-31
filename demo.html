@@ -5,342 +5,1304 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project FrndsCart</title>
     <style>
-     /* Previous styles remain unchanged */
-     /* ... */
+     /* Your Navbar Styles */
+     .navbar-custom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 3rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: background 0.5s ease, box-shadow 0.5s ease;
+        }
 
-     /* New Compact & Impressive Contact Form Styles */
-     .contact-section {
-         background: linear-gradient(135deg, #f8faff 0%, #e6eeff 100%);
-         padding: 60px 5%;
-         margin: 40px 0;
-         position: relative;
-         overflow: hidden;
-     }
-     
-     .contact-section::before {
-         content: '';
-         position: absolute;
-         top: -50px;
-         right: -50px;
-         width: 200px;
-         height: 200px;
-         background: radial-gradient(circle, rgba(0,97,255,0.08) 0%, rgba(0,97,255,0) 70%);
-         z-index: 0;
-     }
-     
-     .contact-container {
-         max-width: 1000px;
-         margin: 0 auto;
-         display: flex;
-         flex-wrap: wrap;
-         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-         border-radius: 12px;
-         overflow: hidden;
-         background: white;
-         position: relative;
-         z-index: 1;
-         transform-style: preserve-3d;
-         perspective: 1000px;
-     }
-     
-     .contact-info {
-         flex: 1;
-         min-width: 280px;
-         padding: 30px;
-         background: linear-gradient(145deg, #0061ff, #3a31d8);
-         color: white;
-         position: relative;
-         z-index: 1;
-         clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-     }
-     
-     .contact-info::after {
-         content: '';
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
-         z-index: -1;
-         opacity: 0.6;
-     }
-     
-     .contact-info h2 {
-         font-size: 1.8rem;
-         margin-bottom: 15px;
-         position: relative;
-         display: inline-block;
-         font-weight: 700;
-     }
-     
-     .contact-info h2::after {
-         content: '';
-         position: absolute;
-         bottom: -8px;
-         left: 0;
-         width: 40px;
-         height: 3px;
-         background: #4cc9f0;
-         border-radius: 3px;
-     }
-     
-     .contact-info p {
-         margin-bottom: 25px;
-         font-size: 0.95rem;
-         opacity: 0.9;
-         line-height: 1.6;
-     }
-     
-     .info-item {
-         display: flex;
-         align-items: flex-start;
-         margin-bottom: 20px;
-         transition: transform 0.3s ease;
-     }
-     
-     .info-item:hover {
-         transform: translateX(5px);
-     }
-     
-     .info-icon {
-         font-size: 1.2rem;
-         margin-right: 12px;
-         color: #4cc9f0;
-         min-width: 24px;
-         text-align: center;
-     }
-     
-     .info-content h3 {
-         font-size: 1.1rem;
-         margin-bottom: 5px;
-         font-weight: 600;
-     }
-     
-     .info-content a {
-         color: white;
-         text-decoration: none;
-         transition: all 0.3s ease;
-         display: inline-block;
-         margin: 2px 0;
-         font-size: 0.9rem;
-         opacity: 0.9;
-     }
-     
-     .info-content a:hover {
-         color: #4cc9f0;
-         transform: translateX(3px);
-     }
-     
-     .social-links-contact {
-         display: flex;
-         margin-top: 30px;
-         gap: 10px;
-     }
-     
-     .social-links-contact a {
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         width: 36px;
-         height: 36px;
-         border-radius: 50%;
-         background: rgba(255, 255, 255, 0.15);
-         color: white;
-         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-     }
-     
-     .social-links-contact a:hover {
-         background: #4cc9f0;
-         transform: translateY(-3px) scale(1.1);
-         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-     }
-     
-     .contact-form {
-         flex: 1;
-         min-width: 280px;
-         padding: 30px;
-         position: relative;
-         background: white;
-     }
-     
-     .contact-form h2 {
-         font-size: 1.8rem;
-         margin-bottom: 20px;
-         color: #0061ff;
-         font-weight: 700;
-         position: relative;
-     }
-     
-     .contact-form h2::after {
-         content: '';
-         position: absolute;
-         bottom: -8px;
-         left: 0;
-         width: 40px;
-         height: 3px;
-         background: #ff6b6b;
-         border-radius: 3px;
-     }
-     
-     .form-group {
-         margin-bottom: 20px;
-         position: relative;
-     }
-     
-     .form-control {
-         width: 100%;
-         padding: 12px 15px;
-         border: 1px solid #e1e5ee;
-         border-radius: 8px;
-         font-size: 0.95rem;
-         transition: all 0.3s ease;
-         background: #f9faff;
-     }
-     
-     .form-control:focus {
-         border-color: #0061ff;
-         box-shadow: 0 0 0 3px rgba(0, 97, 255, 0.1);
-         outline: none;
-         background: white;
-     }
-     
-     textarea.form-control {
-         min-height: 120px;
-         resize: vertical;
-     }
-     
-     select.form-control {
-         appearance: none;
-         background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230061ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-         background-repeat: no-repeat;
-         background-position: right 12px center;
-         background-size: 16px;
-     }
-     
-     .submit-btn {
-         background: linear-gradient(135deg, #0061ff, #3a31d8);
-         color: white;
-         border: none;
-         padding: 12px 25px;
-         font-size: 1rem;
-         font-weight: 600;
-         border-radius: 8px;
-         cursor: pointer;
-         transition: all 0.3s ease;
-         display: inline-flex;
-         align-items: center;
-         position: relative;
-         overflow: hidden;
-         box-shadow: 0 4px 15px rgba(0, 97, 255, 0.3);
-     }
-     
-     .submit-btn::before {
-         content: '';
-         position: absolute;
-         top: 0;
-         left: -100%;
-         width: 100%;
-         height: 100%;
-         background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-         transition: 0.5s;
-     }
-     
-     .submit-btn:hover {
-         transform: translateY(-2px);
-         box-shadow: 0 8px 20px rgba(0, 97, 255, 0.4);
-     }
-     
-     .submit-btn:hover::before {
-         left: 100%;
-     }
-     
-     .submit-btn i {
-         margin-left: 8px;
-         transition: transform 0.3s ease;
-     }
-     
-     .submit-btn:hover i {
-         transform: translateX(3px);
-     }
-     
-     .success-message {
-         display: none;
-         background: #4bb543;
-         color: white;
-         padding: 12px;
-         border-radius: 8px;
-         margin-top: 20px;
-         text-align: center;
-         animation: fadeIn 0.5s ease;
-         font-size: 0.95rem;
-     }
-     
-     .floating-label {
-         position: absolute;
-         top: 12px;
-         left: 15px;
-         color: #888;
-         pointer-events: none;
-         transition: all 0.3s ease;
-         font-size: 0.95rem;
-         background: transparent;
-         padding: 0 5px;
-     }
-     
-     .form-control:focus + .floating-label,
-     .form-control:not(:placeholder-shown) + .floating-label {
-         top: -10px;
-         left: 10px;
-         font-size: 0.8rem;
-         background: white;
-         color: #0061ff;
-         font-weight: 600;
-     }
-     
-     .privacy-check {
-         display: flex;
-         align-items: center;
-         margin: 15px 0;
-         font-size: 0.85rem;
-         color: #666;
-     }
-     
-     .privacy-check input {
-         margin-right: 10px;
-     }
-     
-     .privacy-check a {
-         color: #0061ff;
-         text-decoration: none;
-         font-weight: 600;
-     }
-     
-     @media (max-width: 768px) {
-         .contact-container {
-             flex-direction: column;
-         }
-         
-         .contact-info {
-             clip-path: none;
-             padding: 25px;
-         }
-         
-         .contact-form {
-             padding: 25px;
-         }
-     }
+        /* Add this to your navbar styles */
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 
-     /* Keep all other existing styles */
-     /* ... */
+.profile-btn {
+    display: flex;
+    align-items: center;
+}
+
+/* Adjust the navbar-brand positioning */
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to right, #0061ff, #60efff, #0061ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: professionalShine 5s linear infinite;
+    transition: all 0.5s ease;
+    text-decoration: none;
+    margin: 0; /* Remove any default margins */
+}
+
+        @keyframes professionalShine {
+            0% { background-position: -100% center; }
+            100% { background-position: 100% center; }
+        }
+
+        .navbar-brand::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-25deg);
+            animation: professionalShineOverlay 5s infinite;
+        }
+
+        @keyframes professionalShineOverlay {
+            0% { left: -100%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px rgba(0, 97, 255, 0.3);
+            animation-duration: 4s;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            color: #004aad;
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ff4500;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff4500, #32cd32);
+            transition: width 0.4s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Scroll Effect */
+        .scrolled {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+      /* User Icon Styles (No Dropdown) */
+        .user-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(0, 97, 255, 0.1) 0%, rgba(96, 239, 255, 0.1) 100%);
+        border-radius: 50%;
+        border: 2px solid rgba(0, 97, 255, 0.3);
+        transition: all 0.3s ease;
+        }
+
+        .user-svg {
+        width: 24px;
+        height: 24px;
+        fill: #0061ff;
+        transition: all 0.3s ease;
+        }
+
+        /* Hover Effects Only (No Dropdown) */
+        .profile-btn:hover .user-icon {
+        transform: scale(1.05);
+        border-color: #0061ff;
+        background: linear-gradient(135deg, rgba(0, 97, 255, 0.2) 0%, rgba(96, 239, 255, 0.2) 100%);
+        }
+
+        .profile-btn:hover .user-svg {
+        fill: #ff4500;
+        transform: scale(1.1);
+        }
+
+        /* Click Effect */
+        .profile-btn:active .user-icon {
+        transform: scale(0.95);
+        }
+
+    
+
+     
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown p {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        /* Cart Icon Alignment and Sizing Fix */
+.cart-icon-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 5px;
+}
+
+.cart-icon {
+  position: relative;
+  width: 30px; /* Slightly larger size */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-left: 10px; /* Space from last nav link */
+}
+
+.cart-svg {
+  width: 30px; /* Matches nav link text size */
+  height: 30px;
+  fill: #004aad; /* Matching your nav-link color */
+  transition: all 0.3s ease;
+  transform-origin: center 80%;
+}
+
+.cart-pulse {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 97, 255, 0.2);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+  top: -4px;
+  left: -4px;
+}
+
+/* Hover Effects - Matches nav-link hover */
+.cart-icon:hover .cart-svg {
+  animation: cartBounce 0.6s ease;
+  fill: #ff4500; /* Matching your nav-link hover color */
+  transform: scale(1.1);
+}
+
+/* Click Effect */
+.cart-icon:active .cart-svg {
+  transform: scale(0.9);
+}
+
+/* Pulse Animation */
+@keyframes cartBounce {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(0.9) rotate(-5deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  75% { transform: scale(1.05) rotate(-2deg); }
+}
+
+/* Ensure alignment with nav-links */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center; /* This ensures vertical alignment */
+}
+
+        
+
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar-custom {
+                padding: 0.6rem 1.5rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .navbar-brand {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Rest of your friend's styles remain unchanged */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            padding-top: 80px; /* Added to account for fixed navbar */
+            scroll-behavior: smooth;
+        }
+
+
+
+        .slider-container {
+            width: 900px;
+            height: 450px;
+            margin: 50px auto;
+            position: relative;
+            perspective: 1200px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            position: absolute;
+            width: 350px; /* Adjusted for better visibility of 4K widescreen */
+            height: 197px; /* 16:9 ratio based on 350px width */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.3),
+                0 0 0 3px rgba(255, 255, 255, 0.2),
+                inset 0 0 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(0,0,0,0.1));
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border-radius: 15px;
+        }
+
+        .slide:hover {
+            z-index: 10;
+            transform: translate(-50%, -50%) scale(1.1) translateZ(100px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 0 4px rgba(255, 255, 255, 0.4),
+                inset 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide:hover img {
+            transform: scale(1.2);
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Raleway:wght@400;600&display=swap');
+        
+        :root {
+            --primary: #ff2e63;
+            --secondary: #252a34;
+            --light: #eaeaea;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: var(--secondary);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Bubble Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            z-index: -2;
+        }
+
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 15s infinite ease-in;
+        }
+
+        .bubble:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            animation-duration: 8s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: 35%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            animation-duration: 11s;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 35px;
+            height: 35px;
+            left: 55%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 65%;
+            animation-duration: 8s;
+            animation-delay: 3s;
+        }
+
+        .bubble:nth-child(7) {
+            width: 25px;
+            height: 25px;
+            left: 75%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(8) {
+            width: 80px;
+            height: 80px;
+            left: 80%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(-200px);
+            }
+        }
+        
+        .section {
+            position: relative;
+            padding: 60px 5%;
+            background: rgba(255, 255, 255, 0.85);
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .section-header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .headline-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            position: relative;
+        }
+        
+        .headline::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .arrow-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 10px;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .arrow-btn:hover {
+            transform: translateX(10px) scale(1.1);
+        }
+        
+        .arrow-btn svg {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .arrow-path {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .product-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-item {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .product-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .item-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .product-item:hover .item-image {
+            transform: scale(1.08);
+        }
+        
+        .item-info {
+            padding: 15px;
+            background: #fff;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: #333;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .item-price {
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .item-detail {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 3px 10px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 15px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, minmax(180px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 2.2rem;
+            }
+            
+            .arrow-btn svg {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(180px, 1fr));
+            }
+            
+            .item-image-container {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section {
+                margin: 10px;
+                padding: 30px 5%;
+            }
+            
+            .headline {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+            
+            .headline::after {
+                width: 50px;
+                bottom: -6px;
+            }
+            
+            .arrow-btn svg {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+       
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        .footer {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            color: #ecf0f1;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .footer-about {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .footer-about h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #3498db;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-about h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: #3498db;
+            bottom: -8px;
+            left: 25%;
+        }
+
+        .footer-about p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+
+        .footer-columns {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            min-width: 200px;
+        }
+
+        .footer-column h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #3498db;
+            padding-left: 5px;
+        }
+
+        .credit{
+            text-align: center;
+            background: #10221b;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        
+
+
+        .feedback-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-content {
+            flex: 1;
+            padding-right: 30px;
+        }
+
+        .feedback-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .feedback-content p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .feedback-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .feedback-form button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .feedback-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .feedback-image {
+            flex: 1;
+            text-align: right;
+        }
+
+        .feedback-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .feedback-section {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .feedback-content {
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .feedback-image {
+                text-align: center;
+            }
+        }
+
+
+        /* Add this to your existing navbar styles */
+.navbar-custom {
+    padding: 0.6rem 0; /* Remove horizontal padding from navbar */
+}
+
+.left-section {
+    margin-left: 0;
+    padding-left: 1rem; /* Add just 1rem padding from left edge */
+}
+
+
+.nav-link.active {
+    color: #ff4500;
+    font-weight: bold;
+}
+.nav-link.active::after {
+    width: 100%;
+}
+
+
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
-    <!-- Previous content remains unchanged -->
-    <!-- ... -->
+    <nav class="navbar-custom">
+        <div class="left-section">
+            <div class="profile-btn">
+                <!-- User icon without dropdown functionality -->
+                <div class="user-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="user-svg">
+                        <path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z"/>
+                    </svg>
+                </div>
+            </div>
+            <a href="#" class="navbar-brand">FrndsCart</a>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="nav-link">HOME</a>
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
+            <a href="#offers" class="nav-link">OFFERS</a>
+            <a href="#feedback" class="nav-link">FEEDBACK</a>
+            <!-- Replace the cart icon in your navbar with this -->
+            <div class="cart-icon-wrapper">
+                <div class="cart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cart-svg">
+                        <path d="M17 18a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2M1 2h3.27l.94 2H20a1 1 0 0 1 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.79 1.03H8.1l-.9 1.63-.03.12a.25.25 0 0 0 .25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2m6 16a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2m9-7l2.78-5H6.14l2.36 5H16z"/>
+                    </svg>
+                    <div class="cart-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="slider-container">
+        <div class="slider" id="home">
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(0deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/view-3d-car_23-2150998542.jpg?t=st=1742910232~exp=1742913832~hmac=afbb461e8a093e2dc07c2aa9267d7afdb2047dd0e35fe749fe620f4cb53a02c2&w=996" alt="Slide 1">
+            </div>
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(72deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/overhead-view-camera-accessories_23-2147836735.jpg?t=st=1742909361~exp=1742912961~hmac=93a72926b2177bc297f454881742056ec8e0390b0901422d5a3a39b6dab9bf15&w=996" alt="Slide 2">
+            </div>
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(144deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/computer-chip-connects-electrical-components-powering-global-communications-industry-generated-by-artificial-intelligence_24877-80915.jpg?t=st=1742911063~exp=1742914663~hmac=80776a29318f00551b940a1df9d2b90895db9d82450ab54f4fbe814ae707c73d&w=1060" alt="Slide 3">
+            </div>
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(216deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/luxury-shine-diamonds-digital-art_23-2151694992.jpg?t=st=1742909502~exp=1742913102~hmac=d1cc7e4bb4f150788facf45461a26198f02063fccf8c835a9dc5c5ff4a304cc2&w=1380" alt="Slide 4">
+            </div>
+            <div class="slide" style="transform: translate(-50%, -50%) rotateY(288deg) translateZ(400px);">
+                <img src="https://img.freepik.com/free-photo/luxury-shine-diamonds-digital-art_23-2151695002.jpg?t=st=1742909638~exp=1742913238~hmac=1996c5237c89316adf71ee783ee958994a473fd763f7aad3d6e4ee7ca4d3e352&w=1380" alt="Slide 5">
+            </div>
+        </div>
+    </div>
+    <div class="controls">
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
 
-    <!-- New Compact & Impressive Contact Section -->
+   
+
+
+
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Fashion</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Luxury Dress" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Silk Evening Gown</h3>
+                    <p class="item-price">₹24,999</p>
+                    <span class="item-detail">Dresses</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Designer Jacket" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Leather Biker Jacket</h3>
+                    <p class="item-price">₹37,999</p>
+                    <span class="item-detail">Outerwear</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Designer Watch" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Chronograph Watch</h3>
+                    <p class="item-price">₹74,999</p>
+                    <span class="item-detail">Accessories</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="Designer Shoes" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Leather Oxford Shoes</h3>
+                    <p class="item-price">₹28,999</p>
+                    <span class="item-detail">Footwear</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Designer Handbag" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Designer Handbag</h3>
+                    <p class="item-price">₹49,999</p>
+                    <span class="item-detail">Accessories</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Electronics</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="MacBook Pro" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">MacBook Pro 14"</h3>
+                    <p class="item-price">₹1,64,999</p>
+                    <span class="item-detail">Laptops</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=967&q=80" alt="iPhone" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">iPhone 15 Pro</h3>
+                    <p class="item-price">₹1,29,999</p>
+                    <span class="item-detail">Smartphones</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1558517255-0b7f9360e2dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Smart Watch" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Smart Watch Pro</h3>
+                    <p class="item-price">₹28,999</p>
+                    <span class="item-detail">Wearables</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Wireless Earbuds" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Wireless Earbuds</h3>
+                    <p class="item-price">₹16,499</p>
+                    <span class="item-detail">Audio</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Gaming Console" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Gaming Console</h3>
+                    <p class="item-price">₹41,499</p>
+                    <span class="item-detail">Gaming</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Groceries</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e1ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Organic Fruits" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Organic Apples</h3>
+                    <p class="item-price">₹299</p>
+                    <span class="item-detail">per kg</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Fresh Vegetables" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Fresh Carrots</h3>
+                    <p class="item-price">₹49</p>
+                    <span class="item-detail">per bunch</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Dairy Products" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Organic Milk</h3>
+                    <p class="item-price">₹90</p>
+                    <span class="item-detail">1 liter</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1615486364181-5688adf8e1b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Bakery Items" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Artisan Bread</h3>
+                    <p class="item-price">₹120</p>
+                    <span class="item-detail">1 loaf</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1615485737444-bd09a4694ea8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Meat Products" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Grass-Fed Beef</h3>
+                    <p class="item-price">₹799</p>
+                    <span class="item-detail">per kg</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Health & Beauty</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Perfume" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Luxury Eau de Parfum</h3>
+                    <p class="item-price">₹7,299</p>
+                    <span class="item-detail">100ml</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Skincare" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Anti-Aging Serum</h3>
+                    <p class="item-price">₹5,399</p>
+                    <span class="item-detail">30ml</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Makeup" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Luxury Lipstick Set</h3>
+                    <p class="item-price">₹3,699</p>
+                    <span class="item-detail">3.5g x 6</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1607602132700-0682589627a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Haircare" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Keratin Hair Mask</h3>
+                    <p class="item-price">₹2,649</p>
+                    <span class="item-detail">200ml</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Vitamins" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Multivitamin Complex</h3>
+                    <p class="item-price">₹2,299</p>
+                    <span class="item-detail">60 capsules</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="headline-container">
+                <h1 class="headline">Kids Zone</h1>
+                <button class="arrow-btn" aria-label="View collection">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="arrow-path" d="M5 12h17m0 0l-7-7m7 7l-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1594782915050-3a8d5695e8ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Teddy Bear" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Cuddly Teddy Bear</h3>
+                    <p class="item-price">₹1,999</p>
+                    <span class="item-detail">0-3 years</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a9e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Building Blocks" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Educational Blocks</h3>
+                    <p class="item-price">₹2,699</p>
+                    <span class="item-detail">3-6 years</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Bicycle" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Kids Bicycle</h3>
+                    <p class="item-price">₹7,499</p>
+                    <span class="item-detail">5-8 years</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1572635196184-84e35138cf62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Art Set" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Creative Art Set</h3>
+                    <p class="item-price">₹1,649</p>
+                    <span class="item-detail">4+ years</span>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <div class="item-image-container">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Story Books" class="item-image">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-name">Storybook Collection</h3>
+                    <p class="item-price">₹2,499</p>
+                    <span class="item-detail">2-5 years</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <section class="contact-section" id="contact">
         <div class="contact-container">
             <div class="contact-info">
@@ -353,7 +1315,7 @@
                     </div>
                     <div class="info-content">
                         <h3>Our Location</h3>
-                        <p>Tech Park, Sector V<br>Bangalore, Karnataka 560001</p>
+                        <p>Tech Park, Sector V<br>Kadapa 516380</p>
                     </div>
                 </div>
                 
@@ -364,7 +1326,7 @@
                     <div class="info-content">
                         <h3>Email Us</h3>
                         <a href="mailto:support@frndscart.com">support@frndscart.com</a>
-                        <a href="mailto:careers@frndscart.com">careers@frndscart.com</a>
+                        <a href="mailto:careers@frndscart.com">nsurendra423@gmail.com</a>
                     </div>
                 </div>
                 
@@ -374,14 +1336,14 @@
                     </div>
                     <div class="info-content">
                         <h3>Call Us</h3>
-                        <a href="tel:+9118001234567">+91 1800 123 4567</a>
-                        <a href="tel:+919876543210">+91 98765 43210</a>
+                        <a href="tel:+9118001234567">+91 7671853956</a>
+                        <a href="tel:+919876543210">+91 9876543210</a>
                     </div>
                 </div>
                 
                 <div class="social-links-contact">
                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/surendra_naik_098?igsh=MTJkejM5N3Z3azQ3bA==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
@@ -433,12 +1395,141 @@
         </div>
     </section>
 
-    <!-- Rest of your content remains unchanged -->
-    <!-- ... -->
 
-    <script>
-        // Enhanced form submission with animation
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+    <section class="feedback-section">
+        <div class="feedback-content" id="feedback">
+            <h2>We’d Love Your Feedback!</h2>
+            <p>Tell us what you think. Your input helps us improve and serve you better.</p>
+            <form class="feedback-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Feedback" required></textarea>
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </div>
+        <div class="feedback-image">
+            <img src="images/feedback/img1.jpg" alt="Feedback Image">
+        </div>
+    </section>
+
+    
+
+    
+
+    <footer class="footer">
+        <div class="footer-about" id="about">
+            <h3>About Us</h3>
+            <p>
+                FrndsCart is your one-stop online shopping destination, offering a wide range of products from fashion to electronics, groceries, health & beauty, and kids' items. We are committed to providing quality products at affordable prices with a seamless shopping experience. Our mission is to bring convenience and joy to your doorstep!
+            </p>
+        </div>
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="#">Fast Delivery</a></li>
+                    <li><a href="#">Easy Returns</a></li>
+                    <li><a href="#">24/7 Support</a></li>
+                    <li><a href="#">Secure Payments</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                    <li><a href="#feedback">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Social Media Links</h4>
+                <ul>
+                    <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                    <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    </section>
+
+    <section class="credit">
+        &copy; copyright @ 2025 by FriendsCart
+    </section>
+
+
+
+    <script>// Updated JavaScript with your scroll effect
+    
+
+        // Existing slider functionality
+        const slider = document.querySelector('.slider');
+        const sliderContainer = document.querySelector('.slider-container');
+        let angle = 0;
+        let autoScrollInterval = null;
+        const autoScrollSpeed = 3000;
+
+        function rotateSlider() {
+            slider.style.transform = `rotateY(${angle}deg)`;
+        }
+
+        function nextSlide() {
+            angle -= 72;
+            rotateSlider();
+        }
+
+        function prevSlide() {
+            angle += 72;
+            rotateSlider();
+        }
+
+        function startAutoScroll() {
+            if (!autoScrollInterval) {
+                autoScrollInterval = setInterval(nextSlide, autoScrollSpeed);
+            }
+        }
+
+        function stopAutoScroll() {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+        }
+
+        startAutoScroll();
+        sliderContainer.addEventListener('mouseenter', stopAutoScroll);
+        sliderContainer.addEventListener('mouseleave', startAutoScroll);
+
+
+
+        document.querySelector('.cart-icon').addEventListener('click', function() {
+  // Add pulse effect
+  const pulse = this.querySelector('.cart-pulse');
+  pulse.style.opacity = 1;
+  pulse.style.transform = 'scale(1)';
+  pulse.style.transition = 'all 0.5s ease-out';
+  
+  setTimeout(() => {
+    pulse.style.opacity = 0;
+    pulse.style.transform = 'scale(1.5)';
+  }, 50);
+});
+
+
+    // Only for active link highlighting
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             // Simulate form submission
@@ -469,8 +1560,6 @@
             });
         });
 
-        // Your existing JavaScript remains unchanged
-        // ...
     </script>
 </body>
 </html>
