@@ -1433,6 +1433,231 @@ textarea.feedback-input {
 .nav-link.active::after {
     width: 100%;
 }
+
+/* Profile Dropdown Styles */
+.profile-btn {
+    position: relative;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.profile-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.user-info p {
+    margin: 5px 0 0;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.dropdown-body {
+    padding: 15px 0;
+}
+
+.dropdown-item {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item i {
+    font-size: 1.1rem;
+    color: #0061ff;
+}
+
+.dropdown-item.logout {
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    color: #dc3545;
+}
+
+.dropdown-item.logout i {
+    color: #dc3545;
+}
+
+/* Remove old profile dropdown styles and add these new ones */
+.profile-dropdown {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    width: 320px;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1),
+                0 2px 10px rgba(0,0,0,0.05);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.98);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    z-index: 1000;
+}
+
+.profile-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.dropdown-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.user-info {
+    flex: 1;
+    position: relative;
+    padding: 10px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.user-info h4 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    color: #333;
+    position: relative;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(0,97,255,0.1) 0%, rgba(96,239,255,0.1) 100%);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.user-info h4:hover {
+    background: linear-gradient(135deg, rgba(0,97,255,0.15) 0%, rgba(96,239,255,0.15) 100%);
+    transform: translateY(-2px);
+}
+
+.user-info h4 i {
+    color: #0061ff;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.user-info h4:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.user-info .user-label {
+    font-weight: 500;
+    color: #666;
+    margin-right: 6px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.user-info h4 .user-name {
+    font-weight: 600;
+    background: linear-gradient(135deg, #0061ff, #60efff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-left: 4px;
+}
+
+.dropdown-body {
+    padding: 15px 0;
+}
+
+.dropdown-item {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-item:hover {
+    background: rgba(0,97,255,0.05);
+    color: #0061ff;
+}
+
+.dropdown-item i {
+    font-size: 1.1rem;
+    color: #0061ff;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-item:hover i {
+    transform: translateX(3px);
+}
+
+.dropdown-item span {
+    font-size: 0.95rem;
+}
+
+.dropdown-item.logout {
+    border-top: 1px solid rgba(0,0,0,0.08);
+    margin-top: 10px;
+    color: #dc3545;
+}
+
+.dropdown-item.logout i {
+    color: #dc3545;
+}
+
+.dropdown-item.logout:hover {
+    background: rgba(220,53,69,0.05);
+    color: #dc3545;
+}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -1459,8 +1684,38 @@ textarea.feedback-input {
                         <path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z"/>
                     </svg>
                 </div>
+                <!-- Add this dropdown menu -->
+                <div class="profile-dropdown">
+                    <div class="dropdown-header">
+                         <div class="user-info">
+                            <h4>
+                                <i class="fas fa-user-circle"></i>
+                                <span class="user-name">Mahammad Sajid</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="dropdown-body">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email: sajid@gmail.com</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-phone"></i>
+                            <span>Phone: 9177917648</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Address: 123 Street, City, Anakapalli</span>
+                        </a>
+                        <a href="index.html" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <a href="#" class="navbar-brand">FrndsCart</a>
+            <a href="#" class="navbar-brand">Friends Cart
+            </a>
         </div>
         <div class="nav-links">
             <a href="#home" class="nav-link">HOME</a>
@@ -2149,6 +2404,27 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
             }
         });
 
+    // Add this to your existing JavaScript
+    document.querySelector('.profile-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        const dropdown = this.querySelector('.profile-dropdown');
+        dropdown.classList.toggle('active');
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.querySelector('.profile-dropdown').addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    // Close dropdown only when clicking outside
+    document.addEventListener('click', function(e) {
+        const dropdown = document.querySelector('.profile-dropdown');
+        const profileBtn = document.querySelector('.profile-btn');
+        
+        if (!profileBtn.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
     </script>
 </body>
 </html>
