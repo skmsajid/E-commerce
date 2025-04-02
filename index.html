@@ -1237,6 +1237,194 @@
         });
       });
     });
+
+
+    const slider = document.querySelector('.slider');
+        const sliderContainer = document.querySelector('.slider-container');
+        let angle = 0;
+        let autoScrollInterval = null;
+        const autoScrollSpeed = 3000;
+
+        function rotateSlider() {
+            slider.style.transform = `rotateY(${angle}deg)`;
+        }
+
+        function nextSlide() {
+            angle -= 72;
+            rotateSlider();
+        }
+
+        function prevSlide() {
+            angle += 72;
+            rotateSlider();
+        }
+
+        function startAutoScroll() {
+            if (!autoScrollInterval) {
+                autoScrollInterval = setInterval(nextSlide, autoScrollSpeed);
+            }
+        }
+
+        function stopAutoScroll() {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+        }
+
+        startAutoScroll();
+        sliderContainer.addEventListener('mouseenter', stopAutoScroll);
+        sliderContainer.addEventListener('mouseleave', startAutoScroll);
+
+
+
+        document.querySelector('.cart-icon').addEventListener('click', function() {
+  // Add pulse effect
+  const pulse = this.querySelector('.cart-pulse');
+  pulse.style.opacity = 1;
+  pulse.style.transform = 'scale(1)';
+  pulse.style.transition = 'all 0.5s ease-out';
+  
+  setTimeout(() => {
+    pulse.style.opacity = 0;
+    pulse.style.transform = 'scale(1.5)';
+  }, 50);
+});
+
+
+
+
+
+    // Smooth scrolling for all navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all links
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Get the target section ID from href
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if(targetSection) {
+                // Calculate the position to scroll to (accounting for fixed navbar)
+                const navbarHeight = document.querySelector('.navbar-custom').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navbarHeight;
+                
+                // Smooth scroll to the section
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Update URL hash without jumping
+                history.pushState(null, null, targetId);
+            }
+        });
+    });
+
+    function rotateSlider() {
+        slider.style.transform = `rotateY(${angle}deg)`;
+    }
+
+    function nextSlide() {
+        angle -= 72;
+        rotateSlider();
+    }
+
+    function prevSlide() {
+        angle += 72;
+        rotateSlider();
+    }
+
+    function startAutoScroll() {
+        if (!autoScrollInterval) {
+            autoScrollInterval = setInterval(nextSlide, autoScrollSpeed);
+        }
+    }
+
+    function stopAutoScroll() {
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+        }
+    }
+
+    startAutoScroll();
+    sliderContainer.addEventListener('mouseenter', stopAutoScroll);
+    sliderContainer.addEventListener('mouseleave', startAutoScroll);
+
+    document.querySelector('.cart-icon').addEventListener('click', function() {
+        const pulse = this.querySelector('.cart-pulse');
+        pulse.style.opacity = 1;
+        pulse.style.transform = 'scale(1)';
+        pulse.style.transition = 'all 0.5s ease-out';
+        
+        setTimeout(() => {
+            pulse.style.opacity = 0;
+            pulse.style.transform = 'scale(1.5)';
+        }, 50);
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('.submit-btn');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+            document.getElementById('successMessage').style.display = 'block';
+            this.reset();
+            submitBtn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+            submitBtn.disabled = false;
+            
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+        }, 1500);
+    });
+
+    document.querySelectorAll('.form-control').forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateY(-3px)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateY(0)';
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const bgParticles = document.querySelector('.bg-particles');
+        for (let i = 0; i < 10; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.width = `${Math.random() * 100 + 50}px`;
+            particle.style.height = particle.style.width;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+            particle.style.animationDelay = `${Math.random() * 10}s`;
+            particle.style.opacity = Math.random() * 0.2 + 0.05;
+            bgParticles.appendChild(particle);
+        }
+        
+        // Highlight correct nav link based on current hash
+        const currentHash = window.location.hash;
+        if (currentHash) {
+            const targetLink = document.querySelector(`.nav-link[href="${currentHash}"]`);
+            if (targetLink) {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                targetLink.classList.add('active');
+            }
+        }
+    });
+
+
   </script>
 </body>
 </html>
