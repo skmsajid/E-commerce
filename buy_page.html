@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Confirmation | Premium Experience</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap');
@@ -320,7 +322,106 @@
             animation: float 15s infinite linear;
         }
         
-        /* Advanced Animations */
+        /* Receipt Modal Styles */
+        .receipt-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .receipt-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 2rem;
+            padding-bottom: 4rem; /* Add extra padding at bottom */
+        }
+        
+        .close-receipt {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            z-index: 2;
+        }
+        
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed #eee;
+        }
+        
+        .receipt-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .receipt-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .receipt-details {
+            margin: 1.5rem 0;
+        }
+        
+        .receipt-row {
+            display: flex;
+            margin-bottom: 0.8rem;
+        }
+        
+        .receipt-label {
+            font-weight: 600;
+            width: 120px;
+            color: #555;
+        }
+        
+        .receipt-value {
+            flex: 1;
+        }
+        
+        .receipt-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .download-btn {
+            display: block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            font-weight: 600;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Animations */
         @keyframes cardEntrance {
             0% {
                 opacity: 0;
@@ -507,6 +608,10 @@
             .btn {
                 width: 100%;
             }
+            
+            .receipt-content {
+                padding: 1.5rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -528,11 +633,11 @@
         <div class="order-details">
             <div class="detail-row">
                 <div class="detail-label">Order Number</div>
-                <div class="detail-value">#ORD-2023-98765</div>
+                <div class="detail-value" id="display-order-number"></div>
             </div>
             <div class="detail-row">
                 <div class="detail-label">Customer Name</div>
-                <div class="div class="detail-value">John Doe</div>
+                <div class="detail-value">John Doe</div>
             </div>
             <div class="detail-row">
                 <div class="detail-label">Email Address</div>
@@ -549,57 +654,203 @@
         </div>
         
         <div class="action-buttons">
-            <a href="index.html" class="btn btn-primary">
+            <a href="main_page.html" class="btn btn-primary" target="_blank" >
                 <i class="fas fa-home" style="margin-right: 0.5rem;"></i> Back to Home
             </a>
-            <a href="#" class="btn btn-secondary">
+            <a href="#" class="btn btn-secondary" id="view-receipt-btn">
                 <i class="fas fa-receipt" style="margin-right: 0.5rem;"></i> View Receipt
             </a>
         </div>
     </div>
+    
+    <!-- Receipt Modal -->
+    <div class="receipt-modal" id="receipt-modal">
+        <div class="receipt-content" id="receipt-content">
+            <span class="close-receipt" id="close-receipt">&times;</span>
+            
+            <div class="receipt-header">
+                <h2 class="receipt-title">Order Receipt</h2>
+                <p class="receipt-subtitle">Thank you for your purchase!</p>
+            </div>
+            
+            <div class="receipt-details">
+                <div class="receipt-row">
+                    <div class="receipt-label">Order Number:</div>
+                    <div class="receipt-value" id="receipt-order-number"></div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Date:</div>
+                    <div class="receipt-value" id="receipt-date"></div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Customer:</div>
+                    <div class="receipt-value" id="receipt-customer">John Doe</div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Email:</div>
+                    <div class="receipt-value" id="receipt-email">john.doe@example.com</div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Phone:</div>
+                    <div class="receipt-value" id="receipt-phone">(123) 456-7890</div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Shipping To:</div>
+                    <div class="receipt-value" id="receipt-address">123 Main Street, Apt 4B, New York, NY 10001, United States</div>
+                </div>
+            </div>
+            
+            <div class="receipt-footer">
+                <p>If you have any questions about your order, please contact us at support@example.com</p>
+                <p>Order ID: <span id="footer-order-number"></span></p>
+            </div>
+            
+            <button class="download-btn" id="download-receipt">Download Receipt as PDF</button>
+        </div>
+    </div>
 
     <script>
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+        
         document.addEventListener('DOMContentLoaded', function() {
-            // Advanced confetti animation
+            // Generate random order number
+            function generateOrderNumber() {
+                const year = new Date().getFullYear();
+                const randomNum = Math.floor(Math.random() * 100000);
+                return `#ORD-${year}-${randomNum.toString().padStart(5, '0')}`;
+            }
+
+            // Set the order number in all places
+            const orderNumber = generateOrderNumber();
+            document.getElementById('display-order-number').textContent = orderNumber;
+            document.getElementById('receipt-order-number').textContent = orderNumber;
+            document.getElementById('footer-order-number').textContent = orderNumber;
+
+            // Set current date
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('en-US', {
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('receipt-date').textContent = formattedDate;
+            
+            // Modal functionality
+            const modal = document.getElementById('receipt-modal');
+            const btn = document.getElementById('view-receipt-btn');
+            const closeBtn = document.getElementById('close-receipt');
+            const downloadBtn = document.getElementById('download-receipt');
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Download receipt as PDF
+            downloadBtn.addEventListener('click', async function() {
+                const receiptContent = document.getElementById('receipt-content');
+                const downloadBtn = document.getElementById('download-receipt');
+                const closeBtn = document.getElementById('close-receipt');
+                
+                // Hide buttons
+                downloadBtn.style.display = 'none';
+                closeBtn.style.display = 'none';
+                
+                try {
+                    const canvas = await html2canvas(receiptContent, {
+                        scale: 2,
+                        useCORS: true,
+                        allowTaint: true,
+                        scrollY: -window.scrollY,
+                        height: receiptContent.scrollHeight + 50, // Add extra height
+                        windowHeight: receiptContent.scrollHeight + 50,
+                        onclone: function(clonedDoc) {
+                            // Ensure clone has full height
+                            const clonedContent = clonedDoc.getElementById('receipt-content');
+                            clonedContent.style.height = 'auto';
+                            clonedContent.style.position = 'relative';
+                        }
+                    });
+
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4',
+                        compress: true
+                    });
+
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    const margins = 10;
+                    const contentWidth = pdfWidth - (margins * 2);
+                    const aspectRatio = canvas.height / canvas.width;
+                    const contentHeight = contentWidth * aspectRatio;
+
+                    pdf.addImage(
+                        imgData, 
+                        'PNG', 
+                        margins, 
+                        margins, 
+                        contentWidth, 
+                        contentHeight, 
+                        '', 
+                        'FAST'
+                    );
+
+                    pdf.save(`Order_Receipt_${orderNumber}.pdf`);
+                } catch (error) {
+                    console.error('PDF generation error:', error);
+                } finally {
+                    // Show buttons again
+                    downloadBtn.style.display = 'block';
+                    closeBtn.style.display = 'block';
+                }
+            });
+            
+            // Confetti animation
             const confettiContainer = document.getElementById('confetti-container');
             const colors = ['#6a11cb', '#2575fc', '#ff3e9d', '#00e676', '#ffc107'];
-            const shapes = ['circle', 'rect', 'triangle'];
             
             for (let i = 0; i < 150; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 
-                // Random properties
                 const size = Math.random() * 12 + 6;
                 const color = colors[Math.floor(Math.random() * colors.length)];
-                const shape = shapes[Math.floor(Math.random() * shapes.length)];
                 const left = Math.random() * 100;
                 const delay = Math.random() * 3000;
                 const duration = Math.random() * 4000 + 2000;
                 const rotation = Math.random() * 360;
                 
-                // Apply styles
                 confetti.style.width = `${size}px`;
                 confetti.style.height = `${size}px`;
                 confetti.style.backgroundColor = color;
                 confetti.style.left = `${left}%`;
                 confetti.style.top = `-20px`;
                 
-                // Shape variations
-                if (shape === 'circle') {
+                if (Math.random() > 0.5) {
                     confetti.style.borderRadius = '50%';
-                } else if (shape === 'triangle') {
-                    confetti.style.width = '0';
-                    confetti.style.height = '0';
-                    confetti.style.backgroundColor = 'transparent';
-                    confetti.style.borderLeft = `${size/2}px solid transparent`;
-                    confetti.style.borderRight = `${size/2}px solid transparent`;
-                    confetti.style.borderBottom = `${size}px solid ${color}`;
                 }
                 
                 confettiContainer.appendChild(confetti);
                 
-                // Animation
                 const animation = confetti.animate([
                     { 
                         transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 100 + 100}px) rotate(${rotation}deg)`,
@@ -615,11 +866,10 @@
                     easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
                 });
                 
-                // Remove element after animation
                 animation.onfinish = () => confetti.remove();
             }
             
-            // Create floating background elements
+            // Floating background elements
             const floatingContainer = document.getElementById('floating-elements');
             for (let i = 0; i < 10; i++) {
                 const element = document.createElement('div');
@@ -643,7 +893,7 @@
                 floatingContainer.appendChild(element);
             }
             
-            // Add subtle card tilt effect on mouse move
+            // Card tilt effect
             const card = document.querySelector('.confirmation-container');
             if (card) {
                 card.addEventListener('mousemove', (e) => {
