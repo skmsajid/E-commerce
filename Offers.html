@@ -106,6 +106,8 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .offer-item:hover {
@@ -132,6 +134,10 @@
         
         .offer-details {
             padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
         }
         
         .offer-title {
@@ -151,7 +157,7 @@
         .offer-price {
             display: flex;
             align-items: center;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             flex-wrap: wrap;
             gap: 0.3rem;
         }
@@ -190,6 +196,7 @@
             text-decoration: none;
             width: 100%;
             font-size: 0.9rem;
+            margin-top: auto;
         }
         
         .offer-button:hover {
