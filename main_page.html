@@ -2317,7 +2317,7 @@ textarea.feedback-input {
             <a href="#home" class="nav-link">HOME</a>
             <a href="#about" class="nav-link">ABOUT</a>
             <a href="#contact" class="nav-link">CONTACT</a>
-            <a href="#offers" class="nav-link">OFFERS</a>
+            <a href="offers_page.html" class="nav-link">OFFERS</a>
             <a href="#feedback" class="nav-link">FEEDBACK</a>
             <!-- Replace the cart icon in your navbar with this -->
             <div class="cart-icon-wrapper">
@@ -3029,6 +3029,10 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     // Smooth scrolling for navigation links
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
+            // Skip smooth scroll for "OFFERS" link
+            if (this.textContent === 'OFFERS') {
+                return;  // Allow default navigation
+            }
             e.preventDefault();
             
             // Remove active class from all links
