@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15 Product Offers - 3 Rows Grid</title>
+   <!--title--> <title>15 Product Offers - 3 Rows Grid</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -106,6 +106,8 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .offer-item:hover {
@@ -132,6 +134,10 @@
         
         .offer-details {
             padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
         }
         
         .offer-title {
@@ -151,7 +157,7 @@
         .offer-price {
             display: flex;
             align-items: center;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             flex-wrap: wrap;
             gap: 0.3rem;
         }
@@ -190,6 +196,7 @@
             text-decoration: none;
             width: 100%;
             font-size: 0.9rem;
+            margin-top: auto;
         }
         
         .offer-button:hover {
@@ -287,7 +294,7 @@
 <body>
     <div class="page-container">
         <!-- Back Button -->
-        <a href="javascript:history.back()" class="back-button">
+        <a href="main_page.html" class="back-button">
             <i class="fas fa-arrow-left"></i>
         </a>
         
@@ -310,7 +317,9 @@
                             <span class="original-price">₹299.99</span>
                             <span class="discount">33% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <div>
+                            <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        </div>
                     </div>
                 </div>
                 
@@ -325,7 +334,7 @@
                             <span class="original-price">₹129.99</span></br>
                             <span class="discount">31% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -340,7 +349,7 @@
                             <span class="original-price">₹159.99</span></br>   
                             <span class="discount">33% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -355,7 +364,7 @@
                             <span class="original-price">₹199.99</span></br>
                             <span class="discount">40% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -370,7 +379,7 @@
                             <span class="original-price">₹179.99</span>
                             <span class="discount">28% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -386,7 +395,7 @@
                             <span class="original-price">₹199.99</span>
                             <span class="discount">25% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -401,7 +410,7 @@
                             <span class="original-price">₹119.99</span></br>
                             <span class="discount">33% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -416,7 +425,7 @@
                             <span class="original-price">₹799.99</span>
                             <span class="discount">25% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -431,7 +440,7 @@
                             <span class="original-price">₹1099.99</span>
                             <span class="discount">18% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -446,7 +455,7 @@
                             <span class="original-price">₹729.99</span></br>
                             <span class="discount">38% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -462,7 +471,7 @@
                             <span class="original-price">₹129.99</span></br>
                             <span class="discount">31% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -477,7 +486,7 @@
                             <span class="original-price">₹179.99</span>
                             <span class="discount">28% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -492,7 +501,7 @@
                             <span class="original-price">₹89.999</span></br>
                             <span class="discount">33% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -507,7 +516,7 @@
                             <span class="original-price">₹199.99</span>
                             <span class="discount">25% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
                 
@@ -522,7 +531,7 @@
                             <span class="original-price">₹79.999</span></br>
                             <span class="discount">38% OFF</span>
                         </div>
-                        <a href="#" class="offer-button" onclick="createConfetti(event)">BUY NOW <i class="fas fa-shopping-cart"></i></a>
+                        <a href="buy_page.html" class="offer-button" onclick="return createConfetti(event, 'buy_page.html')">BUY NOW <i class="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>
             </div>
@@ -530,23 +539,30 @@
     </div>
 
     <script>
-        // Enhanced Confetti effect
-        function createConfetti(e) {
-            e.preventDefault();
+        // Modified Confetti effect to allow navigation
+        function createConfetti(e, targetUrl) {
+            // Remove e.preventDefault() to allow navigation
             const colors = [
                 '#ff6b6b', '#5f27cd', '#1dd1a1', '#ff9ff3', 
                 '#feca57', '#48dbfb', '#00d2d3', '#ff9ff3',
                 '#ff7979', '#badc58', '#7ed6df', '#e056fd'
             ];
             
-            // Create two types of effects: falling and exploding
+            // Create effects
             createFallingConfetti(e);
             createExplodingConfetti(e);
-            
-            // Play a sound effect (optional)
             playConfettiSound();
+            
+            // Navigate after a small delay to allow confetti animation
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 500);
+
+            // Prevent immediate navigation
+            return false;
         }
-        
+
+        // Enhanced Confetti effect
         function createFallingConfetti(e) {
             for (let i = 0; i < 100; i++) {
                 const confetti = document.createElement('div');
