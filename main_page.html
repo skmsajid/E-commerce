@@ -2350,10 +2350,10 @@ textarea.feedback-input {
         </div>
     </div>
     <div class="controls">
-        <button class="slider-btn prev" onclick="prevSlide()" aria-label="Previous slide">
+        <button class="slider-btn prev" onclick="nextSlide()" aria-label="Previous slide">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <button class="slider-btn next" onclick="nextSlide()" aria-label="Next slide">
+        <button class="slider-btn next" onclick="prevSlide()" aria-label="Next slide">
             <i class="fas fa-chevron-right"></i>
         </button>
     </div>
@@ -2895,6 +2895,7 @@ textarea.feedback-input {
         let angle = 0;
         let autoScrollInterval = null;
         const autoScrollSpeed = 3000;
+        let isInitialized = false;
 
         function rotateSlider() {
             slider.style.transform = `rotateY(${angle}deg)`;
@@ -2922,6 +2923,27 @@ textarea.feedback-input {
                 autoScrollInterval = null;
             }
         }
+
+        function initSlider() {
+            if (!isInitialized) {
+                // Immediate first rotation
+                rotateSlider();
+                startAutoScroll();
+                isInitialized = true;
+            }
+        }
+
+        // Trigger initialization on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start slider immediately
+            initSlider();
+            
+            // Add preload class to images
+            document.querySelectorAll('.slide img').forEach(img => {
+                img.classList.add('preload');
+                img.onload = () => img.classList.remove('preload');
+            });
+        });
 
         startAutoScroll();
         sliderContainer.addEventListener('mouseenter', stopAutoScroll);
