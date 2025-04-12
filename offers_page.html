@@ -33,10 +33,10 @@
             max-width: 100%;
         }
         .back-button {
-	    position: absolute;
+	    position: fixed; /* Changed from absolute to fixed */
 	    top: 25px;
 	    left: 25px;
-	    background: var(--primary);
+	    background: linear-gradient(145deg, #ff6b6b, #5f27cd);
 	    color: white;
 	    width: 50px;  /* Increased from 40px */
 	    height: 50px;  /* Increased from 40px */
@@ -45,16 +45,35 @@
 	    align-items: center;
 	    justify-content: center;
 	    cursor: pointer;
-	    box-shadow: 0 3px 6px rgba(0,0,0,0.2);  /* Slightly larger shadow */
+	    box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3), 0 3px 20px rgba(95, 39, 205, 0.2);  /* Slightly larger shadow */
 	    transition: all 0.3s ease;
-	    z-index: 100;
+	    z-index: 1000; /* Increased z-index to stay on top */
         text-decoration: none;
 	    font-size: 1.2rem;  /* Increased icon size */
+        overflow: hidden;
 	}
 
+    .back-button::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            60deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+        );
+        transform: rotate(30deg);
+        animation: buttonShimmer 2s linear infinite;
+    }
+
        .back-button:hover {
-	    background: var(--secondary);
+	    background: linear-gradient(145deg, #5f27cd, #ff6b6b);
 	    transform: translateX(-3px) scale(1.05);  /* Added slight scale on hover */
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4), 0 8px 25px rgba(95, 39, 205, 0.3);
 	}
 
 	/* Update the mobile responsive styles */
@@ -75,51 +94,147 @@
             margin: 2rem auto;
             padding: 0 1rem;
             position: relative;
+            animation: pageEntrance 0.8s ease-out;
         }
         
         .offer-header {
             text-align: center;
             margin-bottom: 2rem;
             padding-top: 1rem;
+            position: relative;
+            opacity: 0;
+            animation: pageEntrance 0.8s ease-out forwards;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
-        
+
         .offer-header h1 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(300deg, #ff6b6b, #6c5ce7, #00ddff, #ff6b6b);
+            background-size: 300% 300%;
+            animation: 
+                pageEntrance 0.8s ease-out forwards,
+                smoothFloat 4s cubic-bezier(0.4, 0, 0.2, 1) infinite,
+                headerGradient 8s linear infinite;
+            position: relative;
+            overflow: hidden;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            will-change: transform;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        
+
+        .offer-header h1::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                115deg,
+                transparent 20%,
+                rgba(255, 255, 255, 0.3) 40%,
+                rgba(255, 255, 255, 0.3) 60%,
+                transparent 80%
+            );
+            transform: rotate(45deg);
+            animation: shine 3s linear infinite;
+        }
+
         .offer-header p {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             color: #666;
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes smoothFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.9; }
+        }
+
+        @keyframes headerGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+
+        @keyframes buttonShimmer {
+            0% { transform: rotate(30deg) translateX(-100%); }
+            100% { transform: rotate(30deg) translateX(100%); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .offer-header h1 {
+                font-size: 2.5rem;
+            }
+            .offer-header p {
+                font-size: 1.1rem;
+            }
         }
         
         .offer-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 1.2rem;
+            opacity: 0;
+            animation: pageEntrance 0.8s ease-out 0.3s forwards;
         }
         
         .offer-item {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             display: flex;
             flex-direction: column;
+            opacity: 0;
+            animation: staggerFadeIn 0.5s ease-out forwards;
+            animation-delay: calc(var(--index) * 0.1s + 0.5s);
+            transform-origin: center bottom;
+            will-change: transform, box-shadow;
+            z-index: 1;
         }
         
         .offer-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+            z-index: 10;
         }
         
         .offer-image {
             width: 100%;
             height: 180px;
             overflow: hidden;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
         }
         
         .offer-image img {
@@ -130,7 +245,7 @@
         }
         
         .offer-item:hover .offer-image img {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         
         .offer-details {
@@ -146,6 +261,11 @@
             margin-bottom: 0.5rem;
             color: var(--dark);
             line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+        
+        .offer-item:hover .offer-title {
+            color: var(--secondary);
         }
         
         .offer-description {
@@ -160,13 +280,19 @@
             align-items: center;
             margin-bottom: 1rem;
             flex-wrap: wrap;
-            gap: 0.3rem;
+            gap: 0.2rem;
         }
         
         .current-price {
             font-size: 1.2rem;
             font-weight: bold;
             color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .offer-item:hover .current-price {
+            transform: scale(1.05);
+            color: #ff4757;
         }
         
         .original-price {
@@ -178,9 +304,15 @@
         .discount {
             background: var(--accent);
             color: white;
-            padding: 0.15rem 0.4rem;
+            padding: 0.13rem 0.3rem;
             border-radius: 3px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+        }
+        
+        .offer-item:hover .discount {
+            transform: scale(1.1);
+            background: #10ac84;
         }
         
         .offer-button {
@@ -198,12 +330,30 @@
             width: 100%;
             font-size: 0.9rem;
             margin-top: auto;
+            background: linear-gradient(65deg, #ff00d4, #00ddff, #ff00d4);
+            background-size: 200% auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 0, 212, 0.2),  /* Fixed first typo */
+                        0 10px 30px rgba(0, 221, 255, 0.2);  /* Fixed second typo */
+            animation: gradientShift 2s ease infinite,        /* Fixed third typo */
+                      pulse 1s ease-in-out infinite;
         }
-        
-        .offer-button:hover {
-            background: linear-gradient(45deg,#ff00d4,#00ddff);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(95, 39, 205, 0.3);
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(30deg) translateX(-100%); }
+            100% { transform: rotate(30deg) translateX(100%); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateY(-3px) scale(1.02); }
+            50% { transform: translateY(-4px) scale(1.03); }
         }
         
         /* Enhanced Confetti styles */
@@ -288,6 +438,56 @@
             .offer-header h1 {
                 font-size: 2rem;
                 margin-top: 1rem;
+            }
+            
+            .offer-item:hover {
+                transform: translateY(-10px) scale(1.03);
+            }
+        }
+
+        @keyframes pageEntrance {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes staggerFadeIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Replace/Update mobile media queries */
+        @media (max-width: 768px) {
+            .offer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                padding: 0.5rem;
+            }
+
+            .page-container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .offer-item {
+                margin-bottom: 1rem;
+            }
+
+            .offer-image {
+                height: 160px;  /* Slightly smaller images for mobile */
+            }
+
+            .offer-details {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .offer-grid {
+                gap: 0.8rem;
+            }
+
+            .offer-item:hover {
+                transform: translateY(-8px) scale(1.02);  /* Smaller hover effect */
             }
         }
     </style>
@@ -542,7 +742,6 @@
     <script>
         // Modified Confetti effect to allow navigation
         function createConfetti(e, targetUrl) {
-            // Remove e.preventDefault() to allow navigation
             const colors = [
                 '#ff6b6b', '#5f27cd', '#1dd1a1', '#ff9ff3', 
                 '#feca57', '#48dbfb', '#00d2d3', '#ff9ff3',
@@ -680,6 +879,13 @@
             '#feca57', '#48dbfb', '#00d2d3', '#ff9ff3',
             '#ff7979', '#badc58', '#7ed6df', '#e056fd'
         ];
+
+        // Add this at the end of your existing script
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.offer-item').forEach((item, index) => {
+                item.style.setProperty('--index', index);
+            });
+        });
     </script>
 </body>
 </html>
