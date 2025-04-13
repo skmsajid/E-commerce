@@ -1,116 +1,149 @@
 <!DOCTYPE html>
-<!-- Coding by CodingNepal | www.codingnepalweb.com-->
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title> Login and Registration Form in HTML & CSS | CodingLab </title>
-    <link rel="stylesheet" href="reg.css">
-    <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Login and Registration Form | Enhanced</title>
+  <link rel="stylesheet" href="reg.css">
+  <!-- Fontawesome CDN Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <body>
-  <script>
-    // Auto-switch between login and register based on URL
-    window.onload = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const mode = urlParams.get('mode');
-      if (mode === 'register') {
-        document.getElementById('flip').checked = true; // Open Register Form
-      } else {
-        document.getElementById('flip').checked = false; // Default to Login Form
-      }
-    };
-  </script>
-  
-  <div class="container">
-    <input type="checkbox" id="flip">
-    <div class="cover">
-      <div class="front">
-        <img src="images/girl.jpeg" alt="">
-        <div class="text">
-          <span class="text-1">Every new friend is a <br> new adventure</span>
-          <span class="text-2">Let's get connected</span>
-        </div>
-      </div>
-      <div class="back">
-         <img class="backImg" src="images/hand.jpeg" alt="">
-        <div class="text">
-          <span class="text-1">Complete miles of journey <br> with one step</span>
-          <span class="text-2">Let's get started</span>
-        </div>
-      </div>
-    </div>
-    <div class="forms">
-        <div class="form-content">
-          <div class="login-form">
-            <div class="title">Login</div>
-          <form action="#">
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter your username" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
-              </div>
-              <div class="text"><a href="#">Forgot password?</a></div>
-              <div class="button input-box">
-                <input type="button" value="Login">
-              </div>
-              <div class="text sign-up-text">Don't have an account? <label for="flip">Register now</label></div>
-            </div>
-        </form>
-      </div>
-        <div class="signup-form">
-          <div class="title">Register</div>
-        <form action="#">
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter your name" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter your email" required>
-              </div>
-              
-              <div class="input-box">
-                <i class="fas fa-mobile-alt"></i>
-                <input type="text" placeholder="Enter your number" required>
-              </div>
+<script>
+  // Auto-switch between login and register based on URL
+  window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    if (mode === 'register') {
+      document.getElementById('flip').checked = true;
+    } else {
+      document.getElementById('flip').checked = false;
+    }
+  };
 
-              <div class="input-box">
-                <i class="fas fa-map-marker-alt"></i>
-                <input type="password" placeholder="Enter your address" required>
-              </div>
-              
-              <div class="input-box">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="Enter your username" required>
-              </div>
-              
-               <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
-              </div>
-              
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="confirm your password" required>
-              </div>
-              
-              
-              <div class="button input-box">
-                <input type="button" value="Register">
-              </div>
-              <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
-            </div>
-      </form>
+  function validateRegisterForm(event) {
+    event.preventDefault(); // prevent form from submitting
+
+    // Get form inputs
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const username = document.getElementById("reg_username").value.trim();
+    const password = document.getElementById("reg_password").value;
+    const confirmPassword = document.getElementById("confirm_password").value;
+
+    // Check if any field is empty
+    if (!name || !email || !mobile || !address || !username || !password || !confirmPassword) {
+      alert("All fields are required.");
+      return false;
+    }
+
+    // Validate mobile number length
+    if (mobile.length !== 10 || isNaN(mobile)) {
+      alert("Mobile number must be exactly 10 digits.");
+      return false;
+    }
+
+    // Password match check
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return false;
+    }
+
+    alert("Registration Successful!");
+    // If using backend, submit the form here
+    return true;
+  }
+</script>
+
+<div class="container">
+  <input type="checkbox" id="flip">
+  <div class="cover">
+    <div class="front">
+      <img src="images/girl.jpeg" alt="">
+      <div class="text">
+        <span class="text-1">Every new friend is a <br> new adventure</span>
+        <span class="text-2">Let's get connected</span>
+      </div>
     </div>
-    </div>
+    <div class="back">
+      <img class="backImg" src="images/hand.jpeg" alt="">
+      <div class="text">
+        <span class="text-1">Complete miles of journey <br> with one step</span>
+        <span class="text-2">Let's get started</span>
+      </div>
     </div>
   </div>
+
+  <div class="forms">
+    <div class="form-content">
+      
+      <!-- Login Form -->
+      <div class="login-form">
+        <div class="title">Login</div>
+        <form action="#">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Enter your username" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Enter your password" required>
+            </div>
+            <div class="text"><a href="#">Forgot password?</a></div>
+            <div class="button input-box">
+              <input type="submit" value="Login">
+            </div>
+            <div class="text sign-up-text">Don't have an account? <label for="flip">Register now</label></div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Registration Form -->
+      <div class="signup-form">
+        <div class="title">Register</div>
+        <form onsubmit="return validateRegisterForm(event);">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-mobile-alt"></i>
+              <input type="number" id="mobile" placeholder="Enter your mobile number" required oninput="this.value=this.value.slice(0,10)">
+            </div>
+            <div class="input-box">
+              <i class="fas fa-map-marker-alt"></i>
+              <input type="text" id="address" placeholder="Enter your address" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" id="reg_username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="reg_password" placeholder="Enter your password" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="confirm_password" placeholder="Confirm your password" required>
+            </div>
+            <div class="button input-box">
+              <input type="submit" value="Register">
+            </div>
+            <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 </body>
 </html>
