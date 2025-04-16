@@ -1,1125 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Friends Cart - Premium Member Access</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-light: #6366f1;
-            --secondary: #f59e0b;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --success: #10b981;
-            --error: #ef4444;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --glow: 0 0 15px rgba(79, 70, 229, 0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background-color: #f1f5f9;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        /* Main Container with improved 3D Perspective */
-        .auth-container {
-            width: 100%;
-            max-width: 1200px;
-            height: 700px;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            overflow: hidden;
-            display: flex;
-            position: relative;
-            perspective: 2000px;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        /* Brand Side - Improved 3D Flipping Effect */
-        .brand-side {
-            flex: 1;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
-            transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        /* Animated Gradient Background */
-        .brand-side::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                rgba(79, 70, 229, 0.8) 0%,
-                rgba(99, 102, 241, 0.8) 50%,
-                rgba(79, 70, 229, 0.8) 100%
-            );
-            z-index: -1;
-            animation: gradientBG 15s ease infinite;
-            background-size: 200% 200%;
-        }
-
-        @keyframes gradientBG {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Floating Particles - Improved */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            animation: floatParticle 15s infinite linear;
-            filter: blur(1px);
-            transform: translateZ(0);
-        }
-
-        @keyframes floatParticle {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-1000px) translateX(200px) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* Brand Content with Improved Entrance Animation */
-        .brand-content {
-            color: white;
-            transform: translateZ(50px);
-            animation: fadeInUp 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
-            backface-visibility: hidden;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px) translateZ(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) translateZ(50px);
-            }
-        }
-
-        .brand-logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 60px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            transform: translateZ(30px);
-            backface-visibility: hidden;
-        }
-
-        .brand-logo i {
-            font-size: 32px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .brand-content h1 {
-            font-size: 42px;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            backface-visibility: hidden;
-        }
-
-        .brand-content p {
-            font-size: 18px;
-            opacity: 0.9;
-            max-width: 400px;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            backface-visibility: hidden;
-        }
-
-        .brand-image {
-            text-align: center;
-            margin-top: 40px;
-            transform: translateZ(40px);
-            backface-visibility: hidden;
-        }
-
-        .brand-image img {
-            max-width: 300px;
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-            animation: float 6s ease-in-out infinite;
-            backface-visibility: hidden;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Form Side with Improved Layout */
-        .form-side {
-            flex: 1;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
-            transform: rotateY(0deg);
-            perspective: none;
-            background: white;
-            z-index: 1;
-        }
-
-        /* Form Container with Scroll - Improved */
-        .form-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            max-height: 550px;
-            overflow-y: auto;
-            padding-right: 10px;
-            transform: translateZ(30px);
-            backface-visibility: hidden;
-        }
-
-        .form-container::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .form-container::-webkit-scrollbar-track {
-            background: rgba(226, 232, 240, 0.5);
-            border-radius: 3px;
-        }
-
-        .form-container::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
-
-        /* Form Header with Improved Underline Animation */
-        .form-header {
-            margin-bottom: 40px;
-            position: relative;
-            backface-visibility: hidden;
-        }
-
-        .form-header h2 {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 10px;
-            position: relative;
-            display: inline-block;
-            backface-visibility: hidden;
-        }
-
-        .form-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 2px;
-            animation: underlineGrow 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            backface-visibility: hidden;
-        }
-
-        @keyframes underlineGrow {
-            from { width: 0; opacity: 0; }
-            to { width: 60px; opacity: 1; }
-        }
-
-        .form-header p {
-            color: var(--gray);
-            font-size: 16px;
-            animation: fadeIn 0.8s 0.2s both;
-            backface-visibility: hidden;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Form Groups with Improved Floating Labels */
-        .form-group {
-            margin-bottom: 24px;
-            position: relative;
-            animation: formFieldIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
-            backface-visibility: hidden;
-        }
-
-        @keyframes formFieldIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--dark);
-            margin-bottom: 8px;
-            transform-origin: left center;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            backface-visibility: hidden;
-        }
-
-        .input-wrapper {
-            position: relative;
-            transition: all 0.3s;
-            backface-visibility: hidden;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 2;
-            backface-visibility: hidden;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 16px 16px 16px 48px;
-            font-size: 15px;
-            border: 2px solid var(--gray-light);
-            border-radius: 12px;
-            background-color: white;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            position: relative;
-            z-index: 1;
-            backface-visibility: hidden;
-        }
-
-        .form-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
-            outline: none;
-            transform: translateY(-2px);
-        }
-
-        .form-input:focus + i {
-            color: var(--primary);
-            transform: translateY(-50%) scale(1.2);
-            text-shadow: var(--glow);
-        }
-
-        /* Error States with Improved Shake Animation */
-        .error-message {
-            color: var(--error);
-            font-size: 13px;
-            margin-top: 6px;
-            display: none;
-            animation: fadeIn 0.3s;
-            backface-visibility: hidden;
-        }
-
-        .form-group.error .form-input {
-            border-color: var(--error);
-            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-
-        .form-group.error .error-message {
-            display: block;
-        }
-
-        /* Form Actions with Improved Transitions */
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            animation: fadeIn 0.8s 0.4s both;
-            backface-visibility: hidden;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backface-visibility: hidden;
-        }
-
-        .remember-me input {
-            accent-color: var(--primary);
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            backface-visibility: hidden;
-        }
-
-        .remember-me input:hover {
-            transform: scale(1.1);
-        }
-
-        .remember-me label {
-            font-size: 14px;
-            color: var(--dark);
-            cursor: pointer;
-            backface-visibility: hidden;
-        }
-
-        .forgot-password {
-            font-size: 14px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-            backface-visibility: hidden;
-        }
-
-        .forgot-password::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .forgot-password:hover::after {
-            width: 100%;
-        }
-
-        /* Submit Button with Improved Glow Effect */
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(to right, var(--primary), var(--primary-light));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 30px;
-            animation: fadeIn 0.8s 0.6s both;
-            z-index: 1;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.6s ease;
-            z-index: -1;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px) translateZ(0);
-            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
-        .submit-btn:active {
-            transform: translateY(1px) translateZ(0);
-        }
-
-        /* Form Footer with Improved Transition */
-        .form-footer {
-            text-align: center;
-            color: var(--gray);
-            font-size: 14px;
-            animation: fadeIn 0.8s 0.8s both;
-            backface-visibility: hidden;
-        }
-
-        .form-footer a {
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-            margin-left: 5px;
-            transition: all 0.3s;
-            position: relative;
-            backface-visibility: hidden;
-        }
-
-        .form-footer a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .form-footer a:hover::after {
-            width: 100%;
-        }
-
-        /* Social Login Section - Improved */
-        .social-login {
-            margin-top: 30px;
-            animation: fadeIn 0.8s 1s both;
-            backface-visibility: hidden;
-        }
-
-        .social-divider {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            color: var(--gray);
-            font-size: 14px;
-            backface-visibility: hidden;
-        }
-
-        .social-divider::before,
-        .social-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--gray-light);
-            margin: 0 10px;
-        }
-
-        .social-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            backface-visibility: hidden;
-        }
-
-        .social-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border: 1px solid var(--gray-light);
-            color: var(--dark);
-            font-size: 18px;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-
-        .social-btn:hover {
-            transform: translateY(-5px) scale(1.1) translateZ(0);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .social-btn.google {
-            color: #db4437;
-        }
-
-        .social-btn.facebook {
-            color: #4267b2;
-        }
-
-        .social-btn.apple {
-            color: var(--dark);
-        }
-
-        /* Form Toggle Animation - Improved */
-        .auth-form {
-            position: absolute;
-            top: 60px;
-            left: 60px;
-            right: 60px;
-            bottom: 60px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            pointer-events: none;
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .auth-form.active {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-        }
-
-        /* Improved 3D Flip Effect - FIXED */
-        .auth-container.flipped {
-            transform: rotateY(-180deg);
-        }
-
-        .auth-container.flipped .brand-side {
-            transform: rotateY(180deg);
-        }
-
-        .auth-container.flipped .form-side {
-            transform: rotateY(180deg);
-            z-index: 2;
-        }
-
-        .auth-container.flipped #loginForm {
-            transform: rotateY(180deg);
-        }
-
-        .auth-container.flipped #registerForm {
-            transform: rotateY(360deg);
-            z-index: 3;
-        }
-
-        #registerForm {
-            transform: rotateY(180deg);
-            z-index: 1;
-        }
-
-        #registerForm .form-container {
-            transform: rotateY(180deg);  /* Counter-rotate to make content readable */
-            max-height: 550px;
-            overflow-y: scroll;
-        }
-
-        .auth-container.flipped #registerForm .form-container {
-            transform: rotateY(0deg);
-            pointer-events: all;
-        }
-
-        /* Fix Input Interaction in Flipped State */
-        .auth-container.flipped .form-input,
-        .auth-container.flipped .input-wrapper i,
-        .auth-container.flipped .form-label,
-        .auth-container.flipped .submit-btn,
-        .auth-container.flipped .form-footer,
-        .auth-container.flipped .form-header {
-            transform: rotateY(0deg);
-            pointer-events: all;
-            backface-visibility: visible;
-        }
-
-        /* Scrollbar Styling */
-        #registerForm .form-container::-webkit-scrollbar {
-            width: 6px;
-            position: absolute;
-            right: 0;
-        }
-
-        #registerForm .form-container::-webkit-scrollbar-track {
-            background: rgba(226, 232, 240, 0.5);
-            border-radius: 3px;
-        }
-
-        #registerForm .form-container::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
-
-        /* Responsive Design - Improved */
-        @media (max-width: 992px) {
-            .auth-container {
-                height: auto;
-                flex-direction: column;
-                transform: none !important;
-            }
-
-            .brand-side {
-                padding: 40px;
-                text-align: center;
-                align-items: center;
-                transform: none !important;
-            }
-
-            .brand-content {
-                margin-top: 0;
-            }
-
-            .brand-content h1 {
-                font-size: 32px;
-            }
-
-            .brand-image img {
-                max-width: 200px;
-            }
-
-            .form-side {
-                padding: 40px;
-            }
-
-            .form-header h2 {
-                font-size: 28px;
-            }
-
-            .auth-form {
-                position: relative;
-                top: auto;
-                left: auto;
-                right: auto;
-                bottom: auto;
-                opacity: 1;
-                transform: none;
-                pointer-events: all;
-                display: none;
-            }
-
-            .auth-form.active {
-                display: block;
-            }
-
-            .auth-container.flipped {
-                transform: none !important;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .brand-side {
-                padding: 30px 20px;
-            }
-
-            .form-side {
-                padding: 30px 20px;
-            }
-
-            .form-header h2 {
-                font-size: 24px;
-            }
-
-            .form-input {
-                padding-left: 42px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Login and Registration Form | Enhanced</title>
+  <link rel="stylesheet" href="reg.css">
+  <!-- Fontawesome CDN Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div class="auth-container" id="authContainer">
-        <!-- Brand Side -->
-        <div class="brand-side">
-            <div class="particles" id="brandParticles"></div>
-            <div class="brand-logo">
-                <i class="fas fa-shopping-bag"></i>
-                <span>Friends Cart</span>
-            </div>
-            <div class="brand-content">
-                <h1>Welcome to Friends Cart</h1>
-                <p>Join our community of shoppers and discover amazing deals on your favorite products.</p>
-            </div>
-            <div class="brand-image">
-                <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Shopping">
-            </div>
-        </div>
+<script>
+  // Auto-switch between login and register based on URL
+  window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    if (mode === 'register') {
+      document.getElementById('flip').checked = true;
+    } else {
+      document.getElementById('flip').checked = false;
+    }
+  };
 
-        <!-- Form Side -->
-        <div class="form-side">
-            <div class="particles" id="formParticles"></div>
-            
-            <!-- Login Form -->
-            <form class="auth-form active" id="loginForm">
-                <div class="form-container">
-                    <div class="form-header">
-                        <h2>Login</h2>
-                        <p>Sign in to access your account and shopping cart</p>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.1s">
-                        <label class="form-label">Username</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-user"></i>
-                            <input type="text" class="form-input" id="loginUsername" placeholder="Enter your username" required>
-                        </div>
-                        <div class="error-message" id="loginUsernameError">Please enter your username</div>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.2s">
-                        <label class="form-label">Password</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required>
-                        </div>
-                        <div class="error-message" id="loginPasswordError">Password must be at least 6 characters</div>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <div class="remember-me">
-                            <input type="checkbox" id="rememberMe">
-                            <label for="rememberMe">Remember me</label>
-                        </div>
-                        <a href="#" class="forgot-password">Forgot password?</a>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Login</button>
-                    
-                    <div class="form-footer">
-                        Don't have an account? <a href="#" id="showRegister">Register now</a>
-                    </div>
-                    
-                    <div class="social-login">
-                        <div class="social-divider">Or login with</div>
-                        <div class="social-buttons">
-                            <button type="button" class="social-btn google">
-                                <i class="fab fa-google"></i>
-                            </button>
-                            <button type="button" class="social-btn facebook">
-                                <i class="fab fa-facebook-f"></i>
-                            </button>
-                            <button type="button" class="social-btn apple">
-                                <i class="fab fa-apple"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            
-            <!-- Register Form -->
-            <form class="auth-form" id="registerForm">
-                <div class="form-container">
-                    <div class="form-header">
-                        <h2>Create Account</h2>
-                        <p>Register to start shopping with exclusive member benefits</p>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.1s">
-                        <label class="form-label">Full Name</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-user-tag"></i>
-                            <input type="text" class="form-input" id="registerName" placeholder="Enter your full name" required>
-                        </div>
-                        <div class="error-message" id="registerNameError">Please enter your full name</div>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.2s">
-                        <label class="form-label">Email</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" class="form-input" id="registerEmail" placeholder="Enter your email" required>
-                        </div>
-                        <div class="error-message" id="registerEmailError">Please enter a valid email</div>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.3s">
-                        <label class="form-label">Phone Number</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-phone"></i>
-                            <input type="tel" class="form-input" id="registerPhone" placeholder="Enter your phone number" required>
-                        </div>
-                        <div class="error-message" id="registerPhoneError">Please enter a valid phone number</div>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.4s">
-                        <label class="form-label">Address</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <input type="text" class="form-input" id="registerAddress" placeholder="Enter your address">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.5s">
-                        <label class="form-label">Username</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-user"></i>
-                            <input type="text" class="form-input" id="registerUsername" placeholder="Choose a username" required>
-                        </div>
-                        <div class="error-message" id="registerUsernameError">Please choose a username</div>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.6s">
-                        <label class="form-label">Password</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" class="form-input" id="registerPassword" placeholder="Create a password" required>
-                        </div>
-                        <div class="error-message" id="registerPasswordError">Password must be at least 8 characters</div>
-                    </div>
-                    
-                    <div class="form-group" style="animation-delay: 0.7s">
-                        <label class="form-label">Confirm Password</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" class="form-input" id="registerConfirmPassword" placeholder="Confirm your password" required>
-                        </div>
-                        <div class="error-message" id="registerConfirmPasswordError">Passwords don't match</div>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Create Account</button>
-                    
-                    <div class="form-footer">
-                        Already have an account? <a href="#" id="showLogin">Login here</a>
-                    </div>
-                </div>
-            </form>
-        </div>
+  function validateRegisterForm(event) {
+    event.preventDefault(); // prevent form from submitting
+
+    // Get form inputs
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const username = document.getElementById("reg_username").value.trim();
+    const password = document.getElementById("reg_password").value;
+    const confirmPassword = document.getElementById("confirm_password").value;
+
+    // Check if any field is empty
+    if (!name || !email || !mobile || !address || !username || !password || !confirmPassword) {
+      alert("All fields are required.");
+      return false;
+    }
+
+    // Validate mobile number length
+    if (mobile.length !== 10 || isNaN(mobile)) {
+      alert("Mobile number must be exactly 10 digits.");
+      return false;
+    }
+
+    // Password match check
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return false;
+    }
+
+    alert("Registration Successful!");
+    // If using backend, submit the form here
+    return true;
+  }
+</script>
+
+<div class="container">
+  <input type="checkbox" id="flip">
+  <div class="cover">
+    <div class="front">
+      <img src="images/girl.jpeg" alt="">
+      <div class="text">
+        <span class="text-1">Every new friend is a <br> new adventure</span>
+        <span class="text-2">Let's get connected</span>
+      </div>
     </div>
+    <div class="back">
+      <img class="backImg" src="images/hand.jpeg" alt="">
+      <div class="text">
+        <span class="text-1">Complete miles of journey <br> with one step</span>
+        <span class="text-2">Let's get started</span>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const authContainer = document.getElementById('authContainer');
-            const showRegister = document.getElementById('showRegister');
-            const showLogin = document.getElementById('showLogin');
-            const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
+  <div class="forms">
+    <div class="form-content">
+      
+      <!-- Login Form -->
+      <div class="login-form">
+        <div class="title">Login</div>
+        <form action="#">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Enter your username" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Enter your password" required>
+            </div>
+            <div class="text"><a href="#">Forgot password?</a></div>
+            <div class="button input-box">
+              <input type="submit" value="Login">
+            </div>
+            <div class="text sign-up-text">Don't have an account? <label for="flip">Register now</label></div>
+          </div>
+        </form>
+      </div>
 
-            // Create floating particles
-            function createParticles(containerId, count) {
-                const container = document.getElementById(containerId);
-                for (let i = 0; i < count; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    
-                    // Random properties
-                    const size = Math.random() * 10 + 2;
-                    const posX = Math.random() * 100;
-                    const posY = Math.random() * 100;
-                    const delay = Math.random() * 15;
-                    const duration = Math.random() * 20 + 10;
-                    const opacity = Math.random() * 0.3 + 0.1;
-                    
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    particle.style.left = `${posX}%`;
-                    particle.style.top = `${posY}%`;
-                    particle.style.animationDelay = `${delay}s`;
-                    particle.style.animationDuration = `${duration}s`;
-                    particle.style.opacity = opacity;
-                    
-                    container.appendChild(particle);
-                }
-            }
+      <!-- Registration Form -->
+      <div class="signup-form">
+        <div class="title">Register</div>
+        <form onsubmit="return validateRegisterForm(event);">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-mobile-alt"></i>
+              <input type="number" id="mobile" placeholder="Enter your mobile number" required oninput="this.value=this.value.slice(0,10)">
+            </div>
+            <div class="input-box">
+              <i class="fas fa-map-marker-alt"></i>
+              <input type="text" id="address" placeholder="Enter your address" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" id="reg_username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="reg_password" placeholder="Enter your password" required>
+            </div>
+            <div class="input-box">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="confirm_password" placeholder="Confirm your password" required>
+            </div>
+            <div class="button input-box">
+              <input type="submit" value="Register">
+            </div>
+            <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+          </div>
+        </form>
+      </div>
 
-            // Initialize particles
-            createParticles('brandParticles', 30);
-            createParticles('formParticles', 20);
-
-            // Form toggle with improved 3D flip animation
-            showRegister.addEventListener('click', function(e) {
-                e.preventDefault();
-                authContainer.classList.add('flipped');
-                loginForm.classList.remove('active');
-                setTimeout(() => {
-                    registerForm.classList.add('active');
-                }, 400);
-            });
-
-            showLogin.addEventListener('click', function(e) {
-                e.preventDefault();
-                authContainer.classList.remove('flipped');
-                registerForm.classList.remove('active');
-                setTimeout(() => {
-                    loginForm.classList.add('active');
-                }, 400);
-            });
-
-            // Check URL for mode parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const mode = urlParams.get('mode');
-            
-            if (mode === 'register') {
-                authContainer.classList.add('flipped');
-                loginForm.classList.remove('active');
-                registerForm.classList.add('active');
-            }
-
-            // Form validation for login
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                let isValid = true;
-
-                // Validate username
-                const username = document.getElementById('loginUsername').value.trim();
-                if (username === '') {
-                    document.getElementById('loginUsername').parentElement.parentElement.classList.add('error');
-                    isValid = false;
-                } else {
-                    document.getElementById('loginUsername').parentElement.parentElement.classList.remove('error');
-                }
-
-                // Validate password
-                const password = document.getElementById('loginPassword').value;
-                if (password.length < 6) {
-                    document.getElementById('loginPassword').parentElement.parentElement.classList.add('error');
-                    isValid = false;
-                } else {
-                    document.getElementById('loginPassword').parentElement.parentElement.classList.remove('error');
-                }
-
-                if (isValid) {
-                    const btn = document.querySelector('#loginForm .submit-btn');
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Logging in...';
-                    btn.style.background = 'var(--success)';
-                    
-                    setTimeout(() => {
-                        btn.innerHTML = 'Login';
-                        btn.style.background = 'linear-gradient(to right, var(--primary), var(--primary-light))';
-                        alert('Login successful! (This is a demo)');
-                    }, 1500);
-                }
-            });
-
-            // Form validation for registration
-            registerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                let isValid = true;
-
-                // Validate name
-                const name = document.getElementById('registerName').value.trim();
-                if (name === '') {
-                    document.getElementById('registerName').parentElement.parentElement.classList.add('error');
-                    isValid = false;
-                } else {
-                    document.getElementById('registerName').parentElement.parentElement.classList.remove('error');
-                }
-
-                // Validate email
-                const email = document.getElementById('registerEmail').value.trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    document.getElementById('registerEmail').parentElement.parentElement.classList.add('error');
-                    isValid = false;
-                } else {
-                    document.getElementById('registerEmail').parentElement.parentElement.classList.remove('error');
-                }
-
-                // Validate phone
-                const phone = document.getElementById('registerPhone').value.trim();
-                if (phone === '') {
-                    document.getElementById('registerPhone').parentElement.parentElement.classList.add('error');
-                    isValid = false;
-                } else {
-                    document.getElementById('registerPhone').parentElement.parentElement.classList.remove('error');
-                }
-
-                // Validate username
-                const username = document.getElementById('registerUsername').value.trim();
-                if (username === '') {
-                    document.getElementById('registerUsername').parentElement.parentElement.classList.add('error');
-                    isValid = false;
-                } else {
-                    document.getElementById('registerUsername').parentElement.parentElement.classList.remove('error');
-                }
-
-                // Validate password
-                const password = document.getElementById('registerPassword').value;
-                if (password.length < 8) {
-                    document.getElementById('registerPassword').parentElement.parentElement.classList.add('error');
-                    isValid = false;
-                } else {
-                    document.getElementById('registerPassword').parentElement.parentElement.classList.remove('error');
-                }
-
-                // Validate confirm password
-                const confirmPassword = document.getElementById('registerConfirmPassword').value;
-                if (confirmPassword !== password) {
-                    document.getElementById('registerConfirmPassword').parentElement.parentElement.classList.add('error');
-                    isValid = false;
-                } else {
-                    document.getElementById('registerConfirmPassword').parentElement.parentElement.classList.remove('error');
-                }
-
-                if (isValid) {
-                    const btn = document.querySelector('#registerForm .submit-btn');
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Creating account...';
-                    btn.style.background = 'var(--success)';
-                    
-                    setTimeout(() => {
-                        btn.innerHTML = 'Create Account';
-                        btn.style.background = 'linear-gradient(to right, var(--primary), var(--primary-light))';
-                        alert('Registration successful! (This is a demo)');
-                        authContainer.classList.remove('flipped');
-                        registerForm.classList.remove('active');
-                        loginForm.classList.add('active');
-                        registerForm.reset();
-                    }, 1500);
-                }
-            });
-
-            // Add input focus effects
-            const inputs = document.querySelectorAll('.form-input');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.parentElement.classList.add('focused');
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.parentElement.classList.remove('focused');
-                });
-            });
-        });
-    </script>
+    </div>
+  </div>
+</div>
 </body>
 </html>
-
-<!-- when click on product , it opens DOMContentLoaded tab , after i open and exit that window , came back to main_page there is something scroller is formed horizontally at buttom  , fix this issues adjust that let it wont come. yhis problem came when i add that product view (tab) functinality , so there might be reased due to that so adjust all thim=ng which cause this so that that wont come at buttom
- Note:dont disturb other thongs and functionality. so change the model-content styles  -->
-
