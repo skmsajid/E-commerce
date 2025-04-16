@@ -887,33 +887,6 @@
             left: 0;
         }
 
-        .credit {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.2);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 20px;
-            font-size: 0.9rem;
-            position: relative;
-            margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .credit::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: shine 3s linear infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
         @media (max-width: 768px) {
             .footer {
                 padding: 60px 0 30px;
@@ -2333,27 +2306,27 @@ textarea.feedback-input {
     <div class="slider-container">
         <div class="slider" id="home">
             <div class="slide" style="transform: translate(-50%, -50%) rotateY(0deg) translateZ(400px);">
-                <img src="https://img.freepik.com/free-photo/view-3d-car_23-2150998542.jpg?t=st=1742910232~exp=1742913832~hmac=afbb461e8a093e2dc07c2aa9267d7afdb2047dd0e35fe749fe620f4cb53a02c2&w=996" alt="Slide 1">
+                <img src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Slide 1">
             </div>
             <div class="slide" style="transform: translate(-50%, -50%) rotateY(72deg) translateZ(400px);">
-                <img src="https://img.freepik.com/free-photo/overhead-view-camera-accessories_23-2147836735.jpg?t=st=1742909361~exp=1742912961~hmac=93a72926b2177bc297f454881742056ec8e0390b0901422d5a3a39b6dab9bf15&w=996" alt="Slide 2">
+                <img src="https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Slide 2">
             </div>
             <div class="slide" style="transform: translate(-50%, -50%) rotateY(144deg) translateZ(400px);">
-                <img src="https://img.freepik.com/free-photo/computer-chip-connects-electrical-components-powering-global-communications-industry-generated-by-artificial-intelligence_24877-80915.jpg?t=st=1742911063~exp=1742914663~hmac=80776a29318f00551b940a1df9d2b90895db9d82450ab54f4fbe814ae707c73d&w=1060" alt="Slide 3">
+                <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Slide 3">
             </div>
             <div class="slide" style="transform: translate(-50%, -50%) rotateY(216deg) translateZ(400px);">
-                <img src="https://img.freepik.com/free-photo/luxury-shine-diamonds-digital-art_23-2151694992.jpg?t=st=1742909502~exp=1742913102~hmac=d1cc7e4bb4f150788facf45461a26198f02063fccf8c835a9dc5c5ff4a304cc2&w=1380" alt="Slide 4">
+                <img src="https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Slide 4">
             </div>
             <div class="slide" style="transform: translate(-50%, -50%) rotateY(288deg) translateZ(400px);">
-                <img src="https://img.freepik.com/free-photo/luxury-shine-diamonds-digital-art_23-2151695002.jpg?t=st=1742909638~exp=1742913238~hmac=1996c5237c89316adf71ee783ee958994a473fd763f7aad3d6e4ee7ca4d3e352&w=1380" alt="Slide 5">
+                <img src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Slide 5">
             </div>
         </div>
     </div>
     <div class="controls">
-        <button class="slider-btn prev" onclick="nextSlide()" aria-label="Previous slide">
+        <button class="slider-btn prev" onclick="prevSlide()" aria-label="Previous slide">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <button class="slider-btn next" onclick="prevSlide()" aria-label="Next slide">
+        <button class="slider-btn next" onclick="nextSlide()" aria-label="Next slide">
             <i class="fas fa-chevron-right"></i>
         </button>
     </div>
@@ -2377,7 +2350,7 @@ textarea.feedback-input {
         <div class="product-grid">
             <div class="product-item">
                 <div class="item-image-container">
-                    <img src="images/Fashion/img1.png" alt="Luxury Dress" class="item-image">
+                    <img src="https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fashion Item 1" class="item-image">
                 </div>
                 <div class="item-info">
                     <h3 class="item-name">Back shirt</h3>
@@ -2388,7 +2361,7 @@ textarea.feedback-input {
             
             <div class="product-item">
                 <div class="item-image-container">
-                    <img src="images/Fashion/img2.png" alt="Designer Jacket" class="item-image">
+                    <img src="https://images.pexels.com/photos/1598507/pexels-photo-1598507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fashion Item 2" class="item-image">
                 </div>
                 <div class="item-info">
                     <h3 class="item-name">Jeans</h3>
@@ -2809,29 +2782,29 @@ textarea.feedback-input {
     <section class="feedback-section" id="feedback">
         <div class="feedback-content">
             <h2>Share Your Experience</h2>
-            <p>Your feedback helps us create a better shopping experience for everyone. We'd love to hear from you!</p>
+            <p>Your feedback helps us improve and serve you better. Tell us what you think!</p>
             <form class="feedback-form">
-                <input type="text" class="feedback-input" placeholder="Your Name" required>
-                <input type="email" class="feedback-input" placeholder="Your Email" required>
-                <select class="feedback-input" required>
-                    <option value="" disabled selected>Select Rating</option>
-                    <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                <select class="feedback-input animate-select" required>
+                    <option value="" disabled selected>How was your experience? ⭐</option>
+                    <option value="5">⭐⭐⭐⭐⭐ Outstanding</option>
                     <option value="4">⭐⭐⭐⭐ Very Good</option>
                     <option value="3">⭐⭐⭐ Good</option>
                     <option value="2">⭐⭐ Fair</option>
                     <option value="1">⭐ Needs Improvement</option>
                 </select>
-                <textarea class="feedback-input" placeholder="Tell us about your experience..." required></textarea>
-                <button type="submit" class="feedback-submit">
-                    Send Feedback 
+                <textarea class="feedback-input animate-input" 
+                          placeholder="Tell us about your shopping experience..." 
+                          required></textarea>
+                <button type="submit" class="feedback-submit pulse">
+                    Share Feedback 
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
         </div>
         <div class="feedback-image">
-            <img src="https://img.freepik.com/free-vector/customer-feedback-concept-illustration_114360-4457.jpg" 
+            <img src="https://img.freepik.com/free-vector/reviews-concept-landing-page_52683-18630.jpg?w=1380&t=st=1695812366~exp=1695812966~hmac=778f8fa0709f0eb5957ead0abd3fbd024e915f450d427f0ae5dd376fcecfdc8d" 
                  alt="Feedback illustration" 
-                 style="width: 100%; height: auto; border-radius: 20px;">
+                 class="floating-image">
         </div>
     </section>
 
@@ -2880,12 +2853,6 @@ textarea.feedback-input {
 
     </section>
 
-    <section class="credit">
-        &copy; copyright @ 2025 by FriendsCart
-    </section>
-
-
-
     <script>// Updated JavaScript with your scroll effect
     
 
@@ -2895,7 +2862,6 @@ textarea.feedback-input {
         let angle = 0;
         let autoScrollInterval = null;
         const autoScrollSpeed = 3000;
-        let isInitialized = false;
 
         function rotateSlider() {
             slider.style.transform = `rotateY(${angle}deg)`;
@@ -2923,27 +2889,6 @@ textarea.feedback-input {
                 autoScrollInterval = null;
             }
         }
-
-        function initSlider() {
-            if (!isInitialized) {
-                // Immediate first rotation
-                rotateSlider();
-                startAutoScroll();
-                isInitialized = true;
-            }
-        }
-
-        // Trigger initialization on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Start slider immediately
-            initSlider();
-            
-            // Add preload class to images
-            document.querySelectorAll('.slide img').forEach(img => {
-                img.classList.add('preload');
-                img.onload = () => img.classList.remove('preload');
-            });
-        });
 
         startAutoScroll();
         sliderContainer.addEventListener('mouseenter', stopAutoScroll);
