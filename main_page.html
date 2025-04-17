@@ -252,16 +252,29 @@
 
 
         /* Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            /* Add other styles for larger screens here */
+        }
+
         @media (max-width: 768px) {
             .navbar-custom {
-                padding: 0.6rem 1.5rem;
-            }
-            .nav-links {
-                gap: 1rem;
+                padding: 0.6rem 1rem; /* Adjusted padding */
             }
             .navbar-brand {
-                font-size: 1.8rem;
+                font-size: 1.6rem; /* Smaller font size */
             }
+            .nav-links {
+                gap: 0.8rem; /* Reduced gap */
+            }
+            /* Add other mobile styles here */
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                margin: 10px;
+                padding: 20px 15px; /* Adjusted padding */
+            }
+            /* Add other small screen styles here */
         }
 
         /* Rest of your friend's styles remain unchanged */
@@ -269,19 +282,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            margin: 0;
-            padding: 80px 0 0 0;  /* Keep padding-top for fixed navbar */
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* Background Particles */
         .bg-particles {
             position: absolute;
             top: 0;
@@ -1424,7 +1424,7 @@ textarea.feedback-input {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: 1001;
 }
 
 .profile-dropdown.active {
@@ -1509,7 +1509,7 @@ textarea.feedback-input {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.7);
-    z-index: 1000;
+    z-index: 1001;
 }
 
 .profile-dropdown.active {
