@@ -13,16 +13,213 @@
             --secondary-color: #f8f9fc;
             --accent-color: #2e59d9;
         }
+.navbar-custom {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 3rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+
+
+
+
+
+
+
+/* Replace the existing navbar-brand styles with these */
+.navbar-brand {
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to right, #0061ff, #60efff, #0061ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: professionalShine 5s linear infinite;
+    text-decoration: none;
+    margin: 0;
+    transition: all 0.5s ease;
+}
+
+@keyframes professionalShine {
+    0% { background-position: -100% center; }
+    100% { background-position: 100% center; }
+}
+
+.navbar-brand::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transform: skewX(-25deg);
+    animation: professionalShineOverlay 5s infinite;
+}
+
+@keyframes professionalShineOverlay {
+    0% { left: -100%; }
+    20% { left: 150%; }
+    100% { left: 150%; }
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(0, 97, 255, 0.3);
+    color: transparent;
+    background: linear-gradient(to right, #60efff, #0061ff, #60efff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: professionalShine 4s linear infinite;
+}
+
+
+
+@keyframes shine {
+    0% {
+        left: -100%;
+        opacity: 0.6;
+    }
+    20% {
+        left: 100%;
+        opacity: 0.6;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #60efff, #0061ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 15px rgba(0, 97, 255, 0.5);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    color: #004aad;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ff4500;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(45deg, #ff4500, #32cd32);
+    transition: width 0.4s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.btn-outline-light {
+    padding: 0.5rem 1rem;
+    border: 2px solid #004aad;
+    color: #004aad;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-outline-light:hover {
+    background: #004aad;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    padding: 0.5rem 1rem;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+@media (max-width: 768px) {
+    .navbar-custom {
+        padding: 0.6rem 1rem;
+    }
+    .navbar-brand {
+        font-size: 1.6rem;
+    }
+    .nav-links {
+        gap: 0.8rem;
+    }
+}
         
         body {
             background-color: #f8f9fa;
+            padding-top: 60px; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         .navbar {
-            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%) !important;
-        }
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
         
         .user-profile-card {
             border-radius: 15px;
@@ -42,6 +239,9 @@
             box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
             background: white;
             overflow: hidden;
+        }
+        .container{
+            margin-top: 40px;
         }
         
         .cart-item {
@@ -244,24 +444,27 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/main_page">
+    <!-- Replace your existing navbar with this -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="navbar-custom">
+        <div class="left-section">
+            <a class="navbar-brand">
                 <i class="fas fa-shopping-cart me-2"></i>Friends Cart
             </a>
-            <div class="navbar-nav ms-auto">
-                <span class="navbar-text me-3 d-none d-md-block">
-                    <i class="fas fa-user-circle me-1"></i> <%= user.fullName %>
-                </span>
-                <a class="btn btn-outline-light me-2" href="/main_page">
-                    <i class="fas fa-home me-1"></i> Home
-                </a>
-                <a class="btn btn-danger" href="/logout">
-                    <i class="fas fa-sign-out-alt me-1"></i> Logout
-                </a>
-            </div>
         </div>
-    </nav>
+        <div class="nav-links">
+            <span class="nav-link d-none d-md-block">
+                <i class="fas fa-user-circle me-1"></i> <%= user.fullName %>
+            </span>
+            <a class="btn-outline-light me-2" href="/main_page">
+                <i class="fas fa-home me-1"></i> Home
+            </a>
+            <a class="btn-danger" href="/logout">
+                <i class="fas fa-sign-out-alt me-1"></i> Logout
+            </a>
+        </div>
+    </div>
+</nav>
 
     <div class="container mb-5">
         <!-- User Profile Card -->

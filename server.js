@@ -183,7 +183,8 @@ app.post('/login', async (req, res) => {
         if (!user) {
             return res.status(400).json({
                 success: false,
-                message: 'User not found'
+                message: 'User not found',
+                title: 'Login Failed'
             });
         }
         
@@ -192,7 +193,8 @@ app.post('/login', async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({
                 success: false,
-                message: 'Invalid credentials'
+                message: 'Invalid credentials',
+                title: 'Login Failed'
             });
         }
         
@@ -209,6 +211,7 @@ app.post('/login', async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Login successful',
+            title: 'Success',
             redirectUrl: '/main_page'
         });
 
@@ -216,7 +219,8 @@ app.post('/login', async (req, res) => {
         console.error('Login error:', error);
         return res.status(500).json({
             success: false,
-            message: 'An error occurred during login'
+            message: 'An error occurred during login',
+            title: 'Error'
         });
     }
 });
@@ -433,34 +437,61 @@ app.get('/kids_page',(req,res)=>{
 // Add these routes after your existing routes
 
 // Submit Feedback POST
+// Update the submit-feedback route with better error handling
 app.post('/submit-feedback', async (req, res) => {
     if (!req.session.user) {
-        return res.status(401).json({ 
-            success: false, 
-            message: 'Please login first' 
+        return res.status(401).json({
+            success: false,
+            message: 'Please login first',
+            title: 'Authentication Required',
+            icon: 'warning'
         });
     }
 
     try {
         const { rating, description } = req.body;
-        
+
+        // Validate input
+        if (!rating || !description) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide both rating and description',
+                title: 'Missing Information',
+                icon: 'warning'
+            });
+        }
+
+        // Create new feedback
         const feedback = new Feedback({
             userId: req.session.user.id,
             rating: parseInt(rating),
-            description: description
+            description: description.trim()
         });
 
-        await feedback.save();
+        await feedback.save().then((res) => {  
+            console.log('Feedback saved:', res);
+        }
+        ).catch((err) => { 
+            console.error('Error saving feedback:', err);
+        }
+        );
 
+        // Send success response with popup data
         res.json({
             success: true,
-            message: 'Feedback submitted successfully'
+            title: 'Thank You!',
+            message: 'Your feedback has been submitted successfully',
+            icon: 'success',
+            showConfetti: true // Optional flag for extra effects
         });
+
     } catch (error) {
         console.error('Feedback submission error:', error);
         res.status(500).json({
             success: false,
-            message: 'Error submitting feedback'
+            title: 'Error',
+            message: 'Failed to submit feedback. Please try again.',
+            icon: 'error'
         });
     }
 });
@@ -492,46 +523,67 @@ app.get('/show-feedbacks', async (req, res) => {
     }
 });
 // Update Feedback PUT
+// Update Feedback route
 app.post('/update-feedback/:id', async (req, res) => {
     if (!req.session.user) {
-        return res.status(401).json({ success: false, message: 'Please login first' });
+        return res.status(401).json({
+            success: false,
+            message: 'Please login first',
+            title: 'Authentication Required'
+        });
     }
-    
+
     try {
         const { rating, description } = req.body;
         
         const feedback = await Feedback.findOneAndUpdate(
             { _id: req.params.id, userId: req.session.user.id },
-            { rating: parseInt(rating), description },
+            { 
+                rating: parseInt(rating), 
+                description: description.trim() 
+            },
             { new: true }
-        );
-        
+        ).populate('userId', 'fullName');
+
         if (!feedback) {
             return res.status(404).json({
                 success: false,
-                message: 'Feedback not found'
+                message: 'Feedback not found or unauthorized',
+                title: 'Error'
             });
         }
-        
-        res.status(200).json({
+
+        // Get updated stats
+        const allFeedbacks = await Feedback.find();
+        const stats = {
+            total: allFeedbacks.length,
+            average: (allFeedbacks.reduce((sum, f) => sum + f.rating, 0) / allFeedbacks.length).toFixed(1),
+            positive: allFeedbacks.filter(f => f.rating >= 4).length
+        };
+
+        res.json({
             success: true,
-            message: 'Feedback updated successfully'
+            message: 'Feedback updated successfully',
+            feedback,
+            stats
         });
     } catch (error) {
         console.error('Feedback update error:', error);
         res.status(500).json({
             success: false,
-            message: 'Error updating feedback'
+            message: 'Error updating feedback',
+            title: 'Error'
         });
     }
 });
 
-// Delete Feedback DELETE
+// Delete Feedback route
 app.post('/delete-feedback/:id', async (req, res) => {
     if (!req.session.user) {
-        return res.status(401).json({ 
-            success: false, 
-            message: 'Please login first' 
+        return res.status(401).json({
+            success: false,
+            message: 'Please login first',
+            title: 'Authentication Required'
         });
     }
 
@@ -544,23 +596,31 @@ app.post('/delete-feedback/:id', async (req, res) => {
         if (!feedback) {
             return res.status(404).json({
                 success: false,
-                message: 'Feedback not found or unauthorized'
+                message: 'Feedback not found or unauthorized',
+                title: 'Error'
             });
         }
 
-        // Check if this was the last feedback
-        const remainingCount = await Feedback.countDocuments();
-        
+        // Get updated stats
+        const remainingFeedbacks = await Feedback.find();
+        const stats = remainingFeedbacks.length > 0 ? {
+            total: remainingFeedbacks.length,
+            average: (remainingFeedbacks.reduce((sum, f) => sum + f.rating, 0) / remainingFeedbacks.length).toFixed(1),
+            positive: remainingFeedbacks.filter(f => f.rating >= 4).length
+        } : null;
+
         res.json({
             success: true,
             message: 'Feedback deleted successfully',
-            isLastFeedback: remainingCount === 0
+            isLastFeedback: remainingFeedbacks.length === 0,
+            stats
         });
     } catch (error) {
         console.error('Feedback deletion error:', error);
         res.status(500).json({
             success: false,
-            message: 'Error deleting feedback'
+            message: 'Error deleting feedback',
+            title: 'Error'
         });
     }
 });
@@ -1054,6 +1114,11 @@ app.post('/buy-now', async (req, res) => {
         res.status(500).send('Error processing purchase');
     }
 });
+// 404 Route (Keep this as the last route)
+app.use((req, res) => {
+    res.status(404).render('404');
+});
+
 
 // Start server
 const PORT = process.env.PORT || 3000;

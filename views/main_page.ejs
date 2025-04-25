@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project FrndsCart</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+     <!-- Add these in the <head> section -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
      /* Your Navbar Styles */
      .navbar-custom {
@@ -3093,33 +3097,72 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
 <!-- Add this JavaScript at the bottom of main_page.ejs -->
 <script>
+// Add this to your feedback form JavaScript
 document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    
     try {
-        const formData = {
-            rating: this.rating.value,
-            description: this.description.value
-        };
-        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
         const response = await fetch('/submit-feedback', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify({
+                rating: this.rating.value,
+                description: this.description.value
+            })
         });
-        
-        if (response.ok) {
-            alert('Thank you for your feedback!');
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Show success popup
+            await Swal.fire({
+                title: data.title,
+                text: data.message,
+                icon: data.icon,
+                confirmButtonColor: '#28a745',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
+
+            // Reset form
             this.reset();
+
+            // Optional: Show confetti effect
+            if (data.showConfetti) {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         } else {
-            const data = await response.json();
-            alert(data.message || 'Error submitting feedback');
+            throw new Error(data.message);
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error submitting feedback');
+        // Show error popup
+        await Swal.fire({
+            title: error.title || 'Error',
+            text: error.message || 'Something went wrong',
+            icon: 'error',
+            confirmButtonColor: '#dc3545'
+        });
+    } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
     }
 });
 </script>

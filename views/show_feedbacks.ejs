@@ -6,6 +6,10 @@
     <title>Premium Feedback Hub | FrndsCart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add these in your <head> section if not already present -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         :root {
             --primary: #4361ee;
@@ -230,8 +234,8 @@
         .stat-item:hover .stat-number {
             background: linear-gradient(135deg, var(--secondary), var(--danger));
             -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .stat-label {
@@ -411,44 +415,77 @@
             z-index: 1;
         }
         
+        /* Feedback Footer - Updated for better alignment */
         .feedback-footer {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1.5rem;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px dashed var(--light-gray);
             position: relative;
             z-index: 1;
         }
         
-        .feedback-date {
-            color: var(--gray);
-            font-size: 0.85rem;
+        .feedback-date-container {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .feedback-date {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            background: var(--light-gray);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .feedback-date i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .feedback-actions-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
         
         .feedback-actions {
             display: flex;
             gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
         
         .action-btn {
-            background: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
             border: none;
-            color: var(--gray);
             cursor: pointer;
-            transition: var(--transition-fast);
-            font-size: 0.9rem;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-width: 100px;
+            justify-content: center;
         }
         
         .action-btn::before {
@@ -458,40 +495,71 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: currentColor;
-            opacity: 0;
-            transition: var(--transition-fast);
-            z-index: -1;
-        }
-        
-        .action-btn:hover {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
         
         .action-btn:hover::before {
-            opacity: 1;
-        }
-        
-        .action-btn i {
-            transition: var(--transition-fast);
-        }
-        
-        .action-btn:hover i {
-            transform: scale(1.2);
-        }
-        
-        .action-btn.like {
-            color: var(--secondary);
+            transform: translateX(0);
         }
         
         .action-btn.edit {
-            color: var(--primary);
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
         }
         
         .action-btn.delete {
-            color: var(--danger);
+            background: linear-gradient(135deg, #ef233c, #d90429);
+        }
+        
+        .action-btn.like {
+            background: linear-gradient(135deg, #f72585, #b5179e);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .action-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .action-btn i {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .action-btn:hover i {
+            transform: rotate(10deg) scale(1.2);
+        }
+        
+        .action-btn span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        /* Custom hover effects */
+        .action-btn.edit:hover {
+            background: linear-gradient(135deg, #3a0ca3, #4361ee);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
+        }
+        
+        .action-btn.delete:hover {
+            background: linear-gradient(135deg, #d90429, #ef233c);
+            box-shadow: 0 6px 20px rgba(239, 35, 60, 0.3);
+        }
+        
+        .action-btn.like:hover {
+            background: linear-gradient(135deg, #b5179e, #f72585);
+            box-shadow: 0 6px 20px rgba(247, 37, 133, 0.3);
+        }
+        
+        /* Active state for like button */
+        .action-btn.like.active {
+            background: linear-gradient(135deg, #f72585, #b5179e);
+            color: white;
         }
         
         /* No Feedbacks State */
@@ -670,7 +738,7 @@
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             -webkit-background-clip: text;
-    background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
@@ -997,14 +1065,18 @@
                 padding: 1.5rem;
             }
             
+            .feedback-footer {
+                gap: 1rem;
+            }
+            
             .feedback-actions {
-                flex-direction: column;
-                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: flex-start;
             }
             
             .action-btn {
-                justify-content: center;
-                width: 100%;
+                min-width: auto;
+                flex: 1;
             }
         }
         
@@ -1026,6 +1098,70 @@
             .btn {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .feedback-date-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .feedback-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .action-btn {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Mini Toast Styles */
+        .mini-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            color: #333;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+        
+        .mini-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .mini-toast.success i {
+            color: #38b000;
+        }
+        
+        .mini-toast.info i {
+            color: #3a86ff;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            transform: scale(0);
+            animation: rippleEffect 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
             }
         }
     </style>
@@ -1122,17 +1258,20 @@
                                 }) %>
                             </div>
                             <div class="feedback-actions">
-                                <% if (feedback.userId && user && feedback.userId._id && feedback.userId._id.toString() === user.id.toString()) { %>
-                                    <button class="action-btn edit" onclick="openEditModal(this, '<%= feedback._id %>')">
-                                        <i class="fas fa-edit"></i>
-                                        <span>Edit</span>
-                                    </button>
-                                    <button class="action-btn delete" onclick="confirmDelete('<%= feedback._id %>')">
+                                <% if (feedback.userId && user && feedback.userId._id.toString() === user.id.toString()) { %>
+                                    <!-- Replace the existing edit button with this -->
+<!-- Replace the existing edit button inside the feedback card loop -->
+<!-- Replace the current edit button HTML -->
+<button class="action-btn edit" onclick="openEditModal(this)">
+    <i class="fas fa-edit"></i>
+    <span>Edit</span>
+</button>
+                                    <button class="action-btn delete" onclick="handleDelete('<%= feedback._id %>')">
                                         <i class="fas fa-trash"></i>
                                         <span>Delete</span>
                                     </button>
                                 <% } %>
-                                <button class="action-btn like">
+                                <button class="action-btn like" onclick="toggleLike(this)">
                                     <i class="far fa-thumbs-up"></i>
                                     <span>Helpful</span>
                                 </button>
@@ -1251,10 +1390,46 @@
     <script>
         // Current user ID from server-side
         const currentUserId = '<%= user._id %>';
-        let feedbacksData = JSON.parse('<%- JSON.stringify(feedbacks) %>');
+        let toastTimeout;
+        let feedbacksData = [];
+try {
+    const sanitizedJSON = `<%- JSON.stringify(feedbacks)
+        .replace(/[\u0000-\u001F\u007F-\u009F\u2028\u2029]/g, "") // Remove control characters
+        .replace(/\\/g, '\\\\') // Escape backslashes
+        .replace(/\"/g, '\\"') // Escape quotes
+        .replace(/\n/g, '\\n') // Handle newlines
+        .replace(/\r/g, '\\r') // Handle carriage returns
+        .replace(/\t/g, '\\t') // Handle tabs
+        .replace(/\f/g, '\\f') // Handle form feeds
+        %>`;
+    feedbacksData = JSON.parse(sanitizedJSON.trim());
+} catch (e) {
+    console.error("Error parsing feedbacks data:", e);
+    feedbacksData = []; // Fallback to empty array
+    // Don't show error toast to user unless necessary
+    if (feedbacks && feedbacks.length > 0) {
+        showToast('Error loading feedback data', 'error');
+    }
+}
         let feedbackToDelete = null;
         let currentRating = 0;
-        let toastTimeout;
+        function setRating(rating) {
+    if (!rating) return;
+    
+    const stars = document.querySelectorAll('#ratingStars i');
+    currentRating = parseInt(rating);
+    document.getElementById('ratingValue').value = currentRating;
+    
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.remove('far');
+            star.classList.add('fas', 'active');
+        } else {
+            star.classList.remove('fas', 'active');
+            star.classList.add('far');
+        }
+    });
+}
 
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
@@ -1291,27 +1466,7 @@
         });
 
         // Open edit modal with feedback data
-        function openEditModal(buttonElement, feedbackId) {
-    // Get the feedback card element
-    const feedbackCard = buttonElement.closest('.feedback-card');
-    
-    // Get current values from the card
-    const rating = parseInt(feedbackCard.querySelector('.rating-number').textContent);
-    const description = feedbackCard.querySelector('.feedback-content').textContent.trim();
-    
-    // Set values in the modal
-    const modal = document.getElementById('editModal');
-    document.getElementById('feedbackId').value = feedbackId;
-    document.getElementById('description').value = description;
-    
-    // Set rating stars
-    setRating(rating);
-    currentRating = rating;
-    
-    // Show modal
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('active'), 10);
-}
+       
 
         // Highlight stars up to the given rating
         function highlightStars(rating) {
@@ -1326,23 +1481,8 @@
         }
 
         // Set rating stars
-        function setRating(rating) {
-    if (!rating) return;
-    
-    const stars = document.querySelectorAll('#ratingStars i');
-    currentRating = parseInt(rating);
-    document.getElementById('ratingValue').value = currentRating;
-    
-    stars.forEach((star, index) => {
-        if (index < currentRating) {
-            star.classList.remove('far');
-            star.classList.add('fas', 'active');
-        } else {
-            star.classList.remove('fas', 'active');
-            star.classList.add('far');
-        }
-    });
-}
+// Update the setRating function
+
 
         // Close modal with animation
         function closeModal(modalId) {
@@ -1366,25 +1506,7 @@
         }
 
         // Confirm delete action with animation
-        function confirmDelete(id) {
-            feedbackToDelete = id;
-            const modal = document.getElementById('deleteModal');
-            
-            // Animate modal in
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('active');
-            }, 10);
-            
-            // Set up delete button handler
-            document.getElementById('confirmDeleteBtn').onclick = function() {
-                deleteFeedback();
-            };
-            
-            // Add keyboard escape listener
-            document.addEventListener('keydown', modalEscapeHandler);
-        }
-
+      
         // Update feedback via AJAX with animations
         function updateFeedback() {
             const feedbackId = document.getElementById('feedbackId').value;
@@ -1526,39 +1648,280 @@
     });
 }
         // Toggle like button
-        function toggleLike(button) {
-            const icon = button.querySelector('i');
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                button.style.color = '';
-                button.style.background = 'rgba(247, 37, 133, 0.1)';
+      
+/* filepath: c:\Users\Sajid\Desktop\E-commerce\views\show_feedbacks.ejs */
+// Replace the existing toggleLike function with this one
+function toggleLike(button) {
+    const icon = button.querySelector('i');
+    const span = button.querySelector('span');
+    
+    if (!button.classList.contains('active')) {
+        // Activate
+        button.classList.add('active');
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        span.textContent = 'Helpful!';
+        
+        // Add ripple effect
+        const ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        button.appendChild(ripple);
+        
+        // Remove ripple after animation
+        setTimeout(() => ripple.remove(), 1000);
+        
+        // Show mini toast
+        showMiniToast('Thanks for your feedback!', 'success');
+    } else {
+        // Deactivate
+        button.classList.remove('active');
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        span.textContent = 'Helpful';
+    }
+}
+
+// Add this new function for mini toasts
+function showMiniToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `mini-toast ${type}`;
+    toast.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Trigger animation
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Remove after 2 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
+// Add styles for mini toast
+const style = document.createElement('style');
+style.textContent = `
+    .mini-toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: white;
+        color: #333;
+        padding: 12px 24px;
+        border-radius: 50px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 9999;
+    }
+    
+    .mini-toast.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .mini-toast.success i {
+        color: #38b000;
+    }
+    
+    .mini-toast.info i {
+        color: #3a86ff;
+    }
+    
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.4);
+        transform: scale(0);
+        animation: rippleEffect 0.6s linear;
+        pointer-events: none;
+    }
+    
+    @keyframes rippleEffect {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+        // Update statistics display
+       // Add this to your existing script section in show_feedbacks.ejs
+// Add or update this function in your script section
+function openEditModal(button) {
+    // Get the feedback card
+    const feedbackCard = button.closest('.feedback-card');
+    const feedbackId = feedbackCard.dataset.feedbackId;
+    const rating = feedbackCard.querySelector('.rating-number').textContent;
+    const description = feedbackCard.querySelector('.feedback-content').textContent.trim();
+    
+    // Set values in modal
+    document.getElementById('feedbackId').value = feedbackId;
+    document.getElementById('ratingValue').value = rating;
+    document.getElementById('description').value = description;
+    
+    // Initialize currentRating before setting it
+    currentRating = parseInt(rating);
+    
+    // Set rating stars
+    setRating(currentRating);
+    
+    // Show modal
+    const modal = document.getElementById('editModal');
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+}
+
+function confirmDelete(feedbackId) {
+    feedbackToDelete = feedbackId;
+    const modal = document.getElementById('deleteModal');
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('active'), 10);
+    
+    document.getElementById('confirmDeleteBtn').onclick = async () => {
+        try {
+            const response = await fetch(`/delete-feedback/${feedbackId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                const feedbackCard = document.querySelector(`[data-feedback-id="${feedbackId}"]`);
+                feedbackCard.style.transform = 'scale(0.9)';
+                feedbackCard.style.opacity = '0';
                 
-                // Pulse animation
-                button.style.transform = 'scale(1.1)';
                 setTimeout(() => {
-                    button.style.transform = '';
+                    feedbackCard.remove();
+                    updateStats(data.stats);
+                    showToast('Feedback deleted successfully', 'success');
+                    closeModal('deleteModal');
+                    
+                    if (data.isLastFeedback) {
+                        location.reload();
+                    }
                 }, 300);
             } else {
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                button.style.color = '';
-                button.style.background = '';
+                showToast(data.message, 'error');
             }
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Error deleting feedback', 'error');
         }
+    };
+}
 
-        // Update statistics display
-        function updateStats() {
-            const totalFeedbacks = feedbacksData.length;
-            const totalRating = feedbacksData.reduce((sum, feedback) => sum + feedback.rating, 0);
-            const avgRating = totalFeedbacks > 0 ? (totalRating / totalFeedbacks).toFixed(1) : 0;
-            const positiveFeedbacks = feedbacksData.filter(f => f.rating >= 4).length;
-            
-            // Animate stat changes
-            animateCounter('total-feedbacks', totalFeedbacks);
-            animateCounter('avg-rating', avgRating);
-            animateCounter('positive-feedbacks', positiveFeedbacks);
+// Add these functions to your existing script section
+function handleEdit(feedbackId, rating, description) {
+    // Set values in edit modal
+    document.getElementById('feedbackId').value = feedbackId;
+    document.getElementById('ratingValue').value = rating;
+    document.getElementById('description').value = description;
+    
+    // Set rating stars
+    setRating(parseInt(rating));
+    
+    // Show modal
+    const modal = document.getElementById('editModal');
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('active'), 10);
+    
+    // Add escape key listener
+    document.addEventListener('keydown', modalEscapeHandler);
+}
+
+function handleDelete(feedbackId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
         }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Call delete API
+            fetch(`/delete-feedback/${feedbackId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove feedback card with animation
+                    const feedbackCard = document.querySelector(`[data-feedback-id="${feedbackId}"]`);
+                    feedbackCard.style.transform = 'scale(0.9)';
+                    feedbackCard.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        feedbackCard.remove();
+                        updateStats(data.stats);
+                        
+                        // Show success message
+                        Swal.fire(
+                            'Deleted!',
+                            'Your feedback has been deleted.',
+                            'success'
+                        );
+                        
+                        // Reload if no feedbacks left
+                        if (data.isLastFeedback) {
+                            setTimeout(() => location.reload(), 1500);
+                        }
+                    }, 300);
+                } else {
+                    throw new Error(data.message || 'Error deleting feedback');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire(
+                    'Error!',
+                    error.message || 'Failed to delete feedback',
+                    'error'
+                );
+            });
+        }
+    });
+}
+
+// Add updateStats function if not already present
+function updateStats(stats) {
+    if (!stats) return;
+    
+    ['total-feedbacks', 'avg-rating', 'positive-feedbacks'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            const targetValue = id === 'avg-rating' ? 
+                parseFloat(stats.average) : 
+                (id === 'total-feedbacks' ? stats.total : stats.positive);
+            animateCounter(id, targetValue);
+        }
+    });
+}
 
         // Animate counter values
         function animateCounter(elementId, targetValue) {

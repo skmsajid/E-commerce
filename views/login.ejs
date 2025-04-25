@@ -6,7 +6,97 @@
   <title>Friends Cart - Premium Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/login.css">
+  <style>
+    /* Add this to your existing styles */
+    .error-popup {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform: translateX(150%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        max-width: 350px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .error-popup.show {
+        transform: translateX(0);
+    }
+    
+    .error-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #ff4444;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .error-icon i {
+        color: white;
+        font-size: 20px;
+    }
+    
+    .error-content {
+        flex: 1;
+    }
+    
+    .error-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 5px;
+    }
+    
+    .error-message {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+    }
+    
+    .close-error {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s;
+    }
+    
+    .close-error:hover {
+        background: #f0f0f0;
+        color: #666;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
+    
+    .error-popup.shake {
+        animation: shake 0.5s ease-in-out;
+    }
+    </style>
 </head>
+
 <body>
   <!-- Floating Particles -->
   <div class="particles" id="particles"></div>
@@ -317,5 +407,6 @@
       }
     });
   </script>
+  
 </body>
 </html>
