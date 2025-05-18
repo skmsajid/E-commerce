@@ -26,10 +26,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 const mongoURI = process.env.MONGODB_URI;
 // MongoDB Atlas Connection
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(mongoURI)
 .then(() => console.log('Connected to MongoDB Atlas'))
 .catch(err => console.error('MongoDB connection error:', err));
   
