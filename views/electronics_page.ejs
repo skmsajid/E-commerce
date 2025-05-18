@@ -215,6 +215,26 @@
     </section>
 
     <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    const items = document.querySelectorAll('.product-item');
+    items.forEach((item, index) => {
+        item.style.setProperty('--item-index', index);
+    });
+
+    // Add intersection observer for better performance
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.visibility = 'visible';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    items.forEach(item => observer.observe(item));
+});
 
     document.addEventListener('DOMContentLoaded', function() {
   // Create modal element
