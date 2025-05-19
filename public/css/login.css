@@ -104,11 +104,16 @@
   @keyframes cardEntrance {
     0% {
       opacity: 0;
-      transform: translateY(50px) rotateX(10deg);
+      transform: translateY(100px) rotateX(20deg) scale(0.8);
+      filter: blur(10px);
+    }
+    50% {
+      filter: blur(5px);
     }
     100% {
       opacity: 1;
-      transform: translateY(0) rotateX(0);
+      transform: translateY(0) rotateX(0) scale(1);
+      filter: blur(0);
     }
   }
   
@@ -201,12 +206,41 @@
   /* Form Elements */
   .auth-form {
     padding: 0 2.5rem 2.5rem;
+    animation: formElements 1s ease-out 0.5s forwards;
+    opacity: 0;
+  }
+  
+  @keyframes formElements {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .form-group {
     position: relative;
     margin-bottom: 2rem;
     transform-style: preserve-3d;
+    animation: slideIn 0.5s ease-out backwards;
+  }
+  
+  .form-group:nth-child(1) { animation-delay: 0.6s; }
+  .form-group:nth-child(2) { animation-delay: 0.8s; }
+  .form-group:nth-child(3) { animation-delay: 1s; }
+  
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
   
   .form-icon {
@@ -254,6 +288,21 @@
   .forgot-password {
     text-align: right;
     margin: -1rem 0 1.5rem;
+    animation: slideInRight 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.2s backwards;
+  }
+  
+  @keyframes slideInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    70% {
+      transform: translateX(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
   
   .forgot-password a {
@@ -412,12 +461,14 @@
     z-index: 1000;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.5s ease;
+    transform: perspective(1000px) scale(1.1);
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
   
   .modal-overlay.active {
     opacity: 1;
     pointer-events: all;
+    transform: perspective(1000px) scale(1);
   }
   
   .otp-modal {
@@ -432,11 +483,22 @@
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
+    animation: modalEnter 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    transform-origin: center center;
   }
   
-  .modal-overlay.active .otp-modal {
-    transform: translateY(0);
-    opacity: 1;
+  @keyframes modalEnter {
+    0% {
+      opacity: 0;
+      transform: perspective(1000px) rotateX(-30deg) translateY(100px) scale(0.8);
+    }
+    50% {
+      transform: perspective(1000px) rotateX(10deg) translateY(-20px) scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: perspective(1000px) rotateX(0) translateY(0) scale(1);
+    }
   }
   
   .otp-modal::before {
@@ -452,6 +514,18 @@
   .modal-header {
     margin-bottom: 1.5rem;
     text-align: center;
+    animation: headerSlide 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s backwards;
+  }
+  
+  @keyframes headerSlide {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
   }
   
   .modal-title {
@@ -485,12 +559,57 @@
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     transition: all 0.3s ease;
+    animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) backwards;
   }
   
-  .otp-input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(95, 75, 139, 0.2);
+  .otp-input:nth-child(1) { animation-delay: 0.1s; }
+  .otp-input:nth-child(2) { animation-delay: 0.2s; }
+  .otp-input:nth-child(3) { animation-delay: 0.3s; }
+  .otp-input:nth-child(4) { animation-delay: 0.4s; }
+  
+  @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px) scale(0.8);
+    }
+    70% {
+      transform: translateY(-5px) scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  #otpSection {
+    animation: fadeScale 0.5s ease-out;
+    transform-origin: top center;
+  }
+  
+  @keyframes fadeScale {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  #newPassword {
+    animation: slideUp 0.5s ease-out 0.5s backwards;
+  }
+  
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .modal-btn {
@@ -505,6 +624,18 @@
     cursor: pointer;
     transition: all 0.4s ease;
     margin-top: 1rem;
+    animation: buttonFade 0.5s ease-out 0.6s backwards;
+  }
+  
+  @keyframes buttonFade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .modal-btn:hover {

@@ -98,6 +98,31 @@
     transform-style: preserve-3d;
     perspective: 1000px;
     transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    transform: translateY(50px) perspective(1000px) rotateX(20deg) scale(0.9);
+    animation: superCardEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  
+  @keyframes superCardEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) perspective(1000px) rotateX(20deg) scale(0.9);
+        filter: blur(15px) brightness(0.5);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(-20px) perspective(1000px) rotateX(-5deg) scale(1.05);
+        filter: blur(5px) brightness(1);
+    }
+    75% {
+        transform: translateY(10px) perspective(1000px) rotateX(2deg) scale(0.98);
+        filter: blur(0) brightness(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) perspective(1000px) rotateX(0) scale(1);
+        filter: blur(0) brightness(1);
+    }
   }
   
   .auth-card::before {
@@ -110,6 +135,12 @@
     background: var(--gradient);
     opacity: 0.05;
     z-index: -1;
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.15; }
   }
   
   .auth-card::after {
@@ -175,6 +206,8 @@
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     animation: gradientShift 8s ease infinite;
     background-size: 300% 300%;
+    opacity: 0;
+    animation: logoReveal 1.2s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
   }
   
   @keyframes gradientShift {
@@ -183,12 +216,42 @@
     100% { background-position: 0% 50%; }
   }
   
+  @keyframes logoReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(-20px);
+        filter: blur(10px);
+    }
+    50% {
+        opacity: 0.5;
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+  }
+  
   .auth-title {
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--dark);
     margin-top: 0.5rem;
     opacity: 0.9;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 0.3s forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
   }
   
   /* Form Elements */
@@ -205,6 +268,42 @@
   .form-group {
     position: relative;
     flex: 1;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  
+  .form-group:nth-child(odd) {
+    animation: slideInLeft 0.6s ease forwards;
+  }
+  
+  .form-group:nth-child(even) {
+    animation: slideInRight 0.6s ease forwards;
+  }
+  
+  .form-row:nth-child(1) .form-group { animation-delay: 0.5s; }
+  .form-row:nth-child(2) .form-group { animation-delay: 0.7s; }
+  .form-row:nth-child(3) .form-group { animation-delay: 0.9s; }
+  
+  @keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
   }
   
   .form-icon {
@@ -322,12 +421,28 @@
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 10px 30px rgba(0, 97, 255, 0.4);
     z-index: 1;
+    opacity: 0;
+    animation: buttonPop 0.5s ease 1.2s forwards;
   }
   
   @keyframes gradientMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes buttonPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
   }
   
   .submit-btn::before {
@@ -375,7 +490,8 @@
     text-align: center;
     margin-top: 2rem;
     color: var(--dark);
-    opacity: 0.8;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 1.4s forwards;
   }
   
   .switch-link a {
