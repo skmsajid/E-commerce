@@ -24,23 +24,58 @@
             align-items: center;
             color: var(--text);
             overflow: hidden;
-            perspective: 1000px;
+            perspective: 1500px;
+            animation: pageLoad 1.2s ease-out;
+        }
+
+        @keyframes pageLoad {
+            0% {
+                opacity: 0;
+                background-position: 0% 0%;
+            }
+            50% {
+                opacity: 0.5;
+                background-position: 50% 50%;
+            }
+            100% {
+                opacity: 1;
+                background-position: 100% 100%;
+            }
         }
 
         .container {
             text-align: center;
-            padding: 3rem;
+            padding: clamp(1.5rem, 5vw, 3rem);
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
+            border-radius: clamp(15px, 3vw, 30px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             transform-style: preserve-3d;
-            animation: container-entrance 1s ease-out;
+            animation: container-entrance 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             border: 2px solid rgba(255, 255, 255, 0.1);
-            max-width: 600px;
-            width: 90%;
+            max-width: min(90%, 600px);
+            width: 100%;
             position: relative;
             overflow: hidden;
+        }
+
+        @keyframes container-entrance {
+            0% {
+                opacity: 0;
+                transform: 
+                    perspective(1000px)
+                    rotateX(30deg)
+                    translateY(100px)
+                    scale(0.7);
+            }
+            100% {
+                opacity: 1;
+                transform: 
+                    perspective(1000px)
+                    rotateX(0deg)
+                    translateY(0)
+                    scale(1);
+            }
         }
 
         .container::before {
@@ -55,7 +90,7 @@
         }
 
         .logo {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 7vw, 2.5rem);
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
@@ -79,34 +114,42 @@
         }
 
         h1 {
-            font-size: 8rem;
+            font-size: clamp(4rem, 15vw, 8rem);
             margin: 0;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: number-entrance 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            animation: number-bounce 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             text-shadow: 2px 2px 15px rgba(0,0,0,0.1);
+            letter-spacing: -2px;
+        }
+
+        @keyframes number-bounce {
+            0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(5deg); }
+            70% { transform: scale(0.9) rotate(-2deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
 
         h2 {
-            font-size: 2rem;
-            margin: 1rem 0;
+            font-size: clamp(1.2rem, 5vw, 2rem);
+            margin: 0.5rem 0;
             animation: text-entrance 0.8s ease-out 0.5s both;
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
             color: #64748b;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             line-height: 1.6;
             animation: text-entrance 0.8s ease-out 0.7s both;
         }
 
         .btn {
             display: inline-block;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
+            padding: clamp(0.8rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2rem);
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
             font-weight: 600;
             color: white;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -121,65 +164,17 @@
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 10px 20px rgba(67, 97, 238, 0.4),
+                0 6px 6px rgba(67, 97, 238, 0.3);
+            animation: button-pulse 1s infinite;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        /* Animations */
-        @keyframes container-entrance {
-            from {
-                opacity: 0;
-                transform: translateY(20px) rotateX(-10deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0);
-            }
-        }
-
-        @keyframes logo-entrance {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes number-entrance {
-            0% {
-                opacity: 0;
-                transform: scale(0.5) translateY(50px);
-            }
-            70% {
-                transform: scale(1.1) translateY(-10px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+        @keyframes button-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(67, 97, 238, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0); }
         }
 
         @keyframes text-entrance {
@@ -232,15 +227,54 @@
         .bg-element {
             position: absolute;
             opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
+            animation: 
+                float 6s ease-in-out infinite,
+                spin 8s linear infinite;
+            filter: blur(1px);
+            z-index: -1;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
+        @keyframes spin {
+            from { transform: rotate(0deg) translateY(0); }
+            to { transform: rotate(360deg) translateY(-20px); }
+        }
+
+        /* Landscape Mode Optimization */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                padding: 1rem;
+                margin: 1rem;
             }
-            50% {
-                transform: translateY(-20px);
+
+            h1 { font-size: clamp(3rem, 12vw, 6rem); }
+            p { margin-bottom: 1rem; }
+            .logo { margin-bottom: 0.5rem; }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            h2 {
+                font-size: clamp(1.2rem, 5vw, 2rem);
+                margin: 0.5rem 0;
+            }
+
+            p {
+                font-size: clamp(0.9rem, 4vw, 1.1rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .btn {
+                padding: clamp(0.8rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2rem);
+                font-size: clamp(0.9rem, 4vw, 1.1rem);
+            }
+
+            .logo {
+                font-size: clamp(1.8rem, 7vw, 2.5rem);
             }
         }
     </style>

@@ -457,31 +457,67 @@
         box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2) !important;
       }
 
-      .swal2-confirm {
-        background-color: var(--primary-color) !important;
-        border: none !important;
-        transition: all 0.3s !important;
-      }
-
-      .swal2-confirm:hover {
-        background-color: var(--accent-color) !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
-      }
-
-      .animate__animated {
-        --animate-duration: 0.5s;
-      }
-
-      @keyframes slideIn {
-        from {
-          transform: translateY(20px);
+      /* Navbar Animation */
+      @keyframes navbarSlideIn {
+        0% {
+          transform: translateY(-100%);
           opacity: 0;
         }
-        to {
+        100% {
           transform: translateY(0);
           opacity: 1;
         }
+      }
+
+      .navbar-custom {
+        animation: navbarSlideIn 0.6s ease-out forwards;
+      }
+
+      /* Profile Card Animation */
+      @keyframes profileCardEntrance {
+        0% {
+          transform: translateX(-30px) scale(0.95);
+          opacity: 0;
+          box-shadow: 0 0 0 rgba(58, 59, 69, 0);
+        }
+        100% {
+          transform: translateX(0) scale(1);
+          opacity: 1;
+          box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+      }
+
+      .user-profile-card {
+        animation: profileCardEntrance 0.8s ease-out forwards;
+      }
+
+      /* Profile Section Hover Effect */
+      .user-profile-card:hover {
+        transform: translateY(-5px) scale(1.01);
+        box-shadow: 0 0.5rem 2rem rgba(58, 59, 69, 0.15);
+        transition: all 0.3s ease;
+      }
+
+      .user-profile-card .card-body {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .user-profile-card .card-body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #4e73df, #224abe);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      .user-profile-card:hover .card-body::before {
+        transform: scaleX(1);
       }
 
       .cart-item {
@@ -851,6 +887,102 @@
           font-size: 0.85rem;
         }
       }
+
+      /* Advanced Page Entry Animations */
+      @keyframes pageEntry {
+        0% {
+          opacity: 0;
+          transform: scale(0.98) translateY(-20px);
+          filter: blur(8px);
+        }
+        50% {
+          filter: blur(4px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+          filter: blur(0);
+        }
+      }
+
+      @keyframes staggerChild {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+          filter: blur(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
+      }
+
+      .page-content {
+        animation: pageEntry 0.8s cubic-bezier(0.17, 0.84, 0.44, 1) forwards;
+        transform-origin: center top;
+        will-change: transform, opacity;
+      }
+
+      .stagger-item {
+        opacity: 0;
+        animation: staggerChild 0.5s cubic-bezier(0.17, 0.84, 0.44, 1) forwards;
+      }
+
+      .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+      .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+      .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+      .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+      .stagger-item:nth-child(5) { animation-delay: 0.5s; }
+
+      /* Advanced Animation Effects */
+      .navbar-custom {
+        animation: slideInDown 0.6s cubic-bezier(0.17, 0.84, 0.44, 1);
+      }
+
+      @keyframes slideInDown {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .user-profile-card {
+        animation: cardReveal 0.8s cubic-bezier(0.17, 0.84, 0.44, 1) 0.3s both;
+      }
+
+      @keyframes cardReveal {
+        from {
+          opacity: 0;
+          transform: translateX(-30px) scale(0.95);
+          box-shadow: 0 0 0 rgba(0,0,0,0);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+          box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        }
+      }
+
+      .cart-container {
+        perspective: 1000px;
+        animation: containerReveal 0.8s cubic-bezier(0.17, 0.84, 0.44, 1) 0.5s both;
+      }
+
+      @keyframes containerReveal {
+        from {
+          opacity: 0;
+          transform: rotateX(-10deg) translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: rotateX(0) translateY(0);
+        }
+      }
     </style>
   </head>
   <body>
@@ -882,10 +1014,8 @@
       </div>
     </nav>
 
-    <div class="container mb-5">
-      <div
-        class="card user-profile-card mb-4 animate__animated animate__fadeIn"
-      >
+    <div class="container mb-5 page-content">
+      <div class="card user-profile-card mb-4 stagger-item">
         <div class="card-body">
           <div class="row">
             <div class="col-md-8">
@@ -931,7 +1061,7 @@
         </div>
       </div>
 
-      <h2 class="mb-4 animate__animated animate__fadeIn">
+      <h2 class="mb-4 stagger-item">
         <i class="fas fa-shopping-cart me-2"></i>Your Shopping Cart
       </h2>
 
@@ -944,12 +1074,12 @@
         <p class="text-muted mb-4">
           Looks like you haven't added any items yet
         </p>
-        <a href="/main_page" class="btn btn-friends btn-lg">
+        <a href="#" onclick="goToRandomPage(event)" class="btn btn-friends btn-lg">
           <i class="fas fa-shopping-bag me-2"></i>Start Shopping
         </a>
       </div>
       <% } else { %>
-      <div class="cart-container animate__animated animate__fadeInUp">
+      <div class="cart-container stagger-item">
         <div class="table-responsive">
           <table class="table mb-0">
             <thead class="table-light">
@@ -1084,7 +1214,7 @@
       <div
         class="d-flex justify-content-between mt-4 animate__animated animate__fadeIn"
       >
-        <a href="/main_page" class="btn btn-outline-secondary btn-lg">
+        <a href="#" onclick="goToRandomPage(event)" class="btn btn-outline-secondary btn-lg">
           <i class="fas fa-arrow-left me-2"></i>Continue Shopping
         </a>
         <div>
@@ -1795,6 +1925,20 @@
             });
           }
         });
+      }
+
+      function goToRandomPage(event) {
+        event.preventDefault();
+        const pages = [
+          '/offers_page',
+          '/electronics_page',
+          '/fashion_page',
+          '/groceries_page',
+          '/health_beauty_page',
+          '/kids_page'
+        ];
+        const randomPage = pages[Math.floor(Math.random() * pages.length)];
+        window.location.href = randomPage;
       }
     </script>
   </body>
