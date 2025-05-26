@@ -2907,18 +2907,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const hamburger = document.querySelector(".hamburger-menu");
     const mobileNav = document.querySelector(".mobile-nav");
     const closeBtn = document.querySelector(".mobile-nav-close");
-    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");    hamburger.addEventListener("click", function () {
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+    hamburger.addEventListener("click", function () {
         mobileNav.classList.add("active");
         this.classList.add("active");
         document.body.classList.add("menu-open");
-    });    closeBtn.addEventListener("click", function () {
+        // Store current scroll position
+        document.body.style.top = `-${window.scrollY}px`;
+    });
+
+    closeBtn.addEventListener("click", function () {
         mobileNav.classList.remove("active");
         hamburger.classList.remove("active");
         document.body.classList.remove("menu-open");
+        // Restore scroll position
+        const scrollY = document.body.style.top;
+        document.body.style.top = "";
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
     });
 
     mobileNavLinks.forEach((link) => {
-        link.addEventListener("click", function () {
+        link.addEventListener("click", function (e) {
             mobileNav.classList.remove("active");
             hamburger.classList.remove("active");
             document.body.style.overflow = "auto";
@@ -2944,7 +2954,11 @@ document.addEventListener("DOMContentLoaded", function () {
             mobileNav.classList.contains("active")) {
             mobileNav.classList.remove("active");
             hamburger.classList.remove("active");
-            document.body.style.overflow = "auto";
+            document.body.classList.remove("menu-open");
+            // Restore scroll position
+            const scrollY = document.body.style.top;
+            document.body.style.top = "";
+            window.scrollTo(0, parseInt(scrollY || "0") * -1);
         }
     });
 });
