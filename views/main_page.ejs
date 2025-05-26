@@ -2204,20 +2204,11 @@
       });
 
       // Function to handle slider visibility on mobile
-      function handleSliderOnMobile() {
-        const sliderContainer = document.querySelector(".slider-container");
-        if (!sliderContainer) return;
-        
-        if (window.matchMedia("(max-width: 768px)").matches) {
-          sliderContainer.remove();
-        }
-      }
+       
 
       document.addEventListener("DOMContentLoaded", function () {
         // Handle slider on mobile devices
-        handleSliderOnMobile();
-        window.addEventListener("resize", handleSliderOnMobile);
-
+ 
         // Create modal element
         const modal = document.createElement("div");
         modal.className = "product-modal";
@@ -2916,18 +2907,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const hamburger = document.querySelector(".hamburger-menu");
     const mobileNav = document.querySelector(".mobile-nav");
     const closeBtn = document.querySelector(".mobile-nav-close");
-    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
-
-    hamburger.addEventListener("click", function () {
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");    hamburger.addEventListener("click", function () {
         mobileNav.classList.add("active");
         this.classList.add("active");
-        document.body.style.overflow = "hidden";
-    });
-
-    closeBtn.addEventListener("click", function () {
+        document.body.classList.add("menu-open");
+    });    closeBtn.addEventListener("click", function () {
         mobileNav.classList.remove("active");
         hamburger.classList.remove("active");
-        document.body.style.overflow = "auto";
+        document.body.classList.remove("menu-open");
     });
 
     mobileNavLinks.forEach((link) => {
