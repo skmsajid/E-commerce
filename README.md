@@ -3,6 +3,8 @@
 Friends Cart is a full-stack e-commerce web application designed to provide a smooth and secure online shopping experience. The project focuses on core e-commerce functionalities such as product management, cart operations, coupon handling, and user feedback, along with secure authentication and optimized database interactions.
 
 ---
+## 🚀 Live Demo
+👉 https://friendscart.onrender.com/
 
 ## ✨ Features
 
@@ -38,22 +40,22 @@ Friends Cart is a full-stack e-commerce web application designed to provide a sm
 
 ## 📂 Project Structure (High Level)
 
-Friends-Cart/
-│
-├── backend/
-│ ├── routes/
-│ ├── controllers/
-│ ├── models/
-│ └── config/
-│
-├── frontend/
-│ ├── css/
-│ ├── js/
-│ └── index.html
-│
-├── package.json
-└── README.md
-
+Friends-Cart/                                                                   
+│                                                                   
+├── backend/                                                                   
+│ ├── routes/                                                                   
+│ ├── controllers/                                                                   
+│ ├── models/                                                                   
+│ └── config/                                                                   
+│                                                                   
+├── frontend/                                                                   
+│ ├── css/                                                                   
+│ ├── js/                                                                   
+│ └── index.html                                                                   
+│                                                                   
+├── package.json                                                                   
+└── README.md                                                                   
+                                                                   
 
 ---
 
@@ -84,9 +86,6 @@ This project was built to strengthen full-stack development skills by implementi
 Payment gateway integration
 
 Order history and tracking
-
-Admin dashboard for product management
-
 Improved UI/UX design
 
 Wishlist functionality
