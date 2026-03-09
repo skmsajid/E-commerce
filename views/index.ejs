@@ -494,7 +494,7 @@
           {
             threshold: 0.1,
             rootMargin: "0px 0px -50px 0px",
-          }
+          },
         );
 
         document.querySelectorAll(".testimonial-item").forEach((item) => {
@@ -530,7 +530,7 @@
           {
             threshold: 0.1,
             rootMargin: "0px 0px -100px 0px",
-          }
+          },
         );
 
         animateElements.forEach((element) => {
@@ -558,7 +558,7 @@
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
           anchor.addEventListener("click", function (e) {
             const targetElement = document.querySelector(
-              this.getAttribute("href")
+              this.getAttribute("href"),
             );
             if (targetElement) {
               e.preventDefault();
@@ -690,7 +690,7 @@
         const currentHash = window.location.hash;
         if (currentHash) {
           const targetLink = document.querySelector(
-            `.nav-link[href="${currentHash}"]`
+            `.nav-link[href="${currentHash}"]`,
           );
           if (targetLink) {
             document
