@@ -1,4 +1,4 @@
-# 🛒 Friends Cart – E-commerce Application
+# 🛒 Friends Cart – E-commerce Application 
 
 Friends Cart is a full-stack e-commerce web application designed to provide a smooth and secure online shopping experience. The project focuses on core e-commerce functionalities such as product management, cart operations, coupon handling, and user feedback, along with secure authentication and optimized database interactions.
 
