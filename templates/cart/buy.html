@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation | Premium Experience</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/cart/buy.css' %}">
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="confetti-container" id="confetti-container"></div>
+        <div class="floating-elements" id="floating-elements"></div>
+        
+        <div class="success-animation">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+        
+        <h1 class="confirmation-title">Order Confirmed!</h1>
+        <p class="confirmation-subtitle">Your purchase was successful. We've sent the order details to your email address.</p>
+        
+        <div class="order-details">
+            <div class="detail-row">
+                <div class="detail-label">Order Number</div>
+                <div class="detail-value" id="display-order-number">{% if order_id %}#ORD-{{ order_id }}{% else %}#ORD-NEW{% endif %}</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Customer Name</div>
+                <div class="detail-value">{{ fullName }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Email Address</div>
+                <div class="detail-value">{{ email }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Phone Number</div>
+                <div class="detail-value">{{ phone }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Shipping Address</div>
+                <div class="detail-value">{{ address }}</div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{% url 'dashboard' %}" class="btn btn-primary" target="_blank" >
+                <i class="fas fa-home" style="margin-right: 0.5rem;"></i> Back to Home
+            </a>
+            <a href="#" class="btn btn-secondary" id="view-receipt-btn">
+                <i class="fas fa-receipt" style="margin-right: 0.5rem;"></i> View Receipt
+            </a>
+        </div>
+    </div>
+    
+    <!-- Receipt Modal -->
+    <div class="receipt-modal" id="receipt-modal">
+        <div class="receipt-content" id="receipt-content">
+            <span class="close-receipt" id="close-receipt">&times;</span>
+            
+            <div class="receipt-header">
+                <h2 class="receipt-title">Order Receipt</h2>
+                <p class="receipt-subtitle">Thank you for your purchase!</p>
+            </div>
+            
+            <div class="receipt-details">
+                <div class="receipt-row">
+                    <div class="receipt-label">Order Number:</div>
+                    <div class="receipt-value" id="receipt-order-number"></div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Date:</div>
+                    <div class="receipt-value" id="receipt-date"></div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Customer:</div>
+                    <div class="receipt-value" id="receipt-customer">{{ fullName }}</div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Email:</div>
+                    <div class="receipt-value" id="receipt-email">{{ email }}</div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Phone:</div>
+                    <div class="receipt-value" id="receipt-phone">{{ phone }}</div>
+                </div>
+                <div class="receipt-row">
+                    <div class="receipt-label">Shipping To:</div>
+                    <div class="receipt-value" id="receipt-address">{{ address }}</div>
+                </div>
+            </div>
+            
+            <div class="receipt-footer">
+                <p>If you have any questions about your order, please contact us at support@example.com</p>
+                <p>Order ID: <span id="footer-order-number"></span></p>
+            </div>
+            
+            <button class="download-btn" id="download-receipt">Download Receipt as PDF</button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderNumber = document.getElementById('display-order-number').textContent.trim() || '#ORD-NEW';
+            document.getElementById('display-order-number').textContent = orderNumber;
+            document.getElementById('receipt-order-number').textContent = orderNumber;
+            document.getElementById('footer-order-number').textContent = orderNumber;
+
+            // Set current date
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('en-US', {
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('receipt-date').textContent = formattedDate;
+            
+            // Modal functionality
+            const modal = document.getElementById('receipt-modal');
+            const btn = document.getElementById('view-receipt-btn');
+            const closeBtn = document.getElementById('close-receipt');
+            const downloadBtn = document.getElementById('download-receipt');
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Download receipt as PDF
+            downloadBtn.addEventListener('click', async function() {
+                const receiptContent = document.getElementById('receipt-content');
+                const downloadBtn = document.getElementById('download-receipt');
+                const closeBtn = document.getElementById('close-receipt');
+                
+                // Hide buttons
+                downloadBtn.style.display = 'none';
+                closeBtn.style.display = 'none';
+                
+                try {
+                    const canvas = await html2canvas(receiptContent, {
+                        scale: 2,
+                        useCORS: true,
+                        allowTaint: true,
+                        scrollY: -window.scrollY,
+                        height: receiptContent.scrollHeight + 50, // Add extra height
+                        windowHeight: receiptContent.scrollHeight + 50,
+                        onclone: function(clonedDoc) {
+                            // Ensure clone has full height
+                            const clonedContent = clonedDoc.getElementById('receipt-content');
+                            clonedContent.style.height = 'auto';
+                            clonedContent.style.position = 'relative';
+                        }
+                    });
+
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4',
+                        compress: true
+                    });
+
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    const margins = 10;
+                    const contentWidth = pdfWidth - (margins * 2);
+                    const aspectRatio = canvas.height / canvas.width;
+                    const contentHeight = contentWidth * aspectRatio;
+
+                    pdf.addImage(
+                        imgData, 
+                        'PNG', 
+                        margins, 
+                        margins, 
+                        contentWidth, 
+                        contentHeight, 
+                        '', 
+                        'FAST'
+                    );
+
+                    pdf.save(`Order_Receipt_${orderNumber}.pdf`);
+                } catch (error) {
+                    console.error('PDF generation error:', error);
+                } finally {
+                    // Show buttons again
+                    downloadBtn.style.display = 'block';
+                    closeBtn.style.display = 'block';
+                }
+            });
+            
+            // Confetti animation
+            const confettiContainer = document.getElementById('confetti-container');
+            const colors = ['#6a11cb', '#2575fc', '#ff3e9d', '#00e676', '#ffc107'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                const size = Math.random() * 12 + 6;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 3000;
+                const duration = Math.random() * 4000 + 2000;
+                const rotation = Math.random() * 360;
+                
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = color;
+                confetti.style.left = `${left}%`;
+                confetti.style.top = `-20px`;
+                
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                }
+                
+                confettiContainer.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { 
+                        transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 100 + 100}px) rotate(${rotation}deg)`,
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translate(${Math.random() * 400 - 200}px, ${Math.random() * 200 + 400}px) rotate(${rotation + 360}deg)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: duration,
+                    delay: delay,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+            
+            // Floating background elements
+            const floatingContainer = document.getElementById('floating-elements');
+            for (let i = 0; i < 10; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                
+                const size = Math.random() * 200 + 100;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const opacity = Math.random() * 0.1 + 0.05;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 30 + 30;
+                
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${left}%`;
+                element.style.top = `${top}%`;
+                element.style.opacity = opacity;
+                element.style.animationDelay = `${delay}s`;
+                element.style.animationDuration = `${duration}s`;
+                
+                floatingContainer.appendChild(element);
+            }
+            
+            // Card tilt effect
+            const card = document.querySelector('.confirmation-container');
+            if (card) {
+                card.addEventListener('mousemove', (e) => {
+                    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                    card.style.transition = 'all 0.5s ease';
+                    setTimeout(() => {
+                        card.style.transition = '';
+                    }, 500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

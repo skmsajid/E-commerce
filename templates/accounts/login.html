@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friends Cart - Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/accounts/login.css' %}">
+</head>
+
+<body>
+  <!-- Floating Particles -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Main Content -->
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="logo">Friends Cart</div>
+        <div class="auth-title">Welcome back to your shopping community</div>
+      </div>
+      
+      <div class="auth-form">
+        <form id="loginForm" method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+            <div class="form-error" role="alert">{{ form.non_field_errors }}</div>
+          {% endif %}
+          <div class="form-group">
+            <i class="fas fa-envelope form-icon"></i>
+            <input type="text" name="username" class="form-input" placeholder="Username" value="{{ form.username.value|default:'' }}" required autofocus>
+            {% if form.username.errors %}<div class="field-error">{{ form.username.errors }}</div>{% endif %}
+          </div>
+          
+          <div class="form-group">
+            <i class="fas fa-lock form-icon"></i>
+            <input type="password" name="password" class="form-input" placeholder="Password" required>
+            {% if form.password.errors %}<div class="field-error">{{ form.password.errors }}</div>{% endif %}
+          </div>
+          
+          <button type="submit" class="submit-btn" id="loginBtn">Login to Your Account</button>
+          
+          <div class="switch-link">
+            New to Friends Cart? <a href="{% url 'register' %}">Create an account</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Bubble Particles (unchanged)
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 15;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      const size = Math.random() * 100 + 50;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${Math.random() * 100}%`;
+      const duration = Math.random() * 20 + 10;
+      particle.style.animationDuration = `${duration}s`;
+      particle.style.animationDelay = `${Math.random() * 10}s`;
+      particle.style.opacity = Math.random() * 0.5 + 0.3;
+      particle.style.background = `linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.4) 0%, 
+        rgba(255, 255, 255, 0.1) 100%)`;
+      particlesContainer.appendChild(particle);
+    }
+    
+    // Ripple effect (unchanged)
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('submit-btn') || 
+          e.target.classList.contains('modal-btn')) {
+        const btn = e.target;
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        btn.appendChild(ripple);
+        setTimeout(() => {
+          ripple.remove();
+        }, 800);
+      }
+    });
+    
+  </script>
+  
+</body>
+</html>

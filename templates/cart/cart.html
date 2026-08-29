@@ -1,0 +1,469 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Cart - Friends Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
+  </head>
+  <body>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <script>
+      const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+      const originalFetch = window.fetch;
+      window.fetch = (input, init = {}) => {
+        const method = (init.method || 'GET').toUpperCase();
+        if (method !== 'GET') {
+          init.headers = {...(init.headers || {}), 'X-CSRFToken': csrfToken};
+        }
+        return originalFetch(input, init);
+      };
+    </script>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="navbar-custom">
+        <div class="left-section">
+          <a class="navbar-brand">
+            <i class="fas fa-shopping-cart me-2"></i>Friends Cart
+          </a>
+        </div>
+        <div class="nav-links">
+          <span class="nav-link d-none d-md-block user-display">
+            <i class="fas fa-user-circle"></i>
+            <span class="ms-1 text-uppercase">{{ user.username }}</span>
+          </span>
+          <a class="nav-btn btn-outline-light" href="{% url 'dashboard' %}">
+            <i class="fas fa-home"></i>
+            <span class="ms-1">Home</span>
+          </a>
+          <a class="nav-btn btn-danger" href="javascript:void(0)" onclick="confirmLogout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ms-1">Logout</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mb-5 page-content">
+      <div class="card user-profile-card mb-4 stagger-item">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <h4 class="card-title text-primary">
+                <i class="fas fa-user-circle me-2"></i>Your Profile Details
+              </h4>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <p>
+                    <strong><i class="fas fa-user me-2"></i>Name:</strong>
+                    <span class="text-uppercase">{{ user.username }}</span>
+                  </p>
+                  <p>
+                    <strong><i class="fas fa-envelope me-2"></i>Email:</strong>
+                    <span class="text-uppercase">{{ user.email }}</span>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p>
+                    <strong><i class="fas fa-phone me-2"></i>Phone:</strong>
+                    <span class="text-uppercase">{{ user.phone_number }}</span>
+                  </p>
+                  <p>
+                    <strong><i class="fas fa-map-marker-alt me-2"></i>Address:</strong>
+                    <span class="text-uppercase">{{ user.address }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 d-flex align-items-center justify-content-end">
+              <button class="btn btn-friends btn-lg" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                <i class="fas fa-edit me-2"></i>Edit Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="mb-4 stagger-item">
+        <i class="fas fa-shopping-cart me-2"></i>Your Shopping Cart
+      </h2>
+
+      <div id="cart-status" class="empty-cart animate__animated animate__fadeIn">
+        <div class="empty-cart-icon">
+          <i class="fas fa-cart-arrow-down"></i>
+        </div>
+        <h3 class="text-muted mb-3">Your cart is empty</h3>
+        <p class="text-muted mb-4">Looks like you haven't added any items yet</p>
+        <a href="{% url 'dashboard' %}" class="btn btn-friends btn-lg">
+          <i class="fas fa-shopping-bag me-2"></i>Start Shopping
+        </a>
+      </div>
+
+      <div class="cart-container stagger-item" id="cartContainer" style="display: none;">
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead class="table-light">
+              <tr>
+                <th style="width: 40%">Product</th>
+                <th style="width: 15%">Price</th>
+                <th style="width: 20%">Quantity</th>
+                <th style="width: 15%">Total</th>
+                <th style="width: 10%">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="cartTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="p-4 bg-light">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input-group mb-3">
+                <input type="text" id="couponCode" class="form-control" placeholder="Coupon code" />
+                <button class="btn btn-friends" type="button" onclick="applyCoupon()">Apply</button>
+              </div>
+              <div id="couponMessage" class="mb-3"></div>
+            </div>
+            <div class="col-md-6">
+              <div class="total-section float-md-end">
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Subtotal:</span>
+                  <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                  <span>Shipping:</span>
+                  <span id="shipping" class="text-success">FREE</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3" id="discountRow" style="display: none">
+                  <span>Discount:</span>
+                  <span id="discount" class="text-danger">-₹0.00</span>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between">
+                  <h5>Total:</h5>
+                  <h5 id="grandTotal" class="text-primary">₹0.00</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between mt-4 animate__animated animate__fadeIn" id="cartActions" style="display: none;">
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary btn-lg">
+          <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+        </a>
+        <div>
+          <button onclick="showBuyAllConfirmation()" class="btn btn-success btn-lg">
+            <i class="fas fa-bolt me-2"></i>Buy All
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade edit-profile-modal" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editProfileForm">
+              <div class="mb-3">
+                <label for="editFullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="editFullName" value="{{ user.username }}" required />
+              </div>
+              <div class="mb-3">
+                <label for="editEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="editEmail" value="{{ user.email }}" required />
+              </div>
+              <div class="mb-3">
+                <label for="editPhone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="editPhone" value="{{ user.phone_number }}" required />
+              </div>
+              <div class="mb-3">
+                <label for="editAddress" class="form-label">Address</label>
+                <textarea class="form-control" id="editAddress" rows="3" required>{{ user.address }}</textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-friends" onclick="updateProfile()">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      let appliedCoupon = null;
+      let originalTotal = 0;
+
+      function renderCart(items, total) {
+        const tbody = document.getElementById('cartTableBody');
+        const status = document.getElementById('cart-status');
+        const container = document.getElementById('cartContainer');
+        const actions = document.getElementById('cartActions');
+
+        if (!items || items.length === 0) {
+          status.style.display = 'block';
+          container.style.display = 'none';
+          actions.style.display = 'none';
+          return;
+        }
+
+        status.style.display = 'none';
+        container.style.display = 'block';
+        actions.style.display = 'flex';
+        tbody.innerHTML = items.map(item => {
+          const price = parseFloat(item.productPrice.replace(/[^0-9.-]+/g, '')) || 0;
+          const itemTotal = price * Number(item.quantity || 1);
+          return `
+            <tr class="cart-item animate__animated animate__fadeIn">
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="${item.productImage || ''}" alt="${item.productTitle || 'Product'}" class="cart-item-img me-3 shadow-sm" />
+                  <div>
+                    <h6 class="mb-1">${item.productTitle}</h6>
+                    <small class="text-muted">Item ID: ${(item._id || item.id).toString().slice(-6)}</small>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle">${item.productPrice}</td>
+              <td class="align-middle">
+                <div class="d-flex align-items-center quantity-controls">
+                  <button type="button" class="btn btn-sm btn-outline-secondary minus-btn" data-item-id="${item._id || item.id}">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <input type="number" name="quantity" value="${item.quantity}" min="1" class="form-control quantity-input mx-2" data-item-id="${item._id || item.id}" style="width: 60px" />
+                  <button type="button" class="btn btn-sm btn-outline-secondary plus-btn" data-item-id="${item._id || item.id}">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </td>
+              <td class="align-middle fw-bold">₹${itemTotal.toFixed(2)}</td>
+              <td class="align-middle">
+                <div class="btn-group">
+                  <button onclick="removeCartItem('${item._id || item.id}')" class="btn btn-sm btn-outline-danger me-2"><i class="fas fa-trash-alt"></i></button>
+                  <button onclick="buyItem('${item._id || item.id}')" class="btn btn-sm btn-success"><i class="fas fa-shopping-bag"></i> Buy</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        originalTotal = Number(total || 0);
+        document.getElementById('subtotal').textContent = `₹${Number(total || 0).toFixed(2)}`;
+        document.getElementById('grandTotal').textContent = `₹${Number(total || 0).toFixed(2)}`;
+        document.getElementById('discountRow').style.display = 'none';
+        document.getElementById('discount').textContent = '-₹0.00';
+        appliedCoupon = null;
+        document.getElementById('couponCode').value = '';
+        document.getElementById('couponMessage').innerHTML = '';
+
+        document.querySelectorAll('.minus-btn').forEach(button => {
+          button.addEventListener('click', () => updateQuantity(button.dataset.itemId, -1));
+        });
+        document.querySelectorAll('.plus-btn').forEach(button => {
+          button.addEventListener('click', () => updateQuantity(button.dataset.itemId, 1));
+        });
+        document.querySelectorAll('.quantity-input').forEach(input => {
+          input.addEventListener('change', () => {
+            const value = Math.max(1, Number(input.value || 1));
+            input.value = value;
+            updateQuantity(input.dataset.itemId, value - Number(input.defaultValue || value), true);
+          });
+        });
+      }
+
+      function updateQuantity(itemId, delta, forceValue = false) {
+        fetch(`{% url 'cart_data' %}`)
+        .then(response => response.json())
+        .then(data => {
+          const item = (data.cart_items || []).find(entry => (entry._id || entry.id) == itemId);
+          if (!item) return;
+          let quantity = Number(item.quantity || 1);
+          if (forceValue) {
+            quantity = Math.max(1, Number(document.querySelector(`.quantity-input[data-item-id="${itemId}"]`).value || 1));
+          } else {
+            quantity = Math.max(1, quantity + delta);
+          }
+          return fetch(`{% url 'update_cart_item' 0 %}`.replace('/0/', `/${itemId}/`), {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ quantity: quantity })
+          });
+        })
+        .then(response => response && response.json())
+        .then(data => {
+          if (data && data.success) {
+            loadCart();
+          }
+        })
+        .catch(err => console.error('Update quantity failed:', err));
+      }
+
+      function loadCart() {
+        fetch('{% url "cart_data" %}')
+          .then(response => response.json())
+          .then(data => {
+            renderCart(data.cart_items || [], data.total || 0);
+          })
+          .catch(err => {
+            console.error('Unable to load cart:', err);
+          });
+      }
+
+      function applyCoupon() {
+        const code = document.getElementById('couponCode').value.trim();
+        if (!code) {
+          document.getElementById('couponMessage').innerHTML = '<span class="coupon-error">Please enter a coupon code</span>';
+          return;
+        }
+        fetch('{% url "apply_coupon" %}', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ coupon_code: code, subtotal: originalTotal })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (!data.success) {
+            appliedCoupon = null;
+            document.getElementById('couponMessage').innerHTML = `<span class="coupon-error">${data.message || 'Invalid coupon'}</span>`;
+            return;
+          }
+          const discount = Number(data.discount_amount || 0);
+          const finalTotal = Number(data.total || originalTotal);
+          document.getElementById('discount').textContent = `-₹${discount.toFixed(2)}`;
+          document.getElementById('discountRow').style.display = 'flex';
+          document.getElementById('grandTotal').textContent = `₹${finalTotal.toFixed(2)}`;
+          document.getElementById('couponMessage').innerHTML = `<span class="coupon-success">Coupon applied! ${data.discount_percent}% discount.</span>`;
+          appliedCoupon = data.coupon_code;
+        })
+        .catch(err => {
+          console.error('Coupon apply failed:', err);
+          document.getElementById('couponMessage').innerHTML = '<span class="coupon-error">Could not apply coupon.</span>';
+        });
+      }
+
+      function updateProfile() {
+        fetch('/accounts/update-profile/', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            fullName: document.getElementById('editFullName').value,
+            email: document.getElementById('editEmail').value,
+            phone: document.getElementById('editPhone').value,
+            address: document.getElementById('editAddress').value,
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            Swal.fire({ title: 'Success', text: data.message, icon: 'success' }).then(() => location.reload());
+          } else {
+            Swal.fire({ title: 'Error', text: data.message, icon: 'error' });
+          }
+        })
+        .catch(err => {
+          console.error('Profile update failed:', err);
+          Swal.fire({ title: 'Error', text: 'Profile update failed.', icon: 'error' });
+        });
+      }
+
+      function removeCartItem(itemId) {
+        Swal.fire({
+          title: 'Remove item?',
+          text: 'This will delete the product from your cart.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, remove it'
+        }).then(result => {
+          if (!result.isConfirmed) return;
+          fetch(`{% url 'remove_cart_item' 0 %}`.replace('/0/', `/${itemId}/`), { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                loadCart();
+              }
+            });
+        });
+      }
+
+      function buyItem(itemId) {
+        const couponCode = appliedCoupon && document.getElementById('couponCode').value.trim().toUpperCase() === appliedCoupon.toUpperCase()
+          ? appliedCoupon
+          : '';
+        fetch(`{% url 'buy_single_item' 0 %}`.replace('/0/', `/${itemId}/`), {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ coupon_code: couponCode })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) window.location.href = '{% url "buy_page" %}';
+            else Swal.fire({ title: 'Could not place order', text: data.message || 'Please try again.', icon: 'error' });
+          })
+          .catch(err => console.error('Buy item failed:', err));
+      }
+
+      async function showBuyAllConfirmation() {
+        const cartResponse = await fetch('{% url "cart_data" %}');
+        const cartData = await cartResponse.json();
+        if (!cartData.cart_items || cartData.cart_items.length === 0) {
+          Swal.fire({ title: 'Cart empty', icon: 'error' });
+          return;
+        }
+        const result = await Swal.fire({
+          title: 'Buy all items?',
+          text: `Total: ₹${Number(cartData.total || 0).toFixed(2)}`,
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, checkout'
+        });
+        if (result.isConfirmed) {
+          const couponCode = appliedCoupon && document.getElementById('couponCode').value.trim().toUpperCase() === appliedCoupon.toUpperCase()
+            ? appliedCoupon
+            : '';
+          const response = await fetch('{% url "clear_cart" %}', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ coupon_code: couponCode })
+          });
+          const data = await response.json();
+          if (data.success) {
+            window.location.href = '{% url "buy_page" %}';
+          } else {
+            Swal.fire({ title: 'Could not place order', text: data.message || 'Please try again.', icon: 'error' });
+          }
+        }
+      }
+
+      function confirmLogout() {
+        Swal.fire({
+          title: 'Logout?',
+          text: 'Are you sure you want to logout?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, logout'
+        }).then(result => {
+          if (result.isConfirmed) {
+            window.location.href = '{% url "logout" %}';
+          }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        loadCart();
+      });
+    </script>
+  </body>
+</html>
+

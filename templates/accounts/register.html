@@ -1,0 +1,186 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friends Cart - Register</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/accounts/register.css' %}">
+</head>
+<body>
+  <!-- Floating Bubbles -->
+  <div class="bubbles" id="bubbles"></div>
+  
+  <!-- Main Content -->
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="logo">Friends Cart</div>
+        <div class="auth-title">Join our shopping community</div>
+      </div>
+      
+      <div class="auth-form">
+        <form id="registerForm" action="{% url 'register' %}" method="POST">
+          {% csrf_token %}
+          {% if form.non_field_errors %}
+            <div class="form-errors" role="alert">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+          <!-- First Row: Name and Phone -->
+<div class="form-row">
+  <div class="form-group">
+    <i class="fas fa-user form-icon"></i>
+        <input type="text" class="form-input" id="username" 
+          name="username" placeholder="Username" required>
+        {% if form.username.errors %}<div class="field-error">{{ form.username.errors }}</div>{% endif %}
+  </div>
+
+  <div class="form-group">
+    <i class="fas fa-mobile-alt form-icon"></i>
+        <input type="tel" class="form-input" id="phone_number" 
+          name="phone_number" placeholder="Mobile Number" required maxlength="10">
+        {% if form.phone_number.errors %}<div class="field-error">{{ form.phone_number.errors }}</div>{% endif %}
+  </div>
+</div>
+  
+<!-- Second Row: Email and Address -->
+<div class="form-row">
+  <div class="form-group">
+    <i class="fas fa-envelope form-icon"></i>
+    <input type="email" name="email" class="form-input" id="email" placeholder="Email Address" required>
+    {% if form.email.errors %}<div class="field-error">{{ form.email.errors }}</div>{% endif %}
+  </div>
+  
+  <div class="form-group">
+    <i class="fas fa-map-marker-alt form-icon"></i>
+    <input type="text" class="form-input"  name="address" id="address" placeholder="Address" required>
+    {% if form.address.errors %}<div class="field-error">{{ form.address.errors }}</div>{% endif %}
+  </div>
+</div>
+          
+          <!-- Third Row: Password and Confirm Password -->
+          <div class="form-row">
+            <div class="form-group">
+              <i class="fas fa-lock form-icon"></i>
+              <input type="password" class="form-input" name="password" id="password1" placeholder="Password" required>
+              <div class="password-strength">
+                <div class="strength-meter" id="strengthMeter"></div>
+              </div>
+              {% if form.password.errors %}<div class="field-error">{{ form.password.errors }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+              <i class="fas fa-lock form-icon"></i>
+              <input type="password" class="form-input" name="password2" id="password2" placeholder="Confirm Password" required>
+              {% if form.password2.errors %}<div class="field-error">{{ form.password2.errors }}</div>{% endif %}
+            </div>
+          </div>
+          
+          <div class="terms">
+            <input type="checkbox" id="agreeTerms" required>
+            <label for="agreeTerms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></label>
+          </div>
+           
+          <button type="submit" class="submit-btn" id="registerBtn">Create Account</button>
+          
+          <div class="switch-link">
+            Already have an account? <a href="{% url 'login' %}">Login here</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Create floating bubbles
+    const bubblesContainer = document.getElementById('bubbles');
+    const bubbleCount = 15;
+    
+    for (let i = 0; i < bubbleCount; i++) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      
+      // Random size between 50px and 150px
+      const size = Math.random() * 100 + 50;
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      
+      // Random position
+      bubble.style.left = `${Math.random() * 100}%`;
+      
+      // Random animation duration and delay
+      const duration = Math.random() * 20 + 10;
+      bubble.style.animationDuration = `${duration}s`;
+      bubble.style.animationDelay = `${Math.random() * 10}s`;
+      
+      // Random opacity
+      bubble.style.opacity = Math.random() * 0.5 + 0.3;
+      
+      // Glassy gradient background
+      bubble.style.background = `linear-gradient(135deg, 
+          rgba(255, 255, 255, 0.4) 0%, 
+          rgba(255, 255, 255, 0.1) 100%)`;
+      
+      bubblesContainer.appendChild(bubble);
+    }
+    
+    // Password strength meter
+    document.getElementById('password1').addEventListener('input', function() {
+      const password = this.value;
+      const strengthMeter = document.getElementById('strengthMeter');
+      let strength = 0;
+      
+      // Check password length
+      if (password.length > 7) strength += 20;
+      
+      // Check for uppercase letters
+      if (/[A-Z]/.test(password)) strength += 20;
+      
+      // Check for numbers
+      if (/[0-9]/.test(password)) strength += 20;
+      
+      // Check for special characters
+      if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+      
+      // Check for consecutive characters
+      if (!/(.)\1/.test(password)) strength += 20;
+      
+      // Update meter
+      strengthMeter.style.width = `${strength}%`;
+      
+      // Update color based on strength
+      if (strength < 40) {
+        strengthMeter.style.background = '#ff4500'; // Orange for weak
+      } else if (strength < 70) {
+        strengthMeter.style.background = '#ff9e2d'; // Yellow for medium
+      } else {
+        strengthMeter.style.background = '#4CAF50'; // Green for strong
+      }
+    });
+    
+    // Ripple effect for buttons
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('submit-btn') || e.target.classList.contains('form-input')) {
+        const btn = e.target;
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        btn.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      }
+    });
+    
+  </script>
+</body>
+</html>
